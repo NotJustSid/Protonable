@@ -1,5 +1,5 @@
 {
-  "name": "t-modern-cpp",
+  "name": "protonable",
   "version": "1.0.0",
   "description": "A Minimal Text Editor Built on Electron!",
   "main": "index.js",
