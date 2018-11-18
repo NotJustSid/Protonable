@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Protonable</title>
+
+    <!--Darkly BootStrap-->
+    <link rel="stylesheet" href="BootStrap/Darkly/bootstrap.min.css">
+    <script src="BootStrap/jquery.min.js"></script>
+    <script src="BootStrap/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+    <script src="Bootstrap/jquery-3.3.1.slim.min.js"></script>
+    <script src="Bootstrap/popper.min.js"></script>
+    <script src="Bootstrap/bootstrap.min.js"></script>
+
+
+    <!--Integrated Terminal-->
+    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
+    <script src="node_modules/xterm/dist/xterm.js"></script>
+
+    <!--CodeMirror for the Text Area-->
+    <script src="textarea/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="textarea/lib/codemirror.css">
+
+    <!--Themes for it-->
+    <link href="textarea/theme/pastel-on-dark.css" rel="stylesheet">
+    <link href="textarea/theme/darcula.css" rel="stylesheet">
+    <link href="textarea/theme/cobalt.css" rel="stylesheet">
+    <link href="textarea/theme/solarized.css" rel="stylesheet">
+    <link href="textarea/theme/shadowfox.css" rel="stylesheet">
+    <link href="textarea/theme/seti.css" rel="stylesheet">
+    <link href="textarea/theme/rubyblue.css" rel="stylesheet">
+    <link href="textarea/theme/railscasts.css" rel="stylesheet">
+    <link href="textarea/theme/paraiso-light.css" rel="stylesheet">
+    <link href="textarea/theme/paraiso-dark.css" rel="stylesheet">
+    <link href="textarea/theme/panda-syntax.css" rel="stylesheet">
+    <link href="textarea/theme/oceanic-next.css" rel="stylesheet">
+    <link href="textarea/theme/night.css" rel="stylesheet">
+    <link href="textarea/theme/neo.css" rel="stylesheet">
+    <link href="textarea/theme/neat.css" rel="stylesheet">
+    <link href="textarea/theme/monokai.css" rel="stylesheet">
+    <link href="textarea/theme/midnight.css" rel="stylesheet">
+    <link href="textarea/theme/mdn-like.css" rel="stylesheet">
+    <link href="textarea/theme/mbo.css" rel="stylesheet">
+    <link href="textarea/theme/material.css" rel="stylesheet">
+    <link href="textarea/theme/lucario.css" rel="stylesheet">
+    <link href="textarea/theme/liquibyte.css" rel="stylesheet">
+    <link href="textarea/theme/lesser-dark.css" rel="stylesheet">
+    <link href="textarea/theme/isotope.css" rel="stylesheet">
+    <link href="textarea/theme/idea.css" rel="stylesheet">
+    <link href="textarea/theme/icecoder.css" rel="stylesheet">
+    <link href="textarea/theme/hopscotch.css" rel="stylesheet">
+    <link href="textarea/theme/gruvbox-dark.css" rel="stylesheet">
+    <link href="textarea/theme/erlang-dark.css" rel="stylesheet">
+    <link href="textarea/theme/elegant.css" rel="stylesheet">
+    <link href="textarea/theme/eclipse.css" rel="stylesheet">
+    <link href="textarea/theme/duotone-light.css" rel="stylesheet">
+    <link href="textarea/theme/duotone-dark.css" rel="stylesheet">
+    <link href="textarea/theme/colorforth.css" rel="stylesheet">
+    <link href="textarea/theme/blackboard.css" rel="stylesheet">
+    <link href="textarea/theme/bespin.css" rel="stylesheet">
+    <link href="textarea/theme/base16-light.css" rel="stylesheet">
+    <link href="textarea/theme/base16-dark.css" rel="stylesheet">
+    <link href="textarea/theme/ambiance.css" rel="stylesheet">
+    <link href="textarea/theme/ambiance-mobile.css" rel="stylesheet">
+    <link href="textarea/theme/abcdef.css" rel="stylesheet">
+    <link href="textarea/theme/3024-night.css" rel="stylesheet">
+    <link href="textarea/theme/3024-day.css" rel="stylesheet">
+    <link href="textarea/theme/zenburn.css" rel="stylesheet">
+    <link href="textarea/theme/yeti.css" rel="stylesheet">
+    <link href="textarea/theme/xq-light.css" rel="stylesheet">
+    <link href="textarea/theme/xq-dark.css" rel="stylesheet">
+    <link href="textarea/theme/vibrant-ink.css" rel="stylesheet">
+    <link href="textarea/theme/twilight.css" rel="stylesheet">
+    <link href="textarea/theme/ttcn.css" rel="stylesheet">
+    <link href="textarea/theme/tomorrow-night-eighties.css" rel="stylesheet">
+    <link href="textarea/theme/tomorrow-night-bright.css" rel="stylesheet">
+    <link href="textarea/theme/the-matrix.css" rel="stylesheet">
+    <link href="textarea/theme/ssms.css" rel="stylesheet">
+    <!--Themes Ends Here-->
+
+    <!--Editor Modes-->
+    <script src="textarea/mode/clike/clike.js"></script>
+    <script src="textarea/mode/apl/apl.js"></script>
+    <script src="textarea/mode/brainfuck/brainfuck.js"></script>
+    <script src="textarea/mode/clojure/clojure.js"></script>
+    <script src="textarea/mode/cmake/cmake.js"></script>
+    <script src="textarea/mode/coffeescript/coffeescript.js"></script>
+    <script src="textarea/mode/css/css.js"></script>
+    <script src="textarea/mode/css/gss_test.js"></script>
+    <script src="textarea/mode/css/less_test.js"></script>
+    <script src="textarea/mode/css/scss_test.js"></script>
+    <script src="textarea/mode/cypher/cypher.js"></script>
+    <script src="textarea/mode/diff/diff.js"></script>
+    <script src="textarea/mode/django/django.js"></script>
+    <script src="textarea/mode/dockerfile/dockerfile.js"></script>
+    <script src="textarea/mode/fortran/fortran.js"></script>
+    <script src="textarea/mode/gas/gas.js"></script>
+    <script src="textarea/mode/gfm/gfm.js"></script>
+    <script src="textarea/mode/go/go.js"></script>
+    <script src="textarea/mode/groovy/groovy.js"></script>
+    <script src="textarea/mode/haml/haml.js"></script>
+    <script src="textarea/mode/handlebars/handlebars.js"></script>
+    <script src="textarea/mode/haskell-literate/haskell-literate.js"></script>
+    <script src="textarea/mode/haskell/haskell.js"></script>
+    <script src="textarea/mode/haxe/haxe.js"></script>
+    <script src="textarea/mode/javascript/javascript.js"></script>
+    <script src="textarea/mode/jinja2/jinja2.js"></script>
+    <script src="textarea/mode/jsx/jsx.js"></script>
+    <script src="textarea/mode/julia/julia.js"></script>
+    <script src="textarea/mode/livescript/livescript.js"></script>
+    <script src="textarea/mode/lua/lua.js"></script>
+    <script src="textarea/mode/markdown/markdown.js"></script>
+    <script src="textarea/mode/mathematica/mathematica.js"></script>
+    <script src="textarea/mode/mbox/mbox.js"></script>
+    <script src="textarea/mode/mirc/mirc.js"></script>
+    <script src="textarea/mode/mllike/mllike.js"></script>
+    <script src="textarea/mode/modelica/modelica.js"></script>
+    <script src="textarea/mode/mscgen/mscgen.js"></script>
+    <script src="textarea/mode/mumps/mumps.js"></script>
+    <script src="textarea/mode/nginx/nginx.js"></script>
+    <script src="textarea/mode/nsis/nsis.js"></script>
+    <script src="textarea/mode/ntriples/ntriples.js"></script>
+    <script src="textarea/mode/octave/octave.js"></script>
+    <script src="textarea/mode/oz/oz.js"></script>
+    <script src="textarea/mode/pascal/pascal.js"></script>
+    <script src="textarea/mode/pegjs/pegjs.js"></script>
+    <script src="textarea/mode/perl/perl.js"></script>
+    <script src="textarea/mode/php/php.js"></script>
+    <script src="textarea/mode/pig/pig.js"></script>
+    <script src="textarea/mode/powershell/powershell.js"></script>
+    <script src="textarea/mode/properties/properties.js"></script>
+    <script src="textarea/mode/protobuf/protobuf.js"></script>
+    <script src="textarea/mode/pug/pug.js"></script>
+    <script src="textarea/mode/puppet/puppet.js"></script>
+    <script src="textarea/mode/python/python.js"></script>
+    <script src="textarea/mode/q/q.js"></script>
+    <script src="textarea/mode/r/r.js"></script>
+    <script src="textarea/mode/rpm/rpm.js"></script>
+    <script src="textarea/mode/rst/rst.js"></script>
+    <script src="textarea/mode/ruby/ruby.js"></script>
+    <script src="textarea/mode/rust/rust.js"></script>
+    <script src="textarea/mode/sas/sas.js"></script>
+    <script src="textarea/mode/sass/sass.js"></script>
+    <script src="textarea/mode/scheme/scheme.js"></script>
+    <script src="textarea/mode/shell/shell.js"></script>
+    <script src="textarea/mode/sieve/sieve.js"></script>
+    <script src="textarea/mode/slim/slim.js"></script>
+    <script src="textarea/mode/smalltalk/smalltalk.js"></script>
+    <script src="textarea/mode/smarty/smarty.js"></script>
+    <script src="textarea/mode/solr/solr.js"></script>
+    <script src="textarea/mode/soy/soy.js"></script>
+    <script src="textarea/mode/sparql/sparql.js"></script>
+    <script src="textarea/mode/spreadsheet/spreadsheet.js"></script>
+    <script src="textarea/mode/sql/sql.js"></script>
+    <script src="textarea/mode/stex/stex.js"></script>
+    <script src="textarea/mode/stylus/stylus.js"></script>
+    <script src="textarea/mode/swift/swift.js"></script>
+    <script src="textarea/mode/tcl/tcl.js"></script>
+    <script src="textarea/mode/textile/textile.js"></script>
+    <script src="textarea/mode/tiddlywiki/tiddlywiki.js"></script>
+    <script src="textarea/mode/tiki/tiki.js"></script>
+    <script src="textarea/mode/toml/toml.js"></script>
+    <script src="textarea/mode/tornado/tornado.js"></script>
+    <script src="textarea/mode/troff/troff.js"></script>
+    <script src="textarea/mode/ttcn-cfg/ttcn-cfg.js"></script>
+    <script src="textarea/mode/ttcn/ttcn.js"></script>
+    <script src="textarea/mode/turtle/turtle.js"></script>
+    <script src="textarea/mode/twig/twig.js"></script>
+    <script src="textarea/mode/vb/vb.js"></script>
+    <script src="textarea/mode/vbscript/vbscript.js"></script>
+    <script src="textarea/mode/velocity/velocity.js"></script>
+    <script src="textarea/mode/verilog/verilog.js"></script>
+    <script src="textarea/mode/vhdl/vhdl.js"></script>
+    <script src="textarea/mode/vue/vue.js"></script>
+    <script src="textarea/mode/webidl/webidl.js"></script>
+    <script src="textarea/mode/xml/xml.js"></script>
+    <script src="textarea/mode/xquery/xquery.js"></script>
+    <script src="textarea/mode/yacas/yacas.js"></script>
+    <script src="textarea/mode/yaml-frontmatter/yaml-frontmatter.js"></script>
+    <script src="textarea/mode/yaml/yaml.js"></script>
+    <script src="textarea/mode/z80/z80.js"></script>
+    
+    
+
+
+    <script src="textarea/addon/edit/closebrackets.js"></script>
+    <script src="textarea/addon/search/search.js"></script>
+    <script src="textarea/addon/search/match-highlighter.js"></script>
+    <script src="textarea/addon/search/jump-to-line.js"></script>
+    <script src="textarea/addon/search/matchesonscrollbar.js"></script>
+    <script src="textarea/addon/search/searchcursor.js"></script>
+    <link href="textarea/addon/search/matchesonscrollbar.css" rel="stylesheet">
+    <script src="textarea/addon/hint/show-hint.js"></script>
+    <script src="textarea/addon/hint/anyword-hint.js"></script>
+    <link href="textarea/addon/hint/show-hint.css" rel="stylesheet">
+    <script src="textarea/addon/hint/cpp-hint.js"></script>
+
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden !important;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .navy-main {
+            width: 100% !important;
+            background-color:rgb(20, 108, 248) !important;
+            height: 50px !important;
+            color: #fff !important;
+            font-family: Calibri !important;
+            font-size: 20px !important;
+            -webkit-app-region: drag;
+        }
+
+        .navy-main .logo {
+            float: left !important;
+            height: 40px !important;
+            padding: 15px 30px !important;
+            font-size: 1.4em !important;
+            line-height: 20px !important;
+            user-select: none !important;
+        }
+
+        .navy-main>ul {
+            margin: 0 !important;
+            padding: 0 !important;
+            float: left !important;
+            list-style: none !important;
+        }
+
+        .navy-main>ul>li {
+            float: left !important;
+        }
+
+        .navy-item {
+            user-select: none;
+            display: inline-block !important;
+            width: 100px !important;
+            text-align: center !important;
+            padding: 15px 20px !important;
+            height: 50px !important;
+            line-height: 20px !important;
+            vertical-align:-webkit-baseline-middle !important;
+            color: #fff !important;
+            text-decoration: none !important;
+            -webkit-app-region: no-drag;
+        }
+
+        .navy-content{
+            display: block !important;
+            width: 15% !important;
+            position: absolute !important;
+            top: 70px !important;
+            overflow: hidden !important;
+            background-color: #444 !important;
+            max-height: 0 !important;
+            -webkit-app-region: no-drag;
+        }
+
+        .navy-content a{
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+
+        .navy-sub{
+            padding: 20px !important;
+        }
+
+        .navy-sub ul{
+            padding: 0 !important;
+            margin: 0 !important;
+            list-style: none !important;
+        }
+
+        .navy-sub li a{
+            user-select: none;
+            display: inline-block !important;
+            padding: 5px 0 !important;
+        }
+
+        .navy-item:hover{
+            background-color: rgb(22, 202, 193) !important;
+        }
+        
+        .navy-content a:hover{
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .navy-item:focus ~ .navy-content{
+            z-index: 1;
+            max-height: 400px !important;
+        }
+
+        .navy-content:hover{
+            max-height: 400px !important;
+        }
+
+        .close-my{
+            display: block !important;
+            width: 30px !important;
+            text-align: center !important;
+            padding: 15px 35px !important;
+            height: 50px !important;
+            line-height: 18px !important;
+            color: #fff !important;
+            font-size: 30px !important;
+            text-decoration: none !important;
+            float: right !important;
+            text-align: right !important;
+            -webkit-app-region: no-drag;
+        }
+
+        .close-my:hover{
+            color: red !important;
+        }
+
+        .CodeMirror {
+            font-size: 28px;
+        }
+
+        .CodeMirror-hints {
+            font-size: 20px;
+            background-color: rgb(39, 36, 36, 0.753);
+            overflow: hidden;
+            border: 0;
+        }
+
+        .CodeMirror-hint {
+            background-color: rgba(39, 36, 36, 0.753);
+            color: white;
+        }
+
+        .CodeMirror-hint-active {
+            background-color: rgb(15, 135, 233);
+        }
+
+        #block {
+            position: absolute;
+            top: 50px;
+        }
+        
+        @keyframes fadein {
+        from { opacity: 0; }
+        to { opacity: 1; }
+        }
+        html {
+        animation: fadein 2s;
+        }
+
+        .CodeMirror {
+            opacity: 0;
+            animation: reveal 0.0001s linear forwards;
+        }
+
+        #block::after {
+            content: '';
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            position: absolute;
+            background: url(img/grad-anim.png) no-repeat;
+            background-size: cover;
+            animation: block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+
+        }
+
+        @keyframes block {
+            0% {
+                left: 0;
+                width: 0%
+            }
+
+            50% {
+                left: 0;
+                width: 100%;
+            }
+
+            100% {
+                left: 100%;
+                width: 0;
+            }
+        }
+
+        @keyframes reveal {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #btm-info{
+            background-color: rgb(20, 108, 248);
+            width: 100%;
+            height: 38px;
+            position: absolute;
+            bottom: 0px;
+            margin: 0;
+            padding: 0;
+        }
+        .info-item{
+            list-style-type: none;
+            border: 0;
+            margin-right: 15px;
+            margin-bottom: 0;
+            padding: 5px;
+            font-size: 18px;
+            float: right;
+            font-family: Calibri;
+            text-align: center;
+            vertical-align: -webkit-baseline-middle;
+        }
+        .info-item:first-child{
+            margin-right: 0;
+            width: 80px;
+        }
+        .info-item:hover{
+            background-color: rgb(36, 36, 36);
+        }
+        #terminal{
+            border: 0;
+            margin: 0;
+            font-family: Calibri;
+            position: absolute;
+            bottom: 40px;
+            font-size: 18px;
+        }
+        #fileInfo{
+            list-style-type: none;
+            border: 0;
+            margin-right: 15px;
+            margin-bottom: 0;
+            padding: 5px;
+            font-size: 18px;
+            float: left;
+            font-family: Calibri;
+            text-align: center;
+            vertical-align: -webkit-baseline-middle;
+        }
+        #file_nav{
+            background-color: rgb(36, 36, 36);
+            border: 0;
+            margin: 0;
+            position: absolute;
+            height: 30px;
+            bottom: 210px;
+            right: 10px;
+        }
+        #file_nav:hover{
+            background-color: #444;
+        }
+        #file_nav:focus{
+            outline: none;
+        }
+        #file_nav:focus {
+            outline: none;
+        }
+        #img_file{
+            height: 20px;
+            width: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--Nav Menu-->
+    <nav class="navy-main">
+
+        <div class="logo">Protonable</div>
+
+        <ul>
+
+            <li>
+                <a href="#" class="navy-item">File</a>
+                <div class="navy-content">
+                    <div class="navy-sub">
+                        <ul>
+                            <li>
+                                <a href="#" onmousedown="newfile()">New File</a>
+                            </li>
+                            <li>
+                                <a href="#" onmousedown="newproject()">New Project</a>
+                            </li>
+                            <li>
+                                <a href="#" onmousedown="openfile()">Open File</a>
+                            </li>
+                            <li>
+                                <a href="#" onmousedown="savefile()">Save</a>
+                            </li>
+                            <li>
+                                <a href="#" onmousedown="newfile()">Save As</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <a href="#" class="navy-item">Edit</a>
+                <div class="navy-content">
+                    <div class="navy-sub">
+                        <ul>
+                            <li>
+                                <a data-toggle="modal" href="#Find" onmousedown="showFind()">Find</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" href="#Replace" onmousedown="showReplace()">Replace</a>
+                            </li>
+                            <hr style="width: 98%; text-align:center; height:0.9px; background-color: white;">
+                            <li>
+                                <a href="#" onmousedown="undo()">Undo</a>
+                            </li>
+                            <li>
+                                <a href="#" onmousedown="redo()">Redo</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <a href="#" class="navy-item">Settings</a>
+                <div class="navy-content">
+                    <div class="navy-sub">
+                        <ul>
+                            <li>
+                                <a data-toggle="modal" href="#Theme" onmousedown="showTheme()">Theme Settings</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" href="#FontSet" onmousedown="showFont()">Font Settings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <span class="close-my" id="close-btn"><button style="all: unset;">&times;</button></span>
+        <span class="close-my" id="max-btn"><button style="all: unset;">&boxH;</button></span>
+        <span class="close-my" id="min-btn"><button style="all: unset;">&minus;</button></span>
+    </nav>
+
+    <button id="file_nav">
+        <img src="img/explorer-icon.png" id="img_file">
+    </button>
+
+    <!--MODALS-->
+    <div class="modal" id="Theme">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Theme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group modal-body">
+
+                        <label for="theme" id="text-theme">Please Select Your Theme form here:</label>
+                        <select class="form-control" id="themebtn">
+                            <option value="pastel-on-dark" selected>Pastel On Dark</option>
+                            <option value="default">Standard</option>
+                            <option value="darcula">Darcula</option>
+                            <option value="cobalt">Cobalt</option>
+                            <option value="solarized">Solarized</option>
+                            <option value="shadowfox">ShadowFox</option>
+                            <option value="seti">Seti</option>
+                            <option value="rubyblue">RubyBlue</option>
+                            <option value="railcasts">RailsCasts</option>
+                            <option value="paraiso-light">Paraiso-Light</option>
+                            <option value="paraiso-dark">Paraiso-Dark</option>
+                            <option value="panda-syntax">Panda Syntax</option>
+                            <option value="oceanic-next">Oceanic Next</option>
+                            <option value="night">Night</option>
+                            <option value="neo">Neo</option>
+                            <option value="neat">Neat</option>
+                            <option value="monokai">Monokai</option>
+                            <option value="midnight">Midnight</option>
+                            <option value="mdn-like">MDN Like</option>
+                            <option value="mbo">MBO</option>
+                            <option value="material">Material</option>
+                            <option value="lucario">Lucario</option>
+                            <option value="liquibyte">Liquibyte</option>
+                            <option value="lesser-dark">Lesser Dark</option>
+                            <option value="isotope">Isotope</option>
+                            <option value="idea">IDEA</option>
+                            <option value="icecoder">IceCoder</option>
+                            <option value="hopscotch">Hopscotch</option>
+                            <option value="gruvbox-dark">Gruvbox Dark</option>
+                            <option value="erlang-dark">Erlang Dark</option>
+                            <option value="elegant">Elegant</option>
+                            <option value="eclipse">Eclipse</option>
+                            <option value="duotone-light">Duotone Light</option>
+                            <option value="duotone-dark">Duotone Dark</option>
+                            <option value="colorforth">ColorForth</option>
+                            <option value="blackboard">BlackBoard</option>
+                            <option value="bespin">Bespin</option>
+                            <option value="base16-light">Base16 Light</option>
+                            <option value="base16-dark">Base16 Dark</option>
+                            <option value="ambiance">Ambiance</option>
+                            <option value="ambiance-mobile">Ambiance Mobile</option>
+                            <option value="abcdef">ABCDEF</option>
+                            <option value="3024-night">3024 Night</option>
+                            <option value="3024-day">3024 Day</option>
+                            <option value="zenburn">Zenburn</option>
+                            <option value="yeti">Yeti</option>
+                            <option value="xq-light">XQ Light</option>
+                            <option value="xq-dark">XQ Dark</option>
+                            <option value="vibrant-ink">Vibrant Ink</option>
+                            <option value="twilight">Twilight</option>
+                            <option value="ttcn">TTCN</option>
+                            <option value="tomorrow-night-eighties">Tomorrow Night Eighties</option>
+                            <option value="tomorrow-night-bright">Tomorrow Night Bright</option>
+                            <option value="the-matrix">The Matrix</option>
+                            <option value="ssms">SSMS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="tupdate()">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="FontSet">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Change Font Settings
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+
+
+                        <p class="lead" id="intext">Change Font-Size:
+                            <select class="form-control" id="fontval">
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="22">22</option>
+                                <option value="24">24</option>
+                                <option value="26">26</option>
+                                <option selected value="28">28</option>
+                                <option value="32">32</option>
+                                <option value="48">48</option>
+                                <option value="72">72</option>
+                                <option value="96">96</option>
+                                <option value="108">108</option>
+                            </select>
+                        </p>
+                        <hr class="my-4">
+
+                        <p class="lead" id="intext2">
+                            Change Font Face:
+                            <select class="form-control" id="fontval2">
+                                <option value="Arial">Arial</option>
+                                <option value="Calibri">Calibri</option>
+                                <option value="Consolas" selected>Consolas</option>
+                                <option value="Courier">Courier</option>
+                                <option value="Lucida Console">Lucida Console</option>
+                                <option value="Segoe UI">Segoe UI</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="fupdate()">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="Find">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Find
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+
+                        <input class="form-control form-control-lg" type="text" placeholder="What to Find?" id="query">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onmousedown="search()">Find Next</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="cursorPos">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Change Cursor Position
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+                        <input class="form-control form-control-sm" type="text" placeholder="Line No." id="lineNoValue">
+                        <hr class="my-4">
+                        <input class="form-control form-control-sm" type="text" placeholder="Col No."  id="colNoValue" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="changePos()">Go</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="Replace">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Replace
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+                        <input class="form-control form-control-lg" type="text" placeholder="What to Replace?" id="query2">
+                        <hr class="my-4">
+                        <input class="form-control form-control-lg" type="text" placeholder="Replace With" id="replace">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onmousedown="replace()">Replace All</button>
+                    <button type="button" class="btn btn-success" onmousedown="search2()">Find First</button>
+                    <button type="button" class="btn btn-success" onmousedown="replace2()">Replace Then</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODALS END-->
+
+
+    <!--EDITOR-->
+    <div id="block">
+        <textarea id="editor"></textarea>
+    </div>
+    <!--EDITOR END-->
+
+
+    <!--TERMINAL-->
+    <div id="terminal"></div>
+    <!--END-->
+
+
+    <!--BOTTOM TAB-->
+    <div id="btm-info">
+
+        <li class="info-item">
+            
+            <button id="lineFeed" style="all:unset" onmousedown="lineFeed()">CLRF</button>
+
+        </li>
+        
+        <li class="info-item">
+            
+            <button style="all:unset" id="line-ch" data-toggle="modal" data-target="#cursorPos">Line: <span id="line-no.">1</span>,&nbsp; Col: <span id="col-no.">1</span></button>
+
+        </li>
+        
+        <li class="info-item">
+
+            <button style="all:unset">UTF-8</button>
+
+        </li>
+
+        <li id="fileInfo"></li>
+        <li class="info-item" style="float: left;">
+            Working For: &nbsp;
+                <label id="minutes">00</label>:<label id="seconds">00</label>
+        </li>
+    </div>
+
+</body>
+
+<script>
+
+function showFind(){
+    $('#Find').modal('show');
+                    }
+
+function showReplace(){
+    $('#Replace').modal('show');
+                    }
+
+function showTheme(){
+    $('#Theme').modal('show');
+                    }
+
+function showFont(){
+    $('#FontSet').modal('show');
+                    }
+
+var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+        mode: "text/x-c++src",
+        lineNumbers: true,
+        lineWrapping: true,
+        autoCloseBrackets: true,
+        electricChars: true,
+        autofocus: true,
+    });
+
+editor.setSize(window.innerWidth + 8, "570");
+
+window.addEventListener('resize', ()=>{
+    editor.setSize(window.innerWidth + 8, "570");
+});
+
+
+function lineFeed(){
+        var encoding = document.getElementById('lineFeed');
+
+            if(encoding.innerText === "CLRF"){
+
+            encoding.innerText = "LF";
+
+    editor.setOption('lineSeparator', "LF");
+
+}
+else{
+
+    encoding.innerText = "CLRF";
+    editor.setOption('lineSeparator', null);
+}};
+
+
+
+var lastPos = null, lastQuery = null, marked = [];
+
+function unmark() {
+  for (var i = 0; i < marked.length; ++i) marked[i];
+  marked.length = 0;
+}
+
+function search() {
+  unmark();                     
+  var text = document.getElementById("query").value;
+  if (!text) return;
+  if (lastQuery != text) lastPos = null;
+  var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
+  if (!cursor.findNext()) {
+    cursor = editor.getSearchCursor(text);
+    if (!cursor.findNext()) return;
+  }
+  editor.setSelection(cursor.from(), cursor.to());
+  lastQuery = text; lastPos = cursor.to();
+
+  editor.refresh();
+}
+
+function search2() {
+  unmark();                     
+  var text = document.getElementById("query2").value;
+  if (!text) return;
+  if (lastQuery != text) lastPos = null;
+  var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
+  if (!cursor.findNext()) {
+    cursor = editor.getSearchCursor(text);
+    if (!cursor.findNext()) return;
+  }
+  editor.setSelection(cursor.from(), cursor.to());
+  lastQuery = text; lastPos = cursor.to();
+
+  editor.refresh();
+}
+
+function replace() {
+  unmark();
+  var text = document.getElementById("query2").value,
+      replace = document.getElementById("replace").value;
+  if (!text) return;
+  for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
+    editor.replaceRange(replace, cursor.from(), cursor.to());
+}
+
+function replace2() {
+  unmark();
+  var text = document.getElementById("query2").value,
+      replace = document.getElementById("replace").value;
+  if (!text) return;
+    editor.replaceSelection(replace);
+}
+
+    
+    var size = localStorage.getItem("size");
+    var face = localStorage.getItem("face");
+    var theme = localStorage.getItem("THEME");
+    
+
+    editor.getWrapperElement().style.fontSize = size + "px";
+    editor.getWrapperElement().style.fontFamily = face;
+    editor.setOption("theme", theme);
+
+    editor.on("keypress", function (cm, event) {
+        if (!cm.state.completionActive && event.keyCode != 13) { 
+            CodeMirror.commands.autocomplete(cm, null, {
+                completeSingle: false
+            });
+            // cm.showHint({
+            //     hint: CodeMirror.hint.anyword,
+            //     completeSingle: false
+            // });
+        }
+    });
+
+
+    function fupdate() {
+        var fontSize = document.getElementById("fontval").value;
+        var fontFace = document.getElementById("fontval2").value;
+
+        editor.getWrapperElement().style.fontSize = fontSize + "px";
+        editor.getWrapperElement().style.fontFamily = fontFace;
+
+        localStorage.setItem("face", fontFace);
+        localStorage.setItem("size", fontSize);
+
+        editor.refresh();
+    }
+
+    function tupdate(){
+    var theme = document.getElementById("themebtn").value;
+
+    editor.setOption("theme", theme);
+    localStorage.setItem("THEME", theme);
+
+    editor.refresh();
+}
+
+(function () {
+            // Retrieve remote BrowserWindow
+            const {BrowserWindow} = require('electron').remote
+
+            function init() {
+                // Minimize task
+                document.getElementById("min-btn").addEventListener("click", (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    window.minimize();
+                });
+
+                // Maximize window
+                document.getElementById("max-btn").addEventListener("click", (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    if(window.isMaximized()){
+                        window.unmaximize();
+                    }else{
+                        window.maximize();
+                    }
+                });
+
+                // Close app
+                document.getElementById("close-btn").addEventListener("click", (e) => {
+                    
+                    if(path===undefined){
+                        var window = BrowserWindow.getFocusedWindow();
+                        window.close();  
+                    }
+
+                    else
+                    {
+
+
+                    fs.readFile(path, 'utf-8', (err, data)=>{
+                        if(editor.getValue()!==data){
+                            dialog.showMessageBox(
+                                
+                            {
+                        title : 'Close Without Saving?', 
+                        message: 'Are You Sure You Want To Close The File Without Saving?',
+
+                    buttons: [
+                                'Yes, Close Without Saving',
+                                'No, Let Me Save'
+                             ],
+                             defaultId: 0,
+                             cancelId: 1, 
+                            }, 
+                            response=>{
+                                if(response === 0){
+                                    var allWindows = BrowserWindow.getAllWindows()
+                                    allWindows.close();
+                                }
+                            });
+                        }else {
+                                 var window = BrowserWindow.getFocusedWindow();
+                                 window.close();
+                        }
+                    });
+
+
+            }
+                });
+            };
+
+            document.onreadystatechange =  () => {
+                if (document.readyState == "complete") {
+                    init();
+                }
+            };
+        })();
+
+function undo(){
+    editor.undo();
+}
+
+function redo(){
+    editor.redo();
+}
+
+var app = require('electron').remote;
+var dialog = app.dialog;
+var fs = require('fs');
+var path;
+
+function openfile(){
+
+    dialog.showOpenDialog(
+{title: 'Open File',
+filters: 
+[
+    {name: 'C++ Files', extensions: ['cpp', 'c++', 'cxx']},
+    {name: 'Header Files', extensions: ['hpp', 'h++', 'h']}
+]
+},
+(filenames)=>{
+
+        if(filenames===undefined){
+
+        }
+        else{
+            
+            fs.readFile(filenames[0], 'utf-8', (err, data)=>{
+
+        if(err){
+
+            alert("ERROR: Cannot Read File");
+            return;
+            }
+        editor.setValue(data);
+        path = filenames[0];
+        var path_temp = path;
+        document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
+        // extension = path.split('.').pop();
+        // if(extension === 'cpp'){
+
+        // }
+    });
+        }
+    });
+}
+
+function newfile(){
+
+    dialog.showSaveDialog(
+    {title: 'Create New File',
+    filters: 
+    [
+    {name: 'C++ Files', extensions: ['cpp', 'c++', 'cxx']},
+    {name: 'Header Files', extensions: ['hpp', 'h++', 'h']}
+    ]},
+    (filename)=>{
+
+    if(filename === undefined){
+        return;
+    }
+
+    var content = editor.getValue();
+
+    fs.writeFile(filename, content, (err)=>{
+        if(err) alert(err);
+    });
+
+    path = filename;
+    var path_temp = path;
+    document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
+
+});
+}
+
+function savefile(){
+    var content = editor.getValue();
+    if(path === undefined){
+        newfile();
+    }
+    fs.writeFile(path, content, (err)=>{
+        if(err) alert(err);
+    });
+    localStorage.setItem('path', path);
+}
+
+function newproject(){
+
+}
+
+var line = document.getElementById('line-no.');
+var col  = document.getElementById('col-no.');
+
+function updateInfo(){
+   line.innerText = editor.getCursor().line+1;
+   col.innerText = editor.getCursor().ch + 1;
+}
+
+editor.on("cursorActivity", updateInfo);
+
+
+
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
+
+
+function changePos(){
+    if(document.getElementById('lineNoValue').value>=1 && document.getElementById('lineNoValue').value !==undefined){
+    var lineNoValue = document.getElementById('lineNoValue').value-1;
+    }else{
+        lineNoValue = editor.getCursor().line;
+    }
+    if(document.getElementById('colNoValue').value>=1 && document.getElementById('colNoValue').value !==undefined ){
+        colNoValue = document.getElementById('colNoValue').value-1;
+    }else{
+        colNoValue = editor.getCursor().ch;
+    }
+    editor.setCursor(lineNoValue, colNoValue);
+    editor.focus();
+};
+
+
+//Terminal Part:
+
+    var term = new Terminal({
+        rows: 9,
+        cols: 175,
+        cursorBlink: true,
+    }
+    );
+
+    term.open(document.getElementById('terminal'));
+    term.setOption('cursorStyle', "bar");
+
+    term.on('key', (key, ev) => {
+        console.log(key.charCodeAt(0));
+        if (key.charCodeAt(0) == 13)
+            term.write('\n');
+        term.write(key);
+    });
+
+</script>
+
+<script>
+    require('./renderer.js')
+</script>
+
+</html>

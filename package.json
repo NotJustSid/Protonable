@@ -1,0 +1,21 @@
+{
+  "name": "t-modern-cpp",
+  "version": "1.0.0",
+  "description": "A Minimal Text Editor Built on Electron!",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Siddhanth Bhowmick",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "electron": "^3.0.7",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "xterm": "^3.8.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^20.36.2"
+  }
+}
