@@ -14,10 +14,9 @@
     <script src="Bootstrap/popper.min.js"></script>
     <script src="Bootstrap/bootstrap.min.js"></script>
 
-
-    <!--Integrated Terminal-->
+    <!-- Integrated Terminal
     <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
-    <script src="node_modules/xterm/dist/xterm.js"></script>
+    <script src="node_modules/xterm/dist/xterm.js"></script> -->
 
     <!--CodeMirror for the Text Area-->
     <script src="textarea/lib/codemirror.js"></script>
@@ -182,6 +181,7 @@
     <script src="textarea/mode/yaml/yaml.js"></script>
     <script src="textarea/mode/z80/z80.js"></script>
     
+
     <script src="textarea/addon/edit/closebrackets.js"></script>
     <script src="textarea/addon/search/search.js"></script>
     <script src="textarea/addon/search/match-highlighter.js"></script>
@@ -423,14 +423,14 @@
         .info-item:hover{
             background-color: rgb(36, 36, 36);
         }
-        #terminal{
+        /* #terminal{
             border: 0;
             margin: 0;
             font-family: Calibri;
             position: absolute;
             bottom: 40px;
             font-size: 18px;
-        }
+        } */
         #fileInfo{
             list-style-type: none;
             border: 0;
@@ -457,8 +457,7 @@
             margin: 0;
             font-family: Calibri;
             position: absolute;
-            bottom: 40px;
-            font-size: 18px;
+            bottom: 80px;
         }
         #file_nav:hover{
             background-color: #444;
@@ -558,7 +557,21 @@
     </button>
 
     <div id="FileExplorer">
-        
+            <div class="pane-group">
+                <div class="pane-sm sidebar">
+                    <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 80px; left: 2px; width:40px;">...</button>
+                    <ul class="list-group">
+                        <li class="list-group-header" style="list-style:none;position:absolute; bottom: 80px; left:50px; width: 1480px;">
+                            <input class="form-control" type="text" placeholder="Search">
+                        </li>
+                        <li class="list-group-item" style="margin:0;padding:0;height:100px;width: 1515px;left:10px;bottom:-30px;">
+                            <div class="media-body">
+                                
+                            </div>
+                        </li>
+                     </ul>
+                     </div>
+             </div>
     </div>
     
     <!--MODALS-->
@@ -822,7 +835,7 @@
 
 
     <!--TERMINAL-->
-    <div id="terminal"></div>
+    <!-- <div id="terminal"></div> -->
     <!--END-->
 
 
@@ -847,9 +860,7 @@
 
         </li>
 
-        <li id="fileInfo">
-
-        </li>
+        <li id="fileInfo"></li>
         <li class="info-item" style="float: left;">
             Working For: &nbsp;
                 <label id="minutes">00</label>:<label id="seconds">00</label>
@@ -1228,22 +1239,25 @@ function changePos(){
 
 //Terminal Part:
 
-    var term = new Terminal({
-        rows: 9,
-        cols: 175,
-        cursorBlink: true,
-    }
-    );
+    // var term = new Terminal({
+    //     rows: 9,
+    //     cols: 175,
+    //     cursorBlink: true,
+    // }
+    // );
 
-    term.open(document.getElementById('terminal'));
-    term.setOption('cursorStyle', "bar");
+    // term.open(document.getElementById('terminal'));
+    // term.setOption('cursorStyle', "bar");
 
-    term.on('key', (key, ev) => {
-        console.log(key.charCodeAt(0));
-        if (key.charCodeAt(0) == 13)
-            term.write('\n');
-        term.write(key);
-    });
+    // term.on('key', (key, ev) => {
+    //     console.log(key.charCodeAt(0));
+    //     if (key.charCodeAt(0) == 13)
+    //         term.write('\n');
+    //     term.write(key);
+    // });
+
+//File Explorer Part done in renderer.js because this was getting messy. I could have done this over here as
+//well.
 
 </script>
 
