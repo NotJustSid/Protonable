@@ -14,6 +14,7 @@
     <script src="Bootstrap/popper.min.js"></script>
     <script src="Bootstrap/bootstrap.min.js"></script>
 
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
     <!-- Integrated Terminal
     <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
     <script src="node_modules/xterm/dist/xterm.js"></script> -->
@@ -423,14 +424,6 @@
         .info-item:hover{
             background-color: rgb(36, 36, 36);
         }
-        /* #terminal{
-            border: 0;
-            margin: 0;
-            font-family: Calibri;
-            position: absolute;
-            bottom: 40px;
-            font-size: 18px;
-        } */
         #fileInfo{
             list-style-type: none;
             border: 0;
@@ -449,8 +442,8 @@
             margin: 0;
             position: absolute;
             height: 30px;
-            bottom: 210px;
-            right: 10px;
+            bottom: 192px;
+            right: 12px;
         }
         #FileExplorer{
             border: 0;
@@ -468,6 +461,19 @@
         #img_file{
             height: 20px;
             width: 20px;
+        }
+        #prodirchooseWrap{
+            background-color: white;
+        }
+        #prodirchoose{
+            display: none;
+        }
+        #file-list > li{
+            float: left;
+            margin: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+
         }
     </style>
 
@@ -491,7 +497,7 @@
                                 <a href="#" onmousedown="newfile()">New File</a>
                             </li>
                             <li>
-                                <a href="#" onmousedown="newproject()">New Project</a>
+                                <a href="#" onmousedown="newproject()">New Project Folder</a>
                             </li>
                             <li>
                                 <a href="#" onmousedown="openfile()">Open File</a>
@@ -551,28 +557,6 @@
         <span class="close-my" id="max-btn"><button style="all: unset;">&boxH;</button></span>
         <span class="close-my" id="min-btn"><button style="all: unset;">&minus;</button></span>
     </nav>
-
-    <button id="file_nav">
-        <img src="img/explorer-icon.png" id="img_file">
-    </button>
-
-    <div id="FileExplorer">
-            <div class="pane-group">
-                <div class="pane-sm sidebar">
-                    <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 80px; left: 2px; width:40px;">...</button>
-                    <ul class="list-group">
-                        <li class="list-group-header" style="list-style:none;position:absolute; bottom: 80px; left:50px; width: 1480px;">
-                            <input class="form-control" type="text" placeholder="Search">
-                        </li>
-                        <li class="list-group-item" style="margin:0;padding:0;height:100px;width: 1515px;left:10px;bottom:-30px;">
-                            <div class="media-body">
-                                
-                            </div>
-                        </li>
-                     </ul>
-                     </div>
-             </div>
-    </div>
     
     <!--MODALS-->
     <div class="modal" id="Theme">
@@ -824,6 +808,43 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="Propath">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        New Project
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+                    <label id="#prodirWrap" style="text-decoration: underline; font-weight:bold;">
+                        Choose Directory To Store Folder In
+                        <input class="form-control form-control-lg" type="file" id="prodirchoose" webkitdirectory>
+                    </label>
+                        <hr class="my-4">
+                        <input class="fo̥rm-control form-control-lg" type="text" placeholder="Project Name" id="proname">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="dirchoosed()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--MODALS END-->
 
 
@@ -833,11 +854,29 @@
     </div>
     <!--EDITOR END-->
 
+    <button id="file_nav" style="color: white; border-radius: 5px;">
+        Open File View
+    </button>
 
-    <!--TERMINAL-->
-    <div id="terminal"></div>
-    <!--END-->
-
+    <div id="FileExplorer">
+        <div class="pane-group">
+            <div class="pane-sm sidebar">
+                <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;">...</button>
+                <ul class="list-group">
+                    <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 1340px;">
+                        <input class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search">
+                    </li>
+                    <li class="list-group-item" style="margin:0;padding:0;height:125px;width: 1515px;left:10px;bottom:-30px;">
+                        <div class="media-body">
+                            <ul id="file-list" style="list-style:none; padding: 0">
+                                
+                            </ul>  
+                        </div>
+                    </li>
+                 </ul>
+                 </div>
+         </div>
+</div>
 
     <!--BOTTOM TAB-->
     <div id="btm-info">
@@ -894,7 +933,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         autoCloseBrackets: true,
         electricChars: true,
         autofocus: true,
-
+        scrollbarStyle: 'null',
     });
 
 editor.setSize(window.innerWidth + 8, "570");
@@ -978,7 +1017,23 @@ function replace2() {
     editor.replaceSelection(replace);
 }
 
-    
+function dirchoosed(){
+    if(document.getElementById('prodirchoose').files[0] !== undefined){
+
+        var dir = document.getElementById('prodirchoose').files[0].path;
+        var proname = document.getElementById('proname').value;
+
+        if(proname === undefined) alert('No Project Name!');
+
+        fs.mkdir(dir+'//'+proname, (err) => {
+        
+        if (err) alert(err);
+                                            });
+    }else{
+        alert('No Root Directory Selected!');
+        }
+}
+
     var size = localStorage.getItem("size");
     var face = localStorage.getItem("face");
     var theme = localStorage.getItem("THEME");
@@ -1032,6 +1087,10 @@ function replace2() {
                     var window = BrowserWindow.getFocusedWindow();
                     window.minimize();
                 });
+
+                var window = BrowserWindow.getFocusedWindow();
+
+                window.on('', savefile());
 
                 // Maximize window
                 document.getElementById("max-btn").addEventListener("click", (e) => {
@@ -1184,7 +1243,7 @@ function savefile(){
 }
 
 function newproject(){
-
+    $('#Propath').modal('show');
 }
 
 var line = document.getElementById('line-no.');
@@ -1219,8 +1278,6 @@ function pad(val) {
   }
 }
 
-
-
 function changePos(){
     if(document.getElementById('lineNoValue').value>=1 && document.getElementById('lineNoValue').value !==undefined){
     var lineNoValue = document.getElementById('lineNoValue').value-1;
@@ -1236,28 +1293,7 @@ function changePos(){
     editor.focus();
 };
 
-
-//Terminal Part:
-
-    // var term = new Terminal({
-    //     rows: 9,
-    //     cols: 175,
-    //     cursorBlink: true,
-    // }
-    // );
-
-    // term.open(document.getElementById('terminal'));
-    // term.setOption('cursorStyle', "bar");
-
-    // term.on('key', (key, ev) => {
-    //     console.log(key.charCodeAt(0));
-    //     if (key.charCodeAt(0) == 13)
-    //         term.write('\n');
-    //     term.write(key);
-    // });
-
-//File Explorer Part done in renderer.js because this was getting messy. I could have done this over here as
-//well.
+//File Explorer Part moved in renderer.js
 
 </script>
 
