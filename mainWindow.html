@@ -1090,8 +1090,6 @@ function dirchoosed(){
 
                 var window = BrowserWindow.getFocusedWindow();
 
-                window.on('', savefile());
-
                 // Maximize window
                 document.getElementById("max-btn").addEventListener("click", (e) => {
                     var window = BrowserWindow.getFocusedWindow();
@@ -1161,6 +1159,7 @@ function redo(){
     editor.redo();
 }
 
+var Mousetrap = require('mousetrap');
 var app = require('electron').remote;
 var dialog = app.dialog;
 var fs = require('fs');
@@ -1256,6 +1255,9 @@ function updateInfo(){
 
 editor.on("cursorActivity", updateInfo);
 
+Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); });
+Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); });
+Mousetrap.bind(['command+shift+n', 'ctrl+shift+n'], function(){newproject();});
 
 
 var minutesLabel = document.getElementById("minutes");
