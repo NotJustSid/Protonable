@@ -921,15 +921,12 @@
 function showFind(){
     $('#Find').modal('show');
                     }
-
 function showReplace(){
     $('#Replace').modal('show');
                     }
-
 function showTheme(){
     $('#Theme').modal('show');
                     }
-
 function showFont(){
     $('#FontSet').modal('show');
                     }
@@ -985,12 +982,10 @@ else{
 
 //To Use Find/Replace Functionality
 var lastPos = null, lastQuery = null, marked = [];
-
 function unmark() {
   for (var i = 0; i < marked.length; ++i) marked[i];
   marked.length = 0;
 }
-
 function search() {
   unmark();                     
   var text = document.getElementById("query").value;
@@ -1006,7 +1001,6 @@ function search() {
 
   editor.refresh();
 }
-
 function search2() {
   unmark();                     
   var text = document.getElementById("query2").value;
@@ -1022,7 +1016,6 @@ function search2() {
 
   editor.refresh();
 }
-
 function replace() {
   unmark();
   var text = document.getElementById("query2").value,
@@ -1031,7 +1024,6 @@ function replace() {
   for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
     editor.replaceRange(replace, cursor.from(), cursor.to());
 }
-
 function replace2() {
   unmark();
   var text = document.getElementById("query2").value,
