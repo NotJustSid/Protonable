@@ -237,6 +237,7 @@
 
         .navy-item {
             user-select: none;
+            -webkit-user-drag: none;
             display: inline-block !important;
             width: 100px !important;
             text-align: center !important;
@@ -251,7 +252,7 @@
 
         .navy-content{
             display: block !important;
-            width: 15% !important;
+            width: 24% !important;
             position: absolute !important;
             top: 70px !important;
             overflow: hidden !important;
@@ -266,7 +267,7 @@
         }
 
         .navy-sub{
-            padding: 20px !important;
+            padding: 20px !important;    
         }
 
         .navy-sub ul{
@@ -475,6 +476,10 @@
             margin-bottom: 20px;
 
         }
+        .navy-info{
+            color: rgb(255,255,255, 0.2);
+            margin-right: 0px;
+        }
     </style>
 
 </head>
@@ -495,12 +500,15 @@
                         <ul>
                             <li>
                                 <a href="#" onmousedown="newfile()">New File</a>
+                                <span class="navy-info">Ctrl+N</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="newproject()">New Project Folder</a>
+                                <span class="navy-info">Ctrl+Shift+N</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="openfile()">Open File</a>
+                                <span class="navy-info">Ctrl+O</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="savefile()">Save</a>
@@ -571,9 +579,9 @@
                 <div class="modal-body">
                     <div class="form-group modal-body">
 
-                        <label for="theme" id="text-theme">Please Select Your Theme form here:</label>
+                        <label for="theme" id="text-theme">Please Select Your Theme from here:</label>
                         <select class="form-control" id="themebtn">
-                            <option value="pastel-on-dark" selected>Pastel On Dark</option>
+                            <option value="pastel-on-dark">Pastel On Dark</option>
                             <option value="default">Standard</option>
                             <option value="darcula">Darcula</option>
                             <option value="cobalt">Cobalt</option>
@@ -593,7 +601,7 @@
                             <option value="midnight">Midnight</option>
                             <option value="mdn-like">MDN Like</option>
                             <option value="mbo">MBO</option>
-                            <option value="material">Material</option>
+                            <option value="material" selected>Material</option>
                             <option value="lucario">Lucario</option>
                             <option value="liquibyte">Liquibyte</option>
                             <option value="lesser-dark">Lesser Dark</option>
@@ -876,7 +884,7 @@
                  </ul>
                  </div>
          </div>
-</div>
+    </div>
 
     <!--BOTTOM TAB-->
     <div id="btm-info">
@@ -926,6 +934,7 @@ function showFont(){
     $('#FontSet').modal('show');
                     }
 
+//CodeMirror Editor Object
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: "text/x-c++src",  //To be dealt with later
         lineNumbers: true,
@@ -934,15 +943,29 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         electricChars: true,
         autofocus: true,
         scrollbarStyle: 'null',
+    extraKeys: {
+
+    "Ctrl-S": function() { 
+      savefile();
+    },
+    "Ctrl-N": function() { 
+      newfile();
+    },
+    "Ctrl-O": function() { 
+      openfile();
+    },         
+    }
     });
 
 editor.setSize(window.innerWidth + 8, "570");
 
+//To deal with the window being resized but the editor not being so
 window.addEventListener('resize', ()=>{
     editor.setSize(window.innerWidth + 8, "570");
 });
 
 
+//To change the Line Ending Format
 function lineFeed(){
         var encoding = document.getElementById('lineFeed');
 
@@ -960,7 +983,7 @@ else{
 }};
 
 
-
+//To Use Find/Replace Functionality
 var lastPos = null, lastQuery = null, marked = [];
 
 function unmark() {
@@ -1017,6 +1040,8 @@ function replace2() {
     editor.replaceSelection(replace);
 }
 
+
+//To choose Directory for New Project
 function dirchoosed(){
     if(document.getElementById('prodirchoose').files[0] !== undefined){
 
@@ -1034,16 +1059,18 @@ function dirchoosed(){
         }
 }
 
-    var size = localStorage.getItem("size");
-    var face = localStorage.getItem("face");
-    var theme = localStorage.getItem("THEME");
-    
 
+//To apply theme & font selected by user on loadback
+var size = localStorage.getItem("size");
+var face = localStorage.getItem("face");
+var theme = localStorage.getItem("THEME");
     editor.getWrapperElement().style.fontSize = size + "px";
     editor.getWrapperElement().style.fontFamily = face;
     editor.setOption("theme", theme);
 
-    editor.on("keypress", function (cm, event) {
+
+//AutoComplete--Still In Work
+editor.on("keypress", function (cm, event) {
         if (!cm.state.completionActive && event.keyCode != 13) { 
             // CodeMirror.commands.autocomplete(cm, null, {
             //     completeSingle: false
@@ -1055,20 +1082,18 @@ function dirchoosed(){
         }
     });
 
-    function fupdate() {
+
+//Font Updating and Theme Updating
+function fupdate() {
         var fontSize = document.getElementById("fontval").value;
         var fontFace = document.getElementById("fontval2").value;
-
         editor.getWrapperElement().style.fontSize = fontSize + "px";
         editor.getWrapperElement().style.fontFamily = fontFace;
-
         localStorage.setItem("face", fontFace);
         localStorage.setItem("size", fontSize);
-
         editor.refresh();
     }
-
-    function tupdate(){
+function tupdate(){
     var theme = document.getElementById("themebtn").value;
 
     editor.setOption("theme", theme);
@@ -1077,6 +1102,8 @@ function dirchoosed(){
     editor.refresh();
 }
 
+
+//Close, Maximize and Minimize Functionality
 (function () {
             // Retrieve remote BrowserWindow
             const {BrowserWindow} = require('electron').remote
@@ -1151,23 +1178,26 @@ function dirchoosed(){
             };
         })();
 
+
+//UNDO & REDO
 function undo(){
     editor.undo();
 }
-
 function redo(){
     editor.redo();
 }
 
-var Mousetrap = require('mousetrap');
-var app = require('electron').remote;
-var dialog = app.dialog;
-var fs = require('fs');
-var path;
+var Mousetrap = require('mousetrap');   //For shortcuts
+var app = require('electron').remote;   //For App methods.
+var dialog = app.dialog;                //For Save/Open Dialog Boxes
+var fs = require('fs');                 //For File Explorer
 
+
+//NEW,SAVE,OPEN ETC
+var path;
 function openfile(){
 
-    dialog.showOpenDialog(
+dialog.showOpenDialog(
 {title: 'Open File',
 filters: 
 [
@@ -1201,7 +1231,6 @@ filters:
         }
     });
 }
-
 function newfile(){
 
     dialog.showSaveDialog(
@@ -1229,7 +1258,6 @@ function newfile(){
 
 });
 }
-
 function savefile(){
     var content = editor.getValue();
     if(path === undefined){
@@ -1240,37 +1268,36 @@ function savefile(){
     });
     localStorage.setItem('path', path);
 }
-
 function newproject(){
     $('#Propath').modal('show');
 }
 
+
+//CHANGE LINE/COLOUMN
 var line = document.getElementById('line-no.');
 var col  = document.getElementById('col-no.');
-
 function updateInfo(){
    line.innerText = editor.getCursor().line+1;
    col.innerText = editor.getCursor().ch + 1;
 }
-
 editor.on("cursorActivity", updateInfo);
 
-Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); });
-Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); });
-Mousetrap.bind(['command+shift+n', 'ctrl+shift+n'], function(){newproject();});
+Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); return false;});
+Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); return false;});
+Mousetrap.bind(['command+shift+n', 'ctrl+shift+n'], function(){newproject(); return false;});
+Mousetrap.bind(['command+o', 'ctrl+o'], function(){openfile(); return false;});
 
 
+//Working for Timer
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
 setInterval(setTime, 1000);
-
 function setTime() {
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
   minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 }
-
 function pad(val) {
   var valString = val + "";
   if (valString.length < 2) {
@@ -1280,6 +1307,8 @@ function pad(val) {
   }
 }
 
+
+//Go To Functionability
 function changePos(){
     if(document.getElementById('lineNoValue').value>=1 && document.getElementById('lineNoValue').value !==undefined){
     var lineNoValue = document.getElementById('lineNoValue').value-1;

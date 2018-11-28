@@ -1,11 +1,11 @@
 const fs = require('fs');
 
-function readDir(path) {
-    fs.readdir(path, (err, files) => {
+function readDir(path2) {
+    fs.readdir(path2, (err, files) => {
         'use strict';
         if (err) throw  err;
         for (let file of files) {
-           fs.stat(path.slice(0,-1)+file,(err,stats)=>{
+           fs.stat(path2.slice(0,-1)+file,(err,stats)=>{
                if(err) throw err;
               
                if(stats.isDirectory()){
