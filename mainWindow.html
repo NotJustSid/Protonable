@@ -970,15 +970,16 @@ function lineFeed(){
             if(encoding.innerText === "CLRF"){
 
             encoding.innerText = "LF";
+             editor.setOption('lineSeparator', "LF");
+                                            
+                                            }
 
-    editor.setOption('lineSeparator', "LF");
-
-}
 else{
 
     encoding.innerText = "CLRF";
     editor.setOption('lineSeparator', null);
-}};
+}
+};
 
 
 //To Use Find/Replace Functionality
