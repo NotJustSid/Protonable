@@ -478,7 +478,9 @@
         }
         .navy-info{
             color: rgb(255,255,255, 0.2);
-            margin-right: 0px;
+            position: absolute;
+            right: 0px;
+            margin-right: 15px;
         }
     </style>
 
@@ -500,21 +502,23 @@
                         <ul>
                             <li>
                                 <a href="#" onmousedown="newfile()">New File</a>
-                                <span class="navy-info">Ctrl+N</span>
+                                <span class="navy-info">Ctrl/Cmd+N</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="newproject()">New Project Folder</a>
-                                <span class="navy-info">Ctrl+Shift+N</span>
+                                <span class="navy-info">Ctrl/Cmd+Shift+N</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="openfile()">Open File</a>
-                                <span class="navy-info">Ctrl+O</span>
+                                <span class="navy-info">Ctrl/Cmd+O</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="savefile()">Save</a>
+                                <span class="navy-info">Ctrl/Cmd+S</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="newfile()">Save As</a>
+                                <span class="navy-info">Ctrl/Cmd+Shift+S</span>
                             </li>
                         </ul>
                     </div>
@@ -528,16 +532,20 @@
                         <ul>
                             <li>
                                 <a data-toggle="modal" href="#Find" onmousedown="showFind()">Find</a>
+                                <span class="navy-info">Ctrl/Cmd+F</span>
                             </li>
                             <li>
                                 <a data-toggle="modal" href="#Replace" onmousedown="showReplace()">Replace</a>
+                                <span class="navy-info">Ctrl/Cmd+Shift+F</span>
                             </li>
                             <hr style="width: 98%; text-align:center; height:0.9px; background-color: white;">
                             <li>
                                 <a href="#" onmousedown="undo()">Undo</a>
+                                <span class="navy-info">Ctrl/Cmd+Z</span>
                             </li>
                             <li>
                                 <a href="#" onmousedown="redo()">Redo</a>
+                                <span class="navy-info">Ctrl/Cmd+Y</span>
                             </li>
                         </ul>
                     </div>
@@ -839,8 +847,8 @@
                 <div class="modal-body">
 
                     <div class="form-group modal-body">
-                    <label id="#prodirWrap" style="text-decoration: underline; font-weight:bold;">
-                        Choose Directory To Store Folder In
+                    <label id="prodirWrap" style="text-decoration: underline; font-weight:bold;">
+                        Directory: 
                         <input class="form-control form-control-lg" type="file" id="prodirchoose" webkitdirectory>
                     </label>
                         <hr class="my-4">
@@ -903,9 +911,10 @@
         
         <li class="info-item">
 
-            <button style="all:unset">UTF-8</button>
-
+            <button style="all:unset" id="editor-mode"></button>
         </li>
+
+
 
         <li id="fileInfo"></li>
         <li class="info-item" style="float: left;">
@@ -951,7 +960,36 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     },
     "Ctrl-O": function() { 
       openfile();
-    },         
+    },
+    "Cmd-S": function(){
+        savefile();
+    },
+    "Cmd-N": function(){
+        newfile();
+    },
+    "Cmd-O": function(){
+        openfile();
+    },
+    "Shift-Ctrl-S": function(){
+        newfile();
+    },
+    "Shift-Cmd-S": function(){
+        newfile();
+    }, 
+    "Shift-Ctrl-N": function(){
+        newproject();
+    },
+    "Shift-Ctrl-N": function(){
+        newproject();
+    },
+    "Ctrl-F": function(){
+        showFind();
+    },
+    "Shift-Ctrl-F": function(){
+        showReplace();
+    }, 
+
+
     }
     });
 
@@ -1122,44 +1160,10 @@ function tupdate(){
                 // Close app
                 document.getElementById("close-btn").addEventListener("click", (e) => {
                     
-                    if(path===undefined){
+                    
                         var window = BrowserWindow.getFocusedWindow();
                         window.close();  
-                    }
-
-                    else
-                    {
-
-
-                    fs.readFile(path, 'utf-8', (err, data)=>{
-                        if(editor.getValue()!==data){
-                            dialog.showMessageBox(
-                                
-                            {
-                        title : 'Close Without Saving?', 
-                        message: 'Are You Sure You Want To Close The File Without Saving?',
-
-                    buttons: [
-                                'Yes, Close Without Saving',
-                                'No, Let Me Save'
-                             ],
-                             defaultId: 0,
-                             cancelId: 1, 
-                            }, 
-                            response=>{
-                                if(response === 0){
-                                    var allWindows = BrowserWindow.getAllWindows()
-                                    allWindows.close();
-                                }
-                            });
-                        }else {
-                                 var window = BrowserWindow.getFocusedWindow();
-                                 window.close();
-                        }
-                    });
-
-
-            }
+                    
                 });
             };
 
@@ -1276,8 +1280,13 @@ editor.on("cursorActivity", updateInfo);
 
 Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); return false;});
 Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); return false;});
-Mousetrap.bind(['command+shift+n', 'ctrl+shift+n'], function(){newproject(); return false;});
+Mousetrap.bind(['shift+command+n', 'shift+ctrl+n'], function(){newproject(); return false;});
 Mousetrap.bind(['command+o', 'ctrl+o'], function(){openfile(); return false;});
+Mousetrap.bind(['shift+command+s', 'shift+ctrl+s'], function(){newfile(); return false;} );
+Mousetrap.bind(['shift+command+f', 'shift+ctrl+f'], function(){showReplace(); return false;});
+Mousetrap.bind(['command+f', 'ctrl+f'], function(){showFind(); return false;});
+Mousetrap.bind(['command+z', 'ctrl+z'], function(){undo(); return false;});
+Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
 
 
 //Working for Timer
