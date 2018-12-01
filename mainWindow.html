@@ -487,6 +487,13 @@
             margin-right: 15px;
             margin-top: 5px;
         }
+   .modal{
+   position:fixed;
+   top:auto;
+   right:10px;;
+   left:auto;
+   bottom:50%;
+} 
         
     </style>
 
@@ -748,12 +755,11 @@
                 <div class="modal-body">
 
                     <div class="form-group modal-body">
-
-                        <input class="form-control form-control-lg" type="text" placeholder="What to Find?" id="query">
+                        <input class="form-control form-control-lg" type="text" placeholder="What to Find?" onkeyup="search('query')" id="query" autofocus>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onmousedown="search()">Find Next</button>
+                    <button type="button" class="btn btn-success" onmousedown="search2('query')">Find Next</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -817,14 +823,14 @@
                 <div class="modal-body">
 
                     <div class="form-group modal-body">
-                        <input class="form-control form-control-lg" type="text" placeholder="What to Replace?" id="query2">
+                        <input class="form-control form-control-lg" type="text" placeholder="What to Replace?" id="query2" autofocus>
                         <hr class="my-4">
                         <input class="form-control form-control-lg" type="text" placeholder="Replace With" id="replace">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" onmousedown="replace()">Replace All</button>
-                    <button type="button" class="btn btn-success" onmousedown="search2()">Find First</button>
+                    <button type="button" class="btn btn-success" onmousedown="search2('query2')">Find First</button>
                     <button type="button" class="btn btn-success" onmousedown="replace2()">Replace Then</button>
                 </div>
             </div>
@@ -935,16 +941,23 @@
 
 //Settings Modals
 function showFind(){
-    $('#Find').modal('show');
-                    }
+    $('#Find').modal('show'); 
+    $('.modal-backdrop').removeClass("modal-backdrop"); 
+    }
 function showReplace(){
     $('#Replace').modal('show');
+    
+$('.modal-backdrop').removeClass("modal-backdrop");  
                     }
 function showTheme(){
     $('#Theme').modal('show');
+    
+$('.modal-backdrop').removeClass("modal-backdrop");  
                     }
 function showFont(){
     $('#FontSet').modal('show');
+    
+$('.modal-backdrop').removeClass("modal-backdrop");  
                     }
 
 //CodeMirror Editor Object
@@ -1032,24 +1045,21 @@ function unmark() {
   for (var i = 0; i < marked.length; ++i) marked[i];
   marked.length = 0;
 }
-function search() {
+function search(string) {
   unmark();                     
-  var text = document.getElementById("query").value;
+  var text = document.getElementById(string).value;
   if (!text) return;
-  if (lastQuery != text) lastPos = null;
-  var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
+  var cursor = editor.getSearchCursor(text|| editor.getCursor());
   if (!cursor.findNext()) {
     cursor = editor.getSearchCursor(text);
     if (!cursor.findNext()) return;
   }
   editor.setSelection(cursor.from(), cursor.to());
-  lastQuery = text; lastPos = cursor.to();
-
   editor.refresh();
 }
-function search2() {
+function search2(string) {
   unmark();                     
-  var text = document.getElementById("query2").value;
+  var text = document.getElementById(string).value;
   if (!text) return;
   if (lastQuery != text) lastPos = null;
   var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
