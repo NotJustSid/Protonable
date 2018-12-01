@@ -252,7 +252,7 @@
 
         .navy-content{
             display: block !important;
-            width: 24% !important;
+            width: 380px !important;
             position: absolute !important;
             top: 70px !important;
             overflow: hidden !important;
@@ -288,6 +288,10 @@
         
         .navy-content a:hover{
             z-index: 1;
+            font-weight: bold;
+        }
+
+        .navy-content a:hover ~.navy-info{
             font-weight: bold;
         }
 
@@ -481,7 +485,9 @@
             position: absolute;
             right: 0px;
             margin-right: 15px;
+            margin-top: 5px;
         }
+        
     </style>
 
 </head>
@@ -1192,8 +1198,7 @@ var fs = require('fs');                 //For File Explorer
 //NEW,SAVE,OPEN ETC
 var path;
 function openfile(){
-
-dialog.showOpenDialog(
+dialog.showOpenDialog(  
 {title: 'Open File',
 filters: 
 [
@@ -1229,7 +1234,7 @@ filters:
 }
 function newfile(){
 
-    dialog.showSaveDialog(
+    dialog.showSaveDialog( 
     {title: 'Create New File',
     filters: 
     [
