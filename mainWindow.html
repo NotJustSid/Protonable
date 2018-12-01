@@ -922,8 +922,7 @@
         </li>
         
         <li class="info-item">
-
-            <button style="all:unset" id="editor-mode"></button>
+            <button style="all:unset" id="editor-mode">Text</button>
         </li>
 
 
@@ -962,7 +961,7 @@ $('.modal-backdrop').removeClass("modal-backdrop");
 
 //CodeMirror Editor Object
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-        mode: "text/x-c++src",  //To be dealt with later
+        mode: null,  //default for text
         lineNumbers: true,
         lineWrapping: true,
         autoCloseBrackets: true,
@@ -1206,15 +1205,15 @@ var fs = require('fs');                 //For File Explorer
 
 
 //NEW,SAVE,OPEN ETC
+var mode = document.getElementById('editor-mode');
 var path;
 function openfile(){
 dialog.showOpenDialog(  
 {title: 'Open File',
-filters: 
-[
-    {name: 'C++ Files', extensions: ['cpp', 'c++', 'cxx']},
-    {name: 'Header Files', extensions: ['hpp', 'h++', 'h']}
-]
+// filters: 
+// [
+    
+// ]
 },
 (filenames)=>{
 
@@ -1226,18 +1225,81 @@ filters:
             fs.readFile(filenames[0], 'utf-8', (err, data)=>{
 
         if(err){
-
             alert("ERROR: Cannot Read File");
             return;
             }
         editor.setValue(data);
         path = filenames[0];
+        
         var path_temp = path;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-        // extension = path.split('.').pop();
-        // if(extension === 'cpp'){
-
-        // }
+        extension = path.split('.').pop();
+        if(extension === 'cpp'){
+            mode.innerText = "C++";
+            editor.setOption("mode", "text/x-c++src");
+        }
+        else if(extension === 'c'){
+            mode.innerText = "C";
+            editor.setOption("mode", "text/x-csrc");
+        }
+        else if(extension === 'cs'){
+            mode.innerText = "C#";
+            editor.setOption("mode", "text/x-csharp");
+        }
+        else if(extension === 'java'){
+            mode.innerText = "Java";
+            editor.setOption("mode", "text/x-java");
+        }
+        else if(extension === 'html'){
+            mode.innerText = "HTML";
+            editor.setOption("mode", "text/html");
+        }
+        else if(extension === 'js'){
+            mode.innerText = "JavaScript";
+            editor.setOption("mode", "text/javascript");
+            ////////
+            ///////
+            ///////
+        }
+        else if(extension === 'css'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/css");
+        }
+        else if(extension === 'scss'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-scss");
+        }
+        else if(extension === 'sass'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-sass");
+        }
+        else if(extension === 'less'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-less");
+        }
+        else if(extension === 'go'){
+            mode.innerText = "Go";
+            editor.setOption("mode", "text/x-go");
+        }
+        else if(extension === 'py'){
+            mode.innerText = "Python";
+            editor.setOption("mode", "text/x-python");
+            //////////
+            /////////
+            /////////
+        }
+        else if(extension === 'md'){
+            mode.innerText = "MarkDown";
+            editor.setOption("mode", "text/x-markdown");
+        }
+        else if(extension === 'php'){
+            mode.innerText = "PHP";
+            editor.setOption("mode", "text/x-php");
+        }
+        else if(extension === 'txt'){
+            mode.innerText = "Text";
+            editor.setOption("mode", null);
+        }
     });
         }
     });
@@ -1246,11 +1308,12 @@ function newfile(){
 
     dialog.showSaveDialog( 
     {title: 'Create New File',
-    filters: 
-    [
-    {name: 'C++ Files', extensions: ['cpp', 'c++', 'cxx']},
-    {name: 'Header Files', extensions: ['hpp', 'h++', 'h']}
-    ]},
+    // filters: 
+    // [
+    // {name: 'C++ Files', extensions: ['cpp', 'c++', 'cxx']},
+    // {name: 'Header Files', extensions: ['hpp', 'h++', 'h']}
+    // ]
+    },
     (filename)=>{
 
     if(filename === undefined){
@@ -1265,8 +1328,74 @@ function newfile(){
 
     path = filename;
     var path_temp = path;
-    document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-
+        document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
+        extension = path.split('.').pop();
+        if(extension === 'cpp'){
+            mode.innerText = "C++";
+            editor.setOption("mode", "text/x-c++src");
+        }
+        else if(extension === 'c'){
+            mode.innerText = "C";
+            editor.setOption("mode", "text/x-csrc");
+        }
+        else if(extension === 'cs'){
+            mode.innerText = "C#";
+            editor.setOption("mode", "text/x-csharp");
+        }
+        else if(extension === 'java'){
+            mode.innerText = "Java";
+            editor.setOption("mode", "text/x-java");
+        }
+        else if(extension === 'html'){
+            mode.innerText = "HTML";
+            editor.setOption("mode", "text/html");
+        }
+        else if(extension === 'js'){
+            mode.innerText = "JavaScript";
+            editor.setOption("mode", "text/javascript");
+            ////////
+            ///////
+            ///////
+        }
+        else if(extension === 'css'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/css");
+        }
+        else if(extension === 'scss'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-scss");
+        }
+        else if(extension === 'sass'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-sass");
+        }
+        else if(extension === 'less'){
+            mode.innerText = "CSS";
+            editor.setOption("mode", "text/x-less");
+        }
+        else if(extension === 'go'){
+            mode.innerText = "Go";
+            editor.setOption("mode", "text/x-go");
+        }
+        else if(extension === 'py'){
+            mode.innerText = "Python";
+            editor.setOption("mode", "text/x-python");
+            //////////
+            /////////
+            /////////
+        }
+        else if(extension === 'md'){
+            mode.innerText = "MarkDown";
+            editor.setOption("mode", "text/x-markdown");
+        }
+        else if(extension === 'php'){
+            mode.innerText = "PHP";
+            editor.setOption("mode", "text/x-php");
+        }
+        else if(extension === 'txt'){
+            mode.innerText = "Text";
+            editor.setOption("mode", null);
+        }
 });
 }
 function savefile(){
