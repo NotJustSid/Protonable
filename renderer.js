@@ -7,7 +7,7 @@ function readDir(path2) {
         for (let file of files) {
            fs.stat(path2.slice(0,-1)+file,(err,stats)=>{
                if(err) throw err;
-              
+               
                if(stats.isDirectory()){
                
            document.getElementById('file-list').innerHTML += `<li><i class="fa fa-folder-open dir"></i> ${file}</li>`;
