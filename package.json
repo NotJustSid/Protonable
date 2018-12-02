@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
+    "codemirror-colorpicker": "^1.9.48",
     "electron": "^3.0.7",
     "mousetrap": "^1.6.2",
     "os": "^0.1.1",

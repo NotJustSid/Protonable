@@ -22,6 +22,7 @@
     <!--CodeMirror for the Text Area-->
     <script src="textarea/lib/codemirror.js"></script>
     <link rel="stylesheet" href="textarea/lib/codemirror.css">
+    <link rel="stylesheet" href="node_modules/codemirror-colorpicker/dist/codemirror-colorpicker.css">
 
     <!--Themes for it-->
     <link href="textarea/theme/pastel-on-dark.css" rel="stylesheet">
@@ -882,6 +883,10 @@
     </div>
     <!--EDITOR END-->
 
+    <div id="minimap">
+   
+    </div>
+
     <button id="file_nav" style="color: white; border-radius: 5px;">
         Open File View
     </button>
@@ -959,6 +964,8 @@ function showFont(){
 $('.modal-backdrop').removeClass("modal-backdrop");  
                     }
 
+require( 'codemirror-colorpicker' );
+
 //CodeMirror Editor Object
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
@@ -968,6 +975,10 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         electricChars: true,
         autofocus: true,
         scrollbarStyle: 'null',
+        colorpicker : {
+            mode : 'edit',
+            type: 'sketch'
+                },
     extraKeys: {
 
     "Ctrl-S": function() { 
@@ -1006,7 +1017,9 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Shift-Ctrl-F": function(){
         showReplace();
     }, 
-
+    'Ctrl-K' : function (cm, event) {
+            cm.state.colorpicker.popup_color_picker();
+       }
 
     }
     });
