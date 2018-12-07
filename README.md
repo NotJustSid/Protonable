@@ -1,5 +1,11 @@
 # Protonable
 A Modern Text Editor Built On Electron To Provide Immersive Coding Experience!
+
+![Img](screenshots/1.png "Alpha Preview")
+
+___
+
+![Img](screenshots/2.png "Alpha Preview")
 ___
 ## Built With the Help of:
 * CodeMirror
