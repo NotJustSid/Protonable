@@ -90,9 +90,6 @@
     <script src="textarea/mode/cmake/cmake.js"></script>
     <script src="textarea/mode/coffeescript/coffeescript.js"></script>
     <script src="textarea/mode/css/css.js"></script>
-    <script src="textarea/mode/css/gss_test.js"></script>
-    <script src="textarea/mode/css/less_test.js"></script>
-    <script src="textarea/mode/css/scss_test.js"></script>
     <script src="textarea/mode/cypher/cypher.js"></script>
     <script src="textarea/mode/diff/diff.js"></script>
     <script src="textarea/mode/django/django.js"></script>
@@ -115,7 +112,12 @@
     <script src="textarea/mode/q/q.js"></script>
     <script src="textarea/mode/r/r.js"></script>
     <script src="textarea/mode/ruby/ruby.js"></script>
+
+    <!--Reqd for Rust-->
+    <script src="textarea/addon/mode/simple.js"></script>
     <script src="textarea/mode/rust/rust.js"></script>
+
+
     <script src="textarea/mode/sass/sass.js"></script>
     <script src="textarea/mode/shell/shell.js"></script>
     <script src="textarea/mode/sieve/sieve.js"></script>
@@ -983,12 +985,23 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Shift-Ctrl-F": function(){
         showReplace();
     }, 
-    'Ctrl-E' : function (cm, event) {
-            cm.state.colorpicker.popup_color_picker();
-       }
+    
 
     }
-                    });
+});
+
+function getColorPick(){
+    var map = 
+    {
+        'Ctrl-E' : function (cm, event) {
+            cm.state.colorpicker.popup_color_picker();
+       }
+    }
+
+
+    editor.addKeyMap(map);
+
+}
 
 editor.setSize(window.innerWidth + 8, "570");
 
@@ -1015,7 +1028,6 @@ else{
     editor.setOption('lineSeparator', null);
 }
 };
-
 
 //To Use Find/Replace Functionality
 var lastPos = null, lastQuery = null, marked = [];
@@ -1182,6 +1194,20 @@ var app = require('electron').remote;   //For App methods.
 var dialog = app.dialog;                //For Save/Open Dialog Boxes
 var fs = require('fs');                 //For File Explorer
 
+//To check the last worked file.
+if(localStorage.getItem('lastFile')){
+fs.readFile(localStorage.getItem('lastFile'), 'utf-8', (err, data)=>{
+
+if(err){
+    alert("Last File Was Deleted");
+    localStorage.removeItem('lastFile');
+    return;
+    }
+editor.setValue(data);
+var extension = localStorage.getItem('lastFile').split('.').pop();
+extensionCheck(extension);
+})
+};
 
 //NEW,SAVE,OPEN ETC
 var mode = document.getElementById('editor-mode');
@@ -1209,79 +1235,114 @@ dialog.showOpenDialog(
             }
         editor.setValue(data);
         path = filenames[0];
-        
+        localStorage.setItem('lastFile', path);
         var path_temp = path;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
         extension = path.split('.').pop();
-        if(extension === 'cpp'){
+        extensionCheck(extension);
+    });
+        }
+    });
+}
+function extensionCheck(extension){
+
+    if(extension === 'cpp'){
             mode.innerText = "C++";
             editor.setOption("mode", "text/x-c++src");
         }
-        else if(extension === 'c'){
+    else if(extension === 'c'){
             mode.innerText = "C";
             editor.setOption("mode", "text/x-csrc");
         }
-        else if(extension === 'cs'){
+    else if(extension === 'cs'){
             mode.innerText = "C#";
             editor.setOption("mode", "text/x-csharp");
         }
-        else if(extension === 'java'){
+    else if(extension === 'java'){
             mode.innerText = "Java";
             editor.setOption("mode", "text/x-java");
         }
-        else if(extension === 'html'){
+    
+    else if(extension === 'html'){
             mode.innerText = "HTML";
             editor.setOption("mode", "text/html");
+            getColorPick();
         }
-        else if(extension === 'js'){
+    else if(extension === 'js'){
             mode.innerText = "JavaScript";
             editor.setOption("mode", "text/javascript");
-            ////////
-            ///////
-            ///////
         }
-        else if(extension === 'css'){
+    else if(extension === 'json'){
+        mode.innerText = "JSON";
+        editor.setOption('mode', 'application/json');
+        }
+    else if(extension === 'ts' || extension === 'tsx'){
+        mode.innerText = "TypeScript";
+        editor.setOption('mode', 'text/typescript');
+        }
+
+    else if(extension === 'css'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/css");
+            getColorPick();
         }
-        else if(extension === 'scss'){
+    else if(extension === 'scss'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-scss");
+            getColorPick();
         }
-        else if(extension === 'sass'){
+    else if(extension === 'sass'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-sass");
+            getColorPick();
         }
-        else if(extension === 'less'){
+    else if(extension === 'less'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-less");
+            getColorPick();
         }
-        else if(extension === 'go'){
+    
+
+    else if(extension === 'go'){
             mode.innerText = "Go";
             editor.setOption("mode", "text/x-go");
         }
-        else if(extension === 'py'){
-            mode.innerText = "Python";
-            editor.setOption("mode", "text/x-python");
-            //////////
-            /////////
-            /////////
+    else if(extension === 'py'){
+    dialog.showMessageBox({
+            type: 'info',
+            buttons: ['Py-2', 'Py-3'],
+            message: 'Choose Python Version: ',
+        }, resp => {
+            if (resp === 0) {
+                // User selected 'Yes'
+            editor.setOption("mode", 
+            {name: "python",
+               version: 2,}
+               );
+            mode.innerText = "Python(2)";
+            }else{
+                editor.setOption("mode", 
+            {name: "python",
+               version: 3,}
+               );
+               mode.innerText = "Python(3)";
+            }
+        });
+            
         }
-        else if(extension === 'md'){
+    else if(extension === 'md'){
             mode.innerText = "MarkDown";
             editor.setOption("mode", "text/x-markdown");
         }
-        else if(extension === 'php'){
+    else if(extension === 'php'){
             mode.innerText = "PHP";
             editor.setOption("mode", "text/x-php");
         }
-        else if(extension === 'txt'){
+    else if(extension === 'txt'){
             mode.innerText = "Text";
             editor.setOption("mode", null);
+
         }
-    });
-        }
-    });
 }
 function newfile(){
 
@@ -1306,75 +1367,11 @@ function newfile(){
     });
 
     path = filename;
+    localStorage.setItem('lastFile', path);
     var path_temp = path;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
         extension = path.split('.').pop();
-        if(extension === 'cpp'){
-            mode.innerText = "C++";
-            editor.setOption("mode", "text/x-c++src");
-        }
-        else if(extension === 'c'){
-            mode.innerText = "C";
-            editor.setOption("mode", "text/x-csrc");
-        }
-        else if(extension === 'cs'){
-            mode.innerText = "C#";
-            editor.setOption("mode", "text/x-csharp");
-        }
-        else if(extension === 'java'){
-            mode.innerText = "Java";
-            editor.setOption("mode", "text/x-java");
-        }
-        else if(extension === 'html'){
-            mode.innerText = "HTML";
-            editor.setOption("mode", "text/html");
-        }
-        else if(extension === 'js'){
-            mode.innerText = "JavaScript";
-            editor.setOption("mode", "text/javascript");
-            ////////
-            ///////
-            ///////
-        }
-        else if(extension === 'css'){
-            mode.innerText = "CSS";
-            editor.setOption("mode", "text/css");
-        }
-        else if(extension === 'scss'){
-            mode.innerText = "CSS";
-            editor.setOption("mode", "text/x-scss");
-        }
-        else if(extension === 'sass'){
-            mode.innerText = "CSS";
-            editor.setOption("mode", "text/x-sass");
-        }
-        else if(extension === 'less'){
-            mode.innerText = "CSS";
-            editor.setOption("mode", "text/x-less");
-        }
-        else if(extension === 'go'){
-            mode.innerText = "Go";
-            editor.setOption("mode", "text/x-go");
-        }
-        else if(extension === 'py'){
-            mode.innerText = "Python";
-            editor.setOption("mode", "text/x-python");
-            //////////
-            /////////
-            /////////
-        }
-        else if(extension === 'md'){
-            mode.innerText = "MarkDown";
-            editor.setOption("mode", "text/x-markdown");
-        }
-        else if(extension === 'php'){
-            mode.innerText = "PHP";
-            editor.setOption("mode", "text/x-php");
-        }
-        else if(extension === 'txt'){
-            mode.innerText = "Text";
-            editor.setOption("mode", null);
-        }
+        extensionCheck(extension);
 });
 }
 function savefile(){
