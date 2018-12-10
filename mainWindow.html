@@ -1208,12 +1208,12 @@ var extension = localStorage.getItem('lastFile').split('.').pop();
 extensionCheck(extension);
 })
 };
-const {BrowserWindow} = require('electron').remote
+
 //NEW,SAVE,OPEN ETC
 var mode = document.getElementById('editor-mode');
 var path;
 function openfile(){
-dialog.showOpenDialog(BrowserWindow, 
+dialog.showOpenDialog( 
 {title: 'Open File',
 // filters: 
 // [
@@ -1346,7 +1346,7 @@ function extensionCheck(extension){
 }
 function newfile(){
 
-    dialog.showSaveDialog( BrowserWindow,
+    dialog.showSaveDialog(
     {title: 'Create New File',
     // filters: 
     // [
