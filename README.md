@@ -28,3 +28,14 @@ npm start
 ```
 to start up the application.
 ___
+
+## Supported Langauges:
+* C
+* C++
+* C#
+* Java
+* JavaScript
+* CSS
+* HTML
+* Python
+* More to come in future!
