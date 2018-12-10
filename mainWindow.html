@@ -155,6 +155,8 @@
     <script src="textarea/addon/edit/closetag.js"></script>
     <script src="textarea/addon/comment/comment.js"></script>
     
+    <script src="renderer.js"></script>
+
     <!--DEFAULT HINT PROVIDERS FROM CODEMIRROR-->
     
 
@@ -925,11 +927,12 @@ $('.modal-backdrop').removeClass("modal-backdrop");
 
 //**Try to Open the Terminal for the particular file location 
 function showTerminal(){
-const { app } = require ('electron').remote;
-const atPath = app.getPath ('desktop');
-const { spawn } = require ('child_process');
-let openTerminalAtPath = spawn ('open', [ '-a', 'C:/WINDOWS/system32/cmd.exe', atPath ]);
-openTerminalAtPath.on ('error', (err) => { console.log (err); });
+    var child_process = require('child_process');
+    if(path===undefined)
+    child_process.exec("start cmd.exe /K cd /D" + localStorage.getItem('lastFile').match(/(.*)[\/\\]/)[1]||'');
+    else{
+    child_process.exec("start cmd.exe /K cd /D" + path);
+    }
 }
 
 require( 'codemirror-colorpicker' );
