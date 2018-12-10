@@ -971,8 +971,13 @@ $('.modal-backdrop').removeClass("modal-backdrop");
 //**Try to Open the Terminal for the particular file location 
 function showTerminal(){
     var child_process = require('child_process');
-    if(path===undefined)
-    child_process.exec("start cmd.exe /K cd /D" + localStorage.getItem('lastFile').match(/(.*)[\/\\]/)[1]||'');
+    if(path===undefined){
+        if(localStorage.getItem('lastFile'))
+        child_process.exec("start cmd.exe /K cd /D" + localStorage.getItem('lastFile').match(/(.*)[\/\\]/)[1]||'');
+        else{
+            child_process.exec("start cmd.exe");
+        }
+    }
     else{
     child_process.exec("start cmd.exe /K cd /D" + path);
     }
