@@ -828,6 +828,54 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="ModeModal">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Choose Mode
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+                            <div class="form-group">
+                                    <select class="custom-select" id="mode_select">
+                                      <option selected="">Click Here</option>
+                                      <option value="cpp">C++</option>
+                                      <option value="c">C</option>
+                                      <option value="py">Python</option>
+                                      <option value="js">JavaScript</option>
+                                      <option value="md">MarkDown</option>
+                                      <option value="html">HTML</option>
+                                      <option value="css">CSS</option>
+                                      <option value="txt">Text</option>
+                                      <option value="gitignore">gitignore</option>
+                                      <option value="java">Java</option>
+                                      <option value="cs">C#</option>
+                                    </select>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="extensionCheck(document.getElementById('mode_select').value)">Change</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--MODALS END-->
 
 
@@ -878,7 +926,7 @@
         </li>
         
         <li class="info-item">
-            <button style="all:unset" id="editor-mode">Text</button>
+            <button style="all:unset" id="editor-mode" onmousedown="showMode()">Text</button>
         </li>
 
 
@@ -914,6 +962,11 @@ function showFont(){
     
 $('.modal-backdrop').removeClass("modal-backdrop");  
                     }
+function showMode(){
+     $('#ModeModal').modal('show');
+    
+$('.modal-backdrop').removeClass("modal-backdrop");  
+}
 
 //**Try to Open the Terminal for the particular file location 
 function showTerminal(){
@@ -1161,8 +1214,9 @@ function tupdate(){
 
                 // Close app
                 document.getElementById("close-btn").addEventListener("click", (e) => {
-                    
-                    
+
+                        localStorage.removeItem('path');
+
                         var window = BrowserWindow.getFocusedWindow();
                         window.close();  
                     
@@ -1242,7 +1296,7 @@ dialog.showOpenDialog(
 }
 function extensionCheck(extension){
 
-    if(extension === 'cpp' ||'cc'||'cc'||'hpp'||'hh'||'hxx'||'h'){
+    if(extension === 'cpp' || extension === 'cc'|| extension === 'cxx'||extension ==='hpp'||extension ==='hh'||extension ==='hxx'||extension ==='h'){
             mode.innerText = "C++";
             editor.setOption("mode", "text/x-c++src");
         }
@@ -1250,16 +1304,16 @@ function extensionCheck(extension){
             mode.innerText = "C";
             editor.setOption("mode", "text/x-csrc");
         }
-    else if(extension === 'cs'||'csx'||'cake'){
+    else if(extension === 'cs'||extension ==='csx'||extension ==='cake'){
             mode.innerText = "C#";
             editor.setOption("mode", "text/x-csharp");
         }
-    else if(extension === 'java'||'jav'){
+    else if(extension === 'java'||extension ==='jav'){
             mode.innerText = "Java";
             editor.setOption("mode", "text/x-java");
         }
     
-    else if(extension === 'html'||'htm'){
+    else if(extension === 'html'||extension ==='htm'){
             mode.innerText = "HTML";
 var mixedMode = {
         name: "htmlmixed",
@@ -1272,11 +1326,11 @@ var mixedMode = {
             editor.setOption("autoCloseTags", true);
             getColorPick();
         }
-    else if(extension === 'js' ||'es6'||'mjs'||'pac'){
+    else if(extension === 'js' ||extension ==='es6'||extension ==='mjs'||extension ==='pac'){
             mode.innerText = "JavaScript";
             editor.setOption("mode", "text/javascript");
         }
-    else if(extension === 'json'||'bowerrc'||'jshintrc'||'jscrsc'){
+    else if(extension === 'json'||extension ==='bowerrc'||extension ==='jshintrc'||extension ==='jscrsc'){
         mode.innerText = "JSON";
         editor.setOption('mode', 'application/json');
         }
@@ -1334,7 +1388,7 @@ var mixedMode = {
         });
             
         }
-    else if(extension === 'md'||'mkd'||'mkdwn'||'markdown'||'markdn'||'mdtxt'||'mdtext'||'workbook'){
+    else if(extension === 'md'||extension ==='mkd'||extension ==='mkdwn'||extension ==='markdown'||extension ==='markdn'||extension ==='mdtxt'||extension ==='mdtext'||extension ==='workbook'){
             mode.innerText = "MarkDown";
             editor.setOption("mode", "text/x-markdown");
         }
@@ -1343,10 +1397,18 @@ var mixedMode = {
             editor.setOption("mode", "text/x-php");
         }
     else if(extension === 'txt' || extension === 'gitignore'){
-            mode.innerText = "Text";
-            editor.setOption("mode", null);
-
+        if(extension === 'gitignore'){
+            mode.innerText = "gitignore";
         }
+        if(extension === 'txt'){mode.innerText = "Text";}
+            editor.setOption("mode", null);
+    }else{
+        alert('File Type Not Supported');
+        editor.setValue('');
+        editor.clearHistory();
+        document.getElementById('fileInfo').innerText = '';
+        localStorage.removeItem('lastFile');
+    }
 }
 function newfile(){
 
@@ -1363,12 +1425,6 @@ function newfile(){
     if(filename === undefined){
         return;
     }
-
-    var content = editor.getValue();
-
-    fs.writeFile(filename, content, (err)=>{
-        if(err) alert(err);
-    });
 
     path = filename;
     localStorage.setItem('lastFile', path);
