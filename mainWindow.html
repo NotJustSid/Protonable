@@ -152,7 +152,11 @@
     <script src="textarea/addon/hint/show-hint.js"></script>
     <script src="textarea/addon/hint/anyword-hint.js"></script>
     <link href="textarea/addon/hint/show-hint.css" rel="stylesheet">
-    <script src="textarea/addon/hint/cpp-hint.js"></script>
+    <script src="textarea/addon/edit/closetag.js"></script>
+    <script src="textarea/addon/comment/comment.js"></script>
+    
+    <!--DEFAULT HINT PROVIDERS FROM CODEMIRROR-->
+    
 
     <style>
         body{
@@ -1113,11 +1117,7 @@ var theme = localStorage.getItem("THEME");
 //AutoComplete--Still In Work
 editor.on("keypress", function (cm, event) {
         if (!cm.state.completionActive && event.keyCode != 13) { 
-            // CodeMirror.commands.autocomplete(cm, null, {
-            //     completeSingle: false
-            // });
-            cm.showHint({
-                hint: CodeMirror.hint.anyword,
+            CodeMirror.commands.autocomplete(cm, null, {
                 completeSingle: false
             });
         }
@@ -1182,7 +1182,6 @@ function tupdate(){
                 }
             };
         })();
-
 
 //UNDO & REDO
 function undo(){
@@ -1270,6 +1269,7 @@ function extensionCheck(extension){
     else if(extension === 'html'){
             mode.innerText = "HTML";
             editor.setOption("mode", "text/html");
+            editor.setOption("autoCloseTags", true);
             getColorPick();
         }
     else if(extension === 'js'){
@@ -1380,8 +1380,12 @@ function newfile(){
 }
 function savefile(){
     var content = editor.getValue();
-    if(path === undefined){
+    if(path === undefined && localStorage.getItem('lastFile') === undefined ){
         newfile();
+    }else if(path === undefined){
+        if(localStorage.getItem('lastFile')){
+            path = localStorage.getItem('lastFile');
+        }
     }
     fs.writeFile(path, content, (err)=>{
         if(err) alert(err);
