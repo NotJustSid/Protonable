@@ -1242,7 +1242,7 @@ dialog.showOpenDialog(
 }
 function extensionCheck(extension){
 
-    if(extension === 'cpp'){
+    if(extension === 'cpp' ||'cc'||'cc'||'hpp'||'hh'||'hxx'||'h'){
             mode.innerText = "C++";
             editor.setOption("mode", "text/x-c++src");
         }
@@ -1250,16 +1250,16 @@ function extensionCheck(extension){
             mode.innerText = "C";
             editor.setOption("mode", "text/x-csrc");
         }
-    else if(extension === 'cs'){
+    else if(extension === 'cs'||'csx'||'cake'){
             mode.innerText = "C#";
             editor.setOption("mode", "text/x-csharp");
         }
-    else if(extension === 'java'){
+    else if(extension === 'java'||'jav'){
             mode.innerText = "Java";
             editor.setOption("mode", "text/x-java");
         }
     
-    else if(extension === 'html'){
+    else if(extension === 'html'||'htm'){
             mode.innerText = "HTML";
 var mixedMode = {
         name: "htmlmixed",
@@ -1272,11 +1272,11 @@ var mixedMode = {
             editor.setOption("autoCloseTags", true);
             getColorPick();
         }
-    else if(extension === 'js'){
+    else if(extension === 'js' ||'es6'||'mjs'||'pac'){
             mode.innerText = "JavaScript";
             editor.setOption("mode", "text/javascript");
         }
-    else if(extension === 'json'){
+    else if(extension === 'json'||'bowerrc'||'jshintrc'||'jscrsc'){
         mode.innerText = "JSON";
         editor.setOption('mode', 'application/json');
         }
@@ -1334,7 +1334,7 @@ var mixedMode = {
         });
             
         }
-    else if(extension === 'md'){
+    else if(extension === 'md'||'mkd'||'mkdwn'||'markdown'||'markdn'||'mdtxt'||'mdtext'||'workbook'){
             mode.innerText = "MarkDown";
             editor.setOption("mode", "text/x-markdown");
         }
@@ -1342,7 +1342,7 @@ var mixedMode = {
             mode.innerText = "PHP";
             editor.setOption("mode", "text/x-php");
         }
-    else if(extension === 'txt'){
+    else if(extension === 'txt' || extension === 'gitignore'){
             mode.innerText = "Text";
             editor.setOption("mode", null);
 
