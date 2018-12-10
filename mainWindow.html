@@ -918,6 +918,8 @@ function showFont(){
     
 $('.modal-backdrop').removeClass("modal-backdrop");  
                     }
+
+//**Try to Open the Terminal for the particular file location 
 function showTerminal(){
 const { app } = require ('electron').remote;
 const atPath = app.getPath ('desktop');
@@ -990,6 +992,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     }
 });
 
+//Color Picker Function
 function getColorPick(){
     var map = 
     {
@@ -1204,6 +1207,7 @@ if(err){
     return;
     }
 editor.setValue(data);
+document.getElementById('fileInfo').innerText = localStorage.getItem('lastFile').replace(/^.*(\\|\/|\:)/, '');
 var extension = localStorage.getItem('lastFile').split('.').pop();
 extensionCheck(extension);
 })
@@ -1418,6 +1422,9 @@ function setTime() {
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
   minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  if(totalSeconds===86400){
+      totalSeconds = 0;
+  }
 }
 function pad(val) {
   var valString = val + "";
