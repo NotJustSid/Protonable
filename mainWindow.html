@@ -90,8 +90,6 @@
     <script src="textarea/mode/cmake/cmake.js"></script>
     <script src="textarea/mode/coffeescript/coffeescript.js"></script>
     <script src="textarea/mode/css/css.js"></script>
-    <script src="textarea/mode/cypher/cypher.js"></script>
-    <script src="textarea/mode/diff/diff.js"></script>
     <script src="textarea/mode/django/django.js"></script>
     <script src="textarea/mode/go/go.js"></script>
     <script src="textarea/mode/haml/haml.js"></script>
@@ -101,16 +99,11 @@
     <script src="textarea/mode/livescript/livescript.js"></script>
     <script src="textarea/mode/markdown/markdown.js"></script>
     <script src="textarea/mode/mathematica/mathematica.js"></script>
-    <script src="textarea/mode/modelica/modelica.js"></script>
     <script src="textarea/mode/pascal/pascal.js"></script>
-    <script src="textarea/mode/pegjs/pegjs.js"></script>
     <script src="textarea/mode/perl/perl.js"></script>
     <script src="textarea/mode/php/php.js"></script>
-    <script src="textarea/mode/pig/pig.js"></script>
     <script src="textarea/mode/powershell/powershell.js"></script>
     <script src="textarea/mode/python/python.js"></script>
-    <script src="textarea/mode/q/q.js"></script>
-    <script src="textarea/mode/r/r.js"></script>
     <script src="textarea/mode/ruby/ruby.js"></script>
 
     <!--Reqd for Rust-->
@@ -120,17 +113,14 @@
 
     <script src="textarea/mode/sass/sass.js"></script>
     <script src="textarea/mode/shell/shell.js"></script>
-    <script src="textarea/mode/sieve/sieve.js"></script>
     <script src="textarea/mode/slim/slim.js"></script>
-    <script src="textarea/mode/smalltalk/smalltalk.js"></script>
     <script src="textarea/mode/sql/sql.js"></script>
     <script src="textarea/mode/swift/swift.js"></script>
-    <script src="textarea/mode/twig/twig.js"></script>
     <script src="textarea/mode/vb/vb.js"></script>
     <script src="textarea/mode/vbscript/vbscript.js"></script>
     <script src="textarea/mode/vue/vue.js"></script>
     <script src="textarea/mode/xml/xml.js"></script>
-    
+    <script src="textarea/mode/htmlmixed/htmlmixed.js"></script>
 
     
     <script src="textarea/addon/fold/foldcode.js"></script>
@@ -1271,7 +1261,14 @@ function extensionCheck(extension){
     
     else if(extension === 'html'){
             mode.innerText = "HTML";
-            editor.setOption("mode", "text/html");
+var mixedMode = {
+        name: "htmlmixed",
+        scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                       mode: null},
+                      {matches: /(text|application)\/(x-)?vb(a|script)/i,
+                       mode: "vbscript"}]
+      };
+            editor.setOption("mode", mixedMode);
             editor.setOption("autoCloseTags", true);
             getColorPick();
         }
