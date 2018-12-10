@@ -7,7 +7,6 @@
     <title>Protonable</title>
 
     <!--Darkly BootStrap-->
-    
     <script src="Bootstrap/jquery-3.3.1.slim.min.js"></script>
     <link rel="stylesheet" href="BootStrap/Darkly/bootstrap.min.css">
     <script src="BootStrap/jquery.min.js"></script>
@@ -16,9 +15,6 @@
     <script src="Bootstrap/bootstrap.min.js"></script>
 
     <link href="fontawesome/css/all.min.css" rel="stylesheet">
-    <!-- Integrated Terminal
-    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
-    <script src="node_modules/xterm/dist/xterm.js"></script> -->
 
     <!--CodeMirror for the Text Area-->
     <script src="textarea/lib/codemirror.js"></script>
@@ -152,7 +148,13 @@
     <script src="textarea/addon/hint/show-hint.js"></script>
     <script src="textarea/addon/hint/anyword-hint.js"></script>
     <link href="textarea/addon/hint/show-hint.css" rel="stylesheet">
-    <script src="textarea/addon/hint/cpp-hint.js"></script>
+
+    <!--Default Hints Provided by CodeMirror-->
+    <script src="textarea/addon/hint/html-hint.js"></script>
+    <script src="textarea/addon/hint/css-hint.js"></script>
+    <script src="textarea/addon/hint/javascript-hint.js"></script>
+    <script src="textarea/addon/hint/sql-hint.js"></script>
+
 
     <style>
         body{
@@ -1450,7 +1452,7 @@ function changePos(){
 </script>
 
 <script>
-    require('./renderer.js')
+    require('./renderer.js');
 </script>
 
 </html>

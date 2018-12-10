@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 function readDir(path2) {
     fs.readdir(path2, (err, files) => {
         'use strict';
@@ -20,7 +18,3 @@ function readDir(path2) {
         }
     });
 }
-
-(function (){
-readDir('.');
-})();
