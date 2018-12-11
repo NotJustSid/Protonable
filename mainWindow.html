@@ -899,11 +899,10 @@
                         <input class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search">
                     </li>
                     <li class="list-group-item" style="margin:0;padding:0;height:125px;width: 1515px;left:10px;bottom:-30px;">
-                        <div class="media-body">
+                        
                             <ul id="file-list" style="list-style:none; padding: 0">
                                 
                             </ul>  
-                        </div>
                     </li>
                  </ul>
                  </div>
@@ -1285,8 +1284,8 @@ dialog.showOpenDialog(
 
         }
         else{
-            
-            fs.readFile(filenames[0], 'utf-8', (err, data)=>{
+
+        fs.readFile(filenames[0], 'utf-8', (err, data)=>{
 
         if(err){
             alert("ERROR: Cannot Read File");
@@ -1434,7 +1433,7 @@ function newfile(){
     if(filename === undefined){
         return;
     }
-
+    
     path = filename;
     localStorage.setItem('lastFile', path);
     var path_temp = path;
@@ -1522,7 +1521,7 @@ function changePos(){
 };
 
 //File Explorer Part moved in renderer.js
-
+readDir('.');
 </script>
 
 <script>
