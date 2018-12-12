@@ -11,7 +11,7 @@ function readDir(path2) {
                
                if(stats.isDirectory()){
                
-           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" onmousedown="readDir($(this).attr('id'))"><i class="fa fa-folder-open dir"></i> ${file}</li>`;
+           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><i class="fa fa-folder-open dir"></i> ${file}</li>`;
                }
              
                 else {
