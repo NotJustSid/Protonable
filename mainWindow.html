@@ -853,7 +853,6 @@
                     <div class="form-group modal-body">
                             <div class="form-group">
                                     <select class="custom-select" id="mode_select">
-                                      <option selected="">Click Here</option>
                                       <option value="cpp">C++</option>
                                       <option value="c">C</option>
                                       <option value="py">Python</option>
@@ -1293,6 +1292,7 @@ dialog.showOpenDialog(
             }
         editor.setValue(data);
         path = filenames[0];
+        
         localStorage.setItem('lastFile', path);
         var path_temp = path;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
@@ -1520,7 +1520,7 @@ function changePos(){
     editor.setCursor(lineNoValue, colNoValue);
     editor.focus();
 };
-readDir('.');
+
 //File Explorer Part moved in renderer.js
 </script>
 
