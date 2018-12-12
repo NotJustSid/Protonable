@@ -1064,11 +1064,11 @@ function getColorPick(){
 
 }
 
-editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+editor.setSize(window.innerWidth + 8, "570");
 
 //To deal with the window being resized but the editor not being so
 window.addEventListener('resize', ()=>{
-    editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+    editor.setSize(window.innerWidth + 8, "570");
 });
 
 
@@ -1417,7 +1417,6 @@ var mixedMode = {
         document.getElementById('fileInfo').innerText = '';
         localStorage.removeItem('lastFile');
     }
-    editor.refresh();
 }
 function newfile(){
 
