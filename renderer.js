@@ -15,9 +15,25 @@ function readDir(path2) {
                }
              
                 else {
-                  document.getElementById('file-list').innerHTML += `<li><i class="fa fa-file dir"></i> ${file}</li>`;
+                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><i class="fa fa-file dir"></i> ${file}</li>`;
                       }
            });
         }
     });
+}
+
+function openthefile(pathtofile){
+    fs.readFile(pathtofile, 'utf-8', (err, data)=>{
+
+        if(err){
+            alert(err);
+            return;
+            }
+
+        editor.setValue(data);
+        document.getElementById('fileInfo').innerText = pathtofile.replace(/^.*(\\|\/|\:)/, '');
+        var extension = pathtofile.split('.').pop();
+        extensionCheck(extension);
+        });
+        
 }
