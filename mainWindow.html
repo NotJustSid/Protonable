@@ -418,10 +418,6 @@
         #terminal_:focus{
             outline: none;
         }
-        #img_file{
-            height: 20px;
-            width: 20px;
-        }
         #prodirchooseWrap{
             background-color: white;
         }
@@ -429,11 +425,27 @@
             display: none;
         }
         #file-list > li{
-            float: left;
-            margin: 20px;
-            margin-right: 20px;
-            margin-bottom: 20px;
-
+            display: inline-block;
+            text-align: center;
+            height: 110px;
+            width: 100px;
+            margin: 10px;
+            margin-right: 40px;
+            margin-bottom: 0px;
+            user-select: none;
+            padding: 2px;
+        }
+        #file-list{
+            overflow-x:scroll;
+            white-space: nowrap;
+        }
+        #file-list>li:hover{
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(36, 36, 36);
+        }
+        #file-list>li:active{
+        border-radius: 10px 10px 10px 10px;
+        background-color: rgb(36, 36, 36);
         }
         .navy-info{
             color: rgb(255,255,255, 0.2);
@@ -894,10 +906,10 @@
             <div class="pane-sm sidebar">
                 <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;">...</button>
                 <ul class="list-group">
-                    <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 1340px;">
+                    <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 60%;">
                         <input class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search">
                     </li>
-                    <li class="list-group-item" style="margin:0;padding:0;height:125px;width: 103%;left:10px;bottom:-30px;">
+                    <li class="list-group-item" style="margin:0;padding:0;height:125px;width:175.5vh;left:10px;bottom:-30px;">
                         
                             <ul id="file-list" style="list-style:none; padding: 0">
                                 
@@ -1522,6 +1534,7 @@ function changePos(){
 };
 
 //File Explorer Part moved in renderer.js
+readDir('C://Users//');
 </script>
 
 <script>
