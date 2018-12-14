@@ -144,9 +144,9 @@
     <link href="textarea/addon/hint/show-hint.css" rel="stylesheet">
     <script src="textarea/addon/edit/closetag.js"></script>
     <script src="textarea/addon/comment/comment.js"></script>
-    
-    <script src="renderer.js"></script>
 
+    <script src="renderer.js"></script>
+    
     <!--DEFAULT HINT PROVIDERS FROM CODEMIRROR-->
     
 
@@ -433,11 +433,14 @@
             margin-right: 40px;
             margin-bottom: 0px;
             user-select: none;
+            white-space:pre-wrap;
             padding: 2px;
+            vertical-align:-webkit-baseline-middle;
         }
         #file-list{
             overflow-x:scroll;
             white-space: nowrap;
+            
         }
         #file-list>li:hover{
         border-radius: 10px 10px 10px 10px;
@@ -904,7 +907,7 @@
     <div id="FileExplorer">
         <div class="pane-group">
             <div class="pane-sm sidebar">
-                <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;">...</button>
+                <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">...</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 60%;">
                         <input class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search">
@@ -1088,10 +1091,8 @@ function lineFeed(){
         var encoding = document.getElementById('lineFeed');
 
             if(encoding.innerText === "CLRF"){
-
-            encoding.innerText = "LF";
-             editor.setOption('lineSeparator', "LF");
-                                            
+                encoding.innerText = "LF";
+                editor.setOption('lineSeparator', "LF");
                                             }
 
 else{
@@ -1493,6 +1494,9 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function(){showFind(); return false;});
 Mousetrap.bind(['command+z', 'ctrl+z'], function(){undo(); return false;});
 Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
 
+// editor.on('focus', ()=>{
+    
+// });
 
 //Working for Timer
 var minutesLabel = document.getElementById("minutes");

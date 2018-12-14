@@ -1,6 +1,10 @@
 resolve = require('path').resolve;
+var path = require('path');
 
 function readDir(path2) {
+
+    localStorage.setItem('prevDir', path.dirname(path2) + '//');
+
     fs.readdir(path2, (err, files) => {
         'use strict';
         document.getElementById('file-list').innerHTML = "";
@@ -15,7 +19,7 @@ function readDir(path2) {
                }
              
                 else {
-                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><i class="fa fa-file dir"></i><br>${file}</li>`;
+                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px"></i><br>${file}</li>`;
                       }
            });
         }
@@ -37,3 +41,15 @@ function openthefile(pathtofile){
         });
         
 }
+
+function goback(){
+    readDir(localStorage.getItem('prevDir'));
+}
+// function whatimg(filename){
+//     extension = filename.split('.').pop();
+//     if(extension === 'html' || extension === 'htm'){
+//         return 'img/files/html.png'
+//     }else if(extension === 'css'){
+//         return 'img/files/css.png'
+//     }
+// }
