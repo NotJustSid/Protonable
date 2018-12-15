@@ -16,9 +16,6 @@
     <script src="Bootstrap/bootstrap.min.js"></script>
 
     <link href="fontawesome/css/all.min.css" rel="stylesheet">
-    <!-- Integrated Terminal
-    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
-    <script src="node_modules/xterm/dist/xterm.js"></script> -->
 
     <!--CodeMirror for the Text Area-->
     <script src="textarea/lib/codemirror.js"></script>
@@ -396,15 +393,6 @@
             text-align: center;
             vertical-align: -webkit-baseline-middle;
         }
-        #terminal_{
-            background-color: rgb(36, 36, 36);
-            border: 0;
-            margin: 0;
-            position: absolute;
-            height: 30px;
-            bottom: 192px;
-            right: 12px;
-        }
         #FileExplorer{
             border: 0;
             margin: 0;
@@ -412,10 +400,54 @@
             position: absolute;
             bottom: 80px;
         }
-        #terminal_:hover{
+        #file-list::-webkit-scrollbar { 
+            width: 7px;
+            height: 7px;
+        }
+        #file-list::-webkit-scrollbar-button {
+            width: 0px;
+            height: 0px;
+        }
+        #file-list::-webkit-scrollbar-thumb {
+            background: #a3a3a3;
+            border: 3px none #ffffff;
+            border-radius: 50px;
+        }
+        #file-list::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+        #file-list::-webkit-scrollbar-thumb:active {
+            background: #000000;
+        }
+        #file-list::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border: 1px none #ffffff;
+            border-radius: 50px;
+        }
+        #file-list::-webkit-scrollbar-track:hover {
+            background: #666666;
+        }
+        #file-list::-webkit-scrollbar-track:active {
+            background: #333333;
+        }
+        #file-list::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+        .panebtn_{
+            background-color: rgb(36, 36, 36);
+            border: 0;
+            margin: 0;
+            position: absolute;
+            height: 30px;
+            bottom: 192px;
+            right: 12px;
+            color: white; 
+            border-radius: 5px;
+        }
+        .panebtn_:hover{
             background-color: #444;
         }
-        #terminal_:focus{
+        .panebtn_:focus{
             outline: none;
         }
         #prodirchooseWrap{
@@ -430,17 +462,20 @@
             height: 110px;
             width: 100px;
             margin: 10px;
-            margin-right: 40px;
+            margin-right: 80px;
             margin-bottom: 0px;
             user-select: none;
+            word-wrap: break-word;
             white-space:pre-wrap;
             padding: 2px;
             vertical-align:-webkit-baseline-middle;
         }
         #file-list{
-            overflow-x:scroll;
+            overflow:hidden;
             white-space: nowrap;
-            
+        }
+        #file-list:hover{
+            overflow: auto;
         }
         #file-list>li:hover{
         border-radius: 10px 10px 10px 10px;
@@ -457,13 +492,13 @@
             margin-right: 15px;
             margin-top: 5px;
         }
-   .modal{
-   position:fixed;
-   top:auto;
-   right:10px;;
-   left:auto;
-   bottom:50%;
-} 
+        .modal{
+            position:fixed;
+            top:auto;
+            right:10px;;
+            left:auto;
+            bottom:50%;
+        } 
         
     </style>
 
@@ -900,17 +935,17 @@
     <!--EDITOR END-->
 
 
-    <button id="terminal_" onmousedown="showTerminal()" style="color: white; border-radius: 5px;">
+    <button class="panebtn_" onmousedown="showTerminal()">
         Terminal
     </button>
 
     <div id="FileExplorer">
         <div class="pane-group">
             <div class="pane-sm sidebar">
-                <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">...</button>
+                <button class="btn btn-large btn-outline-info center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">&lt;</button>
                 <ul class="list-group">
-                    <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 60%;">
-                        <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search" onkeyup="fileSearch()">
+                    <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 60vh;">
+                        <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
                     </li>
                     <li class="list-group-item" style="margin:0;padding:0;height:125px;width:175.5vh;left:10px;bottom:-30px;">
                         

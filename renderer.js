@@ -35,6 +35,7 @@ function openthefile(pathtofile){
             }
 
         editor.setValue(data);
+        localStorage.setItem('lastFile', pathtofile);
         document.getElementById('fileInfo').innerText = pathtofile.replace(/^.*(\\|\/|\:)/, '');
         var extension = pathtofile.split('.').pop();
         extensionCheck(extension);
