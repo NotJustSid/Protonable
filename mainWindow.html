@@ -1048,7 +1048,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         autofocus: true,
         scrollbarStyle: 'null',
         foldGutter: true,
-        gutters: ["CodeMirror-linenumbers","breakpoints", "CodeMirror-foldgutter"],
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
         colorpicker : {
             mode : 'edit',
             type: 'sketch'
@@ -1216,25 +1216,13 @@ var theme = localStorage.getItem("THEME");
 
 
 //AutoComplete--Still In Work
-editor.on("keydown", function (cm, event) {
+editor.on("keypress", function (cm, event) {
         if (!cm.state.completionActive && !(event.keyCode>=8 && event.keyCode<=47)) { 
             CodeMirror.commands.autocomplete(cm, null, {
                 completeSingle: false
             });
         }
     });
-
-editor.on("gutterClick", function(cm, n) {
-  var info = cm.lineInfo(n);
-  cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
-});
-
-function makeMarker() {
-  var marker = document.createElement("div");
-  marker.style.color = "#69A1DA";
-  marker.innerHTML = "&block;";
-  return marker;
-}
 
 //To Search through the files in the File Explorer.
 function fileSearch(){
