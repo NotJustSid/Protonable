@@ -15,11 +15,11 @@ function readDir(path2) {
                
                if(stats.isDirectory()){
                
-           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px" class="dir"><br>${file}</li>`;
+           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px" class="dir"><br><span>${file}</span></li>`;
                }
              
                 else {
-                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px"></i><br>${file}</li>`;
+                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px"><br><span>${file}<span></li>`;
                       }
            });
         }

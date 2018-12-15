@@ -910,7 +910,7 @@
                 <button class="btn btn-large btn-primary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">...</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 60%;">
-                        <input class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search">
+                        <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search" onkeyup="fileSearch()">
                     </li>
                     <li class="list-group-item" style="margin:0;padding:0;height:125px;width:175.5vh;left:10px;bottom:-30px;">
                         
@@ -1200,6 +1200,24 @@ function makeMarker() {
   return marker;
 }
 
+//To Search through the files in the File Explorer.
+function fileSearch(){
+    var searchFile = document.getElementById('fileSearcher').value;
+
+  var ul, li, a, i, txtValue;
+  ul = document.getElementById("file-list");
+  li = ul.getElementsByTagName('li');
+
+  for (i = 0; i < li.length; i++) {
+    span = li[i].getElementsByTagName("span")[0];
+    txtValue = span.textContent || span.innerText;
+    if (txtValue.indexOf(searchFile) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
 
 //Font Updating and Theme Updating
 function fupdate() {
