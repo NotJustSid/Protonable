@@ -1094,7 +1094,8 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Shift-Ctrl-F": function(){
         showReplace();
     },
-
+    "Ctrl-]": cm => CodeMirror.commands.foldAll(cm),
+    "Ctrl-[": cm => CodeMirror.commands.unfoldAll(cm),
     }
 });
 
@@ -1215,8 +1216,8 @@ var theme = localStorage.getItem("THEME");
 
 
 //AutoComplete--Still In Work
-editor.on("keypress", function (cm, event) {
-        if (!cm.state.completionActive && event.keyCode != 13) { 
+editor.on("keydown", function (cm, event) {
+        if (!cm.state.completionActive && !(event.keyCode>=8 && event.keyCode<=47)) { 
             CodeMirror.commands.autocomplete(cm, null, {
                 completeSingle: false
             });
