@@ -1132,7 +1132,6 @@ function getColorPick(){
        }
     }
 
-
     editor.addKeyMap(map);
 
 }
@@ -1382,8 +1381,8 @@ dialog.showOpenDialog(
         pathtofile = filenames[0];
         
         localStorage.setItem('lastFile', pathtofile);
-        var path_temp = pathtofile;
-        document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
+        document.getElementById('fileInfo').innerText = path.basename(pathtofile);
+        readDir(path.dirname(pathtofile));
         extension = path.extname(pathtofile);
         extensionCheck(extension);
     });
@@ -1525,8 +1524,8 @@ function newfile(){
     
     pathtofile = filename;
     localStorage.setItem('lastFile', pathtofile);
-    var path_temp = pathtofile;
-        document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
+        document.getElementById('fileInfo').innerText = path.basename(pathtofile);
+        readDir(path.dirname(pathtofile));
         extension = path.extname(pathtofile);
         extensionCheck(extension);
 });

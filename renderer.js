@@ -10,7 +10,7 @@ function readDir(path2) {
         document.getElementById('file-list').innerHTML = "";
         if (err) throw  err;
         for (let file of files) {
-           fs.stat(path2.slice(0,-1)+file,(err,stats)=>{
+           fs.stat(resolve(path2)+'/'+file,(err,stats)=>{
                if(err) throw err;
                
                if(stats.isDirectory()){
@@ -36,7 +36,8 @@ function openthefile(PathToTheFile){
 
         editor.setValue(data);
         localStorage.setItem('lastFile', PathToTheFile);
-        document.getElementById('fileInfo').innerText = PathToTheFile.replace(/^.*(\\|\/|\:)/, '');
+        document.getElementById('fileInfo').innerText = path.basename(PathToTheFile);
+        readDir(path.dirname(PathToTheFile));
         var extension = path.extname(PathToTheFile);
         extensionCheck(extension);
         });
