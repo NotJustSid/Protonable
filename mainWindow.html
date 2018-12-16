@@ -990,7 +990,27 @@
 
 <script>
 
-//Settings Modals
+/*
+
+INSTRUCTIONS TO CODE:
+1)I AM SORRY THAT I INCLUDED ALL OF THE JS IN THE SAME FILE. IT MIGHT BE CHANGED.
+2)THE CODEMIRROR INSTANCE USED IS KNOWN AS editor. It is an object.
+3)I HAVE PUT UP A TRACK OF VARIABLES (BOTTOM) SO THAT IT IS EASY TO GO THROUGH.
+4)
+
+VARIABLES TO KEEP TRACK OF:
+pathtofile : This var is saved in localstorage as path and is actually used to open Terminal in the Current DIR.
+theme : The Theme of the editor. In localstorage as THEME.
+size : Font Size - in LocalStorage as size.
+face: Font Face - in localstorage as face.
+lastFile : So that the editor opens the last working file - ONLY in localstorage as lastFile
+prevDir : Used to go back to the previous directory in the file explorer.
+
+--STILL EDITING--
+
+*/
+
+//////////////////////////////////MODALS previewers
 function showFind(){
     $('#Find').modal('show'); 
     $('.modal-backdrop').removeClass("modal-backdrop"); 
@@ -1020,7 +1040,9 @@ function line_col(){
     $('#cursorPos').modal('show');
     $('.modal-backdrop').removeClass("modal-backdrop");  
 }
-//**Try to Open the Terminal for the particular file location 
+///////////////////////////////////////////////////
+
+//////////////////////////////////////Open TERMINAL 
 function showTerminal(){
     var child_process = require('child_process');
     if(pathtofile===undefined){
@@ -1035,10 +1057,11 @@ function showTerminal(){
     child_process.exec("start cmd.exe /K cd /D" + pathtofile);
     }
 }
+///////////////////////////////////////////////////
 
+
+/////////////////////////////////////////CODEMIRROR
 require( 'codemirror-colorpicker' );
-
-//CodeMirror Editor Object
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
         lineNumbers: true,
@@ -1100,7 +1123,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     }
 });
 
-//Color Picker Function
+//COLOR PICKER
 function getColorPick(){
     var map = 
     {
@@ -1125,13 +1148,12 @@ window.addEventListener('resize', ()=>{
 //To change the Line Ending Format
 function lineFeed(){
         var encoding = document.getElementById('lineFeed');
-
-            if(encoding.innerText === "CLRF"){
+        if(encoding.innerText === "CLRF"){
                 encoding.innerText = "LF";
                 editor.setOption('lineSeparator', "LF");
                                             }
 
-else{
+        else{
 
     encoding.innerText = "CLRF";
     editor.setOption('lineSeparator', null);
@@ -1328,7 +1350,7 @@ if(err){
     }
 editor.setValue(data);
 document.getElementById('fileInfo').innerText = localStorage.getItem('lastFile').replace(/^.*(\\|\/|\:)/, '');
-var extension = localStorage.getItem('lastFile').split('.').pop();
+var extension = path.extname(localStorage.getItem('lastFile'));
 extensionCheck(extension);
 })
 };
@@ -1350,7 +1372,6 @@ dialog.showOpenDialog(
 
         }
         else{
-
         fs.readFile(filenames[0], 'utf-8', (err, data)=>{
 
         if(err){
@@ -1363,7 +1384,7 @@ dialog.showOpenDialog(
         localStorage.setItem('lastFile', pathtofile);
         var path_temp = pathtofile;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-        extension = pathtofile.split('.').pop();
+        extension = path.extname(pathtofile);
         extensionCheck(extension);
     });
         }
@@ -1371,24 +1392,24 @@ dialog.showOpenDialog(
 }
 function extensionCheck(extension){
 
-    if(extension === 'cpp' || extension === 'cc'|| extension === 'cxx'||extension ==='hpp'||extension ==='hh'||extension ==='hxx'||extension ==='h'){
+    if(extension === '.cpp' || extension === '.cc'|| extension === '.cxx'||extension ==='.hpp'||extension ==='.hh'||extension ==='.hxx'||extension ==='.h'){
             mode.innerText = "C++";
             editor.setOption("mode", "text/x-c++src");
         }
-    else if(extension === 'c'){
+    else if(extension === '.c'){
             mode.innerText = "C";
             editor.setOption("mode", "text/x-csrc");
         }
-    else if(extension === 'cs'||extension ==='csx'||extension ==='cake'){
+    else if(extension === '.cs'||extension ==='.csx'||extension ==='.cake'){
             mode.innerText = "C#";
             editor.setOption("mode", "text/x-csharp");
         }
-    else if(extension === 'java'||extension ==='jav'){
+    else if(extension === '.java'||extension ==='.jav'){
             mode.innerText = "Java";
             editor.setOption("mode", "text/x-java");
         }
     
-    else if(extension === 'html'||extension ==='htm'){
+    else if(extension === '.html'||extension ==='.htm'){
             mode.innerText = "HTML";
 var mixedMode = {
         name: "htmlmixed",
@@ -1401,46 +1422,46 @@ var mixedMode = {
             editor.setOption("autoCloseTags", true);
             getColorPick();
         }
-    else if(extension === 'js' ||extension ==='es6'||extension ==='mjs'||extension ==='pac'){
+    else if(extension === '.js' ||extension ==='.es6'||extension ==='.mjs'||extension ==='.pac'){
             mode.innerText = "JavaScript";
             editor.setOption("mode", "text/javascript");
         }
-    else if(extension === 'json'||extension ==='bowerrc'||extension ==='jshintrc'||extension ==='jscrsc'){
+    else if(extension === '.json'||extension ==='.bowerrc'||extension ==='.jshintrc'||extension ==='.jscrsc'){
         mode.innerText = "JSON";
         editor.setOption('mode', 'application/json');
         }
-    else if(extension === 'ts' || extension === 'tsx'){
+    else if(extension === '.ts' || extension === '.tsx'){
         mode.innerText = "TypeScript";
         editor.setOption('mode', 'text/typescript');
         }
 
-    else if(extension === 'css'){
+    else if(extension === '.css'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/css");
             getColorPick();
         }
-    else if(extension === 'scss'){
+    else if(extension === '.scss'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-scss");
             getColorPick();
         }
-    else if(extension === 'sass'){
+    else if(extension === '.sass'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-sass");
             getColorPick();
         }
-    else if(extension === 'less'){
+    else if(extension === '.less'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-less");
             getColorPick();
         }
     
 
-    else if(extension === 'go'){
+    else if(extension === '.go'){
             mode.innerText = "Go";
             editor.setOption("mode", "text/x-go");
         }
-    else if(extension === 'py'){
+    else if(extension === '.py'){
     dialog.showMessageBox({
             type: 'info',
             buttons: ['Py-2', 'Py-3'],
@@ -1463,15 +1484,15 @@ var mixedMode = {
         });
             
         }
-    else if(extension === 'md'||extension ==='mkd'||extension ==='mkdwn'||extension ==='markdown'||extension ==='markdn'||extension ==='mdtxt'||extension ==='mdtext'||extension ==='workbook'){
+    else if(extension === '.md'||extension ==='.mkd'||extension ==='.mkdwn'||extension ==='.markdown'||extension ==='.markdn'||extension ==='.mdtxt'||extension ==='.mdtext'||extension ==='.workbook'){
             mode.innerText = "MarkDown";
             editor.setOption("mode", "text/x-markdown");
         }
-    else if(extension === 'php'){
+    else if(extension === '.php'){
             mode.innerText = "PHP";
             editor.setOption("mode", "text/x-php");
         }
-    else if(extension === 'txt' || extension === 'gitignore'){
+    else if(extension === '.txt' || extension === '.gitignore'){
         if(extension === 'gitignore'){
             mode.innerText = "gitignore";
         }
@@ -1506,7 +1527,7 @@ function newfile(){
     localStorage.setItem('lastFile', pathtofile);
     var path_temp = pathtofile;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-        extension = pathtofile.split('.').pop();
+        extension = path.extname(pathtofile);
         extensionCheck(extension);
 });
 }
@@ -1548,9 +1569,6 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function(){showFind(); return false;});
 Mousetrap.bind(['command+z', 'ctrl+z'], function(){undo(); return false;});
 Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
 
-// editor.on('focus', ()=>{
-    
-// });
 
 //Working for Timer
 var minutesLabel = document.getElementById("minutes");
