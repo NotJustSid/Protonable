@@ -26,8 +26,8 @@ function readDir(path2) {
     });
 }
 
-function openthefile(pathtofile){
-    fs.readFile(pathtofile, 'utf-8', (err, data)=>{
+function openthefile(PathToTheFile){
+    fs.readFile(PathToTheFile, 'utf-8', (err, data)=>{
 
         if(err){
             alert(err);
@@ -35,9 +35,9 @@ function openthefile(pathtofile){
             }
 
         editor.setValue(data);
-        localStorage.setItem('lastFile', pathtofile);
-        document.getElementById('fileInfo').innerText = pathtofile.replace(/^.*(\\|\/|\:)/, '');
-        var extension = pathtofile.split('.').pop();
+        localStorage.setItem('lastFile', PathToTheFile);
+        document.getElementById('fileInfo').innerText = PathToTheFile.replace(/^.*(\\|\/|\:)/, '');
+        var extension = path.extname(PathToTheFile);
         extensionCheck(extension);
         });
         
