@@ -1045,7 +1045,7 @@ function line_col(){
 //////////////////////////////////////Open TERMINAL 
 function showTerminal(){
     var child_process = require('child_process');
-    if(pathtofile===undefined){
+    if(localStorage.getItem('path')===undefined){
         if(localStorage.getItem('lastFile')!==undefined){
         child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('lastFile')));
         }
@@ -1054,7 +1054,7 @@ function showTerminal(){
         }
     }
     else{
-    child_process.exec("start cmd.exe /K cd /D" + pathtofile);
+    child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('path')));
     }
 }
 ///////////////////////////////////////////////////

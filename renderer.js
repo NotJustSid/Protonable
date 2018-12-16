@@ -3,7 +3,7 @@ var path = require('path');
 
 function readDir(path2) {
 
-    localStorage.setItem('prevDir', path.dirname(path2) + '//');
+    localStorage.setItem('prevDir', resolve(path.dirname(path2)) + '//');     
 
     fs.readdir(path2, (err, files) => {
         'use strict';
