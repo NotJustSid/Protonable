@@ -1023,15 +1023,16 @@ function line_col(){
 //**Try to Open the Terminal for the particular file location 
 function showTerminal(){
     var child_process = require('child_process');
-    if(path===undefined){
-        if(localStorage.getItem('lastFile'))
-        child_process.exec("start cmd.exe /K cd /D" + localStorage.getItem('lastFile').match(/(.*)[\/\\]/)[1]||'');
+    if(pathtofile===undefined){
+        if(localStorage.getItem('lastFile')!==undefined){
+        child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('lastFile')));
+        }
         else{
             child_process.exec("start cmd.exe");
         }
     }
     else{
-    child_process.exec("start cmd.exe /K cd /D" + path);
+    child_process.exec("start cmd.exe /K cd /D" + pathtofile);
     }
 }
 
@@ -1334,7 +1335,7 @@ extensionCheck(extension);
 
 //NEW,SAVE,OPEN ETC
 var mode = document.getElementById('editor-mode');
-var path;
+var pathtofile;
 function openfile(){
 dialog.showOpenDialog( 
 {title: 'Open File',
@@ -1357,12 +1358,12 @@ dialog.showOpenDialog(
             return;
             }
         editor.setValue(data);
-        path = filenames[0];
+        pathtofile = filenames[0];
         
-        localStorage.setItem('lastFile', path);
-        var path_temp = path;
+        localStorage.setItem('lastFile', pathtofile);
+        var path_temp = pathtofile;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-        extension = path.split('.').pop();
+        extension = pathtofile.split('.').pop();
         extensionCheck(extension);
     });
         }
@@ -1501,27 +1502,27 @@ function newfile(){
         return;
     }
     
-    path = filename;
-    localStorage.setItem('lastFile', path);
-    var path_temp = path;
+    pathtofile = filename;
+    localStorage.setItem('lastFile', pathtofile);
+    var path_temp = pathtofile;
         document.getElementById('fileInfo').innerText = path_temp.replace(/^.*(\\|\/|\:)/, '');
-        extension = path.split('.').pop();
+        extension = pathtofile.split('.').pop();
         extensionCheck(extension);
 });
 }
 function savefile(){
     var content = editor.getValue();
-    if(path === undefined && localStorage.getItem('lastFile') === undefined ){
+    if(pathtofile === undefined && localStorage.getItem('lastFile') === undefined ){
         newfile();
-    }else if(path === undefined){
-        if(localStorage.getItem('lastFile')){
-            path = localStorage.getItem('lastFile');
+    }else if(pathtofile === undefined){
+        if(localStorage.getItem('lastFile')!==undefined){
+            pathtofile = localStorage.getItem('lastFile');
         }
     }
-    fs.writeFile(path, content, (err)=>{
+    fs.writeFile(localStorage.getItem('lastFile'), content, (err)=>{
         if(err) alert(err);
     });
-    localStorage.setItem('path', path);
+    localStorage.setItem('path', pathtofile);
 }
 function newproject(){
     $('#Propath').modal('show');
