@@ -1,16 +1,16 @@
 resolve = require('path').resolve;
 var path = require('path');
 
-var firstRun = true;
+// var firstRun = true;
 
 function readDir(path2) {
 
     localStorage.setItem('prevDir', resolve(path.dirname(path2)) + '//');
     
-    if(firstRun === true){
-    localStorage.setItem('mainDir', resolve(path.dirname(path2)));
-    firstRun = false;
-    }
+    // if(firstRun === true){
+    // localStorage.setItem('mainDir', resolve(path.dirname(path2)));
+    // firstRun = false;
+    // }
 
     fs.readdir(path2, (err, files) => {
         'use strict';
@@ -52,13 +52,7 @@ function openthefile(PathToTheFile){
 }
 
 function goback(){
-    if(resolve(localStorage.getItem('mainDir').substring( 0, localStorage.getItem('mainDir').lastIndexOf( "\\" ) + 1))===resolve(localStorage.getItem('prevDir'))){
-
-    }
-    else
-    {
-        readDir(localStorage.getItem('prevDir'));
-    }
+    readDir(localStorage.getItem('prevDir'));
 }
 
 // function whatimg(filename){
