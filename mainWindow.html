@@ -1045,8 +1045,8 @@ function line_col(){
 //////////////////////////////////////Open TERMINAL 
 function showTerminal(){
     var child_process = require('child_process');
-    if(localStorage.getItem('path')===undefined){
-        if(localStorage.getItem('lastFile')!==undefined){
+    if(localStorage.getItem('path')===null || localStorage.getItem('path')=== undefined){
+        if(localStorage.getItem('lastFile')!==undefined && localStorage.getItem('lastFile')!==null){
         child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('lastFile')));
         }
         else{
@@ -1061,6 +1061,7 @@ function showTerminal(){
 
 
 /////////////////////////////////////////CODEMIRROR
+var focusMode = false;
 require( 'codemirror-colorpicker' );
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
@@ -1120,6 +1121,24 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     },
     "Ctrl-]": cm => CodeMirror.commands.foldAll(cm),
     "Ctrl-[": cm => CodeMirror.commands.unfoldAll(cm),
+    "Ctrl-D": function(){
+        $('.navy-main').hide();
+        editor.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('block').setAttribute("style", "top:0");
+        document.getElementById('FileExplorer').setAttribute("style", "display:none");
+        document.getElementById('btm-info').setAttribute("style", "display:none");
+        $('.panebtn_').hide();
+        focusMode = true;
+    },
+    "Shift-Ctrl-D": function(){
+        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+        $('.navy-main').show();
+        document.getElementById('block').removeAttribute("style");
+        document.getElementById('FileExplorer').removeAttribute("style");
+        document.getElementById('btm-info').removeAttribute("style");
+        $('.panebtn_').show();
+        focusMode = false;
+    },
     }
 });
 
@@ -1140,7 +1159,9 @@ editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
 
 //To deal with the window being resized but the editor not being so
 window.addEventListener('resize', ()=>{
+    if(focusMode===false){
     editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+    }
 });
 
 
@@ -1235,7 +1256,6 @@ var theme = localStorage.getItem("THEME");
     editor.getWrapperElement().style.fontSize = size + "px";
     editor.getWrapperElement().style.fontFamily = face;
     editor.setOption("theme", theme);
-
 
 //AutoComplete--Still In Work
 editor.on("keypress", function (cm, event) {
@@ -1590,7 +1610,6 @@ function pad(val) {
     return valString;
   }
 }
-
 
 //Go To Functionability
 function changePos(){
