@@ -121,6 +121,7 @@
 
     
     <script src="textarea/addon/fold/foldcode.js"></script>
+    <script src="textarea/addon/selection/active-line.js"></script>
     <link rel="stylesheet" href="textarea/addon/fold/foldgutter.css">
     <script src="textarea/addon/fold/comment-fold.js"></script>
     <script src="textarea/addon/fold/brace-fold.js"></script>
@@ -299,7 +300,7 @@
             position: absolute;
             top: 50px;
         }
-        
+
         @keyframes fadein {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -499,7 +500,21 @@
             left:auto;
             bottom:50%;
         } 
-        
+        #Minimap::-webkit-scrollbar-track
+        {
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	    border-radius: 4px;
+	    background-color: rgb(180, 177, 177);;
+        }::-webkit-scrollbar
+        {
+	    width: 6px;
+	    background-color: rgb(180, 177, 177);;
+        }::-webkit-scrollbar-thumb
+        {
+	    border-radius: 8px;
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	    background-color: rgb(180, 177, 177);
+        }
     </style>
 
 </head>
@@ -903,17 +918,17 @@
                     <div class="form-group modal-body">
                             <div class="form-group">
                                     <select class="custom-select" id="mode_select">
-                                      <option value="cpp">C++</option>
-                                      <option value="c">C</option>
-                                      <option value="py">Python</option>
-                                      <option value="js">JavaScript</option>
-                                      <option value="md">MarkDown</option>
-                                      <option value="html">HTML</option>
-                                      <option value="css">CSS</option>
-                                      <option value="txt">Text</option>
-                                      <option value="gitignore">gitignore</option>
-                                      <option value="java">Java</option>
-                                      <option value="cs">C#</option>
+                                      <option value=".cpp">C++</option>
+                                      <option value=".c">C</option>
+                                      <option value=".py">Python</option>
+                                      <option value=".js">JavaScript</option>
+                                      <option value=".md">MarkDown</option>
+                                      <option value=".html">HTML</option>
+                                      <option value=".css">CSS</option>
+                                      <option value=".txt">Text</option>
+                                      <option value=".gitignore">gitignore</option>
+                                      <option value=".java">Java</option>
+                                      <option value=".cs">C#</option>
                                     </select>
                             </div>
                     </div>
@@ -934,6 +949,11 @@
     </div>
     <!--EDITOR END-->
 
+    <!--Maybe Minimap -->
+    <div style="position:absolute; right:0px;">
+    <textarea id="Minimap"></textarea>
+    </div>
+    <!--ENDS-->
 
     <button class="panebtn_" onmousedown="showTerminal()">
         Terminal
@@ -1065,8 +1085,8 @@ var focusMode = false;
 require( 'codemirror-colorpicker' );
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
-        lineNumbers: true,
         lineWrapping: true,
+        lineNumbers: true,
         autoCloseBrackets: true,
         electricChars: true,
         matchBrackets: true,
@@ -1083,20 +1103,23 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Ctrl-S": function() { 
       savefile();
     },
+    "Cmd-S": function(){
+        savefile();
+    },
     "Ctrl-Q": function(cm){ 
         cm.foldCode(cm.getCursor()); 
+    },
+    "Cmd-Q": function(cm){
+        cm.foldCode(cm.getCursor());
     },
     "Ctrl-N": function() { 
       newfile();
     },
-    "Ctrl-O": function() { 
-      openfile();
-    },
-    "Cmd-S": function(){
-        savefile();
-    },
     "Cmd-N": function(){
         newfile();
+    },
+    "Ctrl-O": function() { 
+      openfile();
     },
     "Cmd-O": function(){
         openfile();
@@ -1110,18 +1133,35 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Shift-Ctrl-N": function(){
         newproject();
     },
-    "Shift-Ctrl-N": function(){
+    "Shift-Cmd-N": function(){
         newproject();
     },
     "Ctrl-F": function(){
         showFind();
     },
+    "Cmd-F": function(){
+        showFind();
+    },
     "Shift-Ctrl-F": function(){
         showReplace();
     },
+    "Shift-Cmd-F": function(){
+        showReplace();
+    },
     "Ctrl-]": cm => CodeMirror.commands.foldAll(cm),
+    "Cmd-]": cm => CodeMirror.commands.foldAll(cm),
     "Ctrl-[": cm => CodeMirror.commands.unfoldAll(cm),
+    "Cmd-[": cm => CodeMirror.commands.foldAll(cm),
     "Ctrl-D": function(){
+        $('.navy-main').hide();
+        editor.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('block').setAttribute("style", "top:0");
+        document.getElementById('FileExplorer').setAttribute("style", "display:none");
+        document.getElementById('btm-info').setAttribute("style", "display:none");
+        $('.panebtn_').hide();
+        focusMode = true;
+    },
+    "Cmd-D": function(){
         $('.navy-main').hide();
         editor.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('block').setAttribute("style", "top:0");
@@ -1139,8 +1179,32 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         $('.panebtn_').show();
         focusMode = false;
     },
+    "Shift-Cmd-D": function(){
+        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+        $('.navy-main').show();
+        document.getElementById('block').removeAttribute("style");
+        document.getElementById('FileExplorer').removeAttribute("style");
+        document.getElementById('btm-info').removeAttribute("style");
+        $('.panebtn_').show();
+        focusMode = false;
+    },
     }
 });
+function mode(){
+    return editor.getMode();
+}
+var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
+        scrollbarStyle: 'native',
+        lineWrapping: true,
+        cursorBlinkRate: -10,
+        readOnly: true,
+});
+
+
+minimap.setSize(110, window.innerHeight-290);
+minimap.getWrapperElement().style.fontSize = "4px";
+minimap.getWrapperElement().style.letterSpacing = "-1px";
+
 
 //COLOR PICKER
 function getColorPick(){
@@ -1155,12 +1219,12 @@ function getColorPick(){
 
 }
 
-editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+editor.setSize(window.innerWidth - 110.2, window.innerHeight - 290);
 
 //To deal with the window being resized but the editor not being so
 window.addEventListener('resize', ()=>{
     if(focusMode===false){
-    editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+    editor.setSize(window.innerWidth-110.2, window.innerHeight - 290);
     }
 });
 
@@ -1300,7 +1364,8 @@ function tupdate(){
 
     editor.setOption("theme", theme);
     localStorage.setItem("THEME", theme);
-
+    minimap.setOption("theme", editor.getOption("theme"));
+    minimap.refresh();
     editor.refresh();
 }
 
@@ -1371,6 +1436,7 @@ editor.setValue(data);
 document.getElementById('fileInfo').innerText = localStorage.getItem('lastFile').replace(/^.*(\\|\/|\:)/, '');
 var extension = path.extname(localStorage.getItem('lastFile'));
 extensionCheck(extension);
+readDir(path.dirname(localStorage.getItem('lastFile')));
 })
 };
 
@@ -1414,10 +1480,12 @@ function extensionCheck(extension){
     if(extension === '.cpp' || extension === '.cc'|| extension === '.cxx'||extension ==='.hpp'||extension ==='.hh'||extension ==='.hxx'||extension ==='.h'){
             mode.innerText = "C++";
             editor.setOption("mode", "text/x-c++src");
+            minimap.setOption("mode", "text/x-c++src");
         }
     else if(extension === '.c'){
             mode.innerText = "C";
             editor.setOption("mode", "text/x-csrc");
+            minimap.setOption("mode", "text/x-csrc");
         }
     else if(extension === '.cs'||extension ==='.csx'||extension ==='.cake'){
             mode.innerText = "C#";
@@ -1426,6 +1494,7 @@ function extensionCheck(extension){
     else if(extension === '.java'||extension ==='.jav'){
             mode.innerText = "Java";
             editor.setOption("mode", "text/x-java");
+            minimap.setOption("mode", "text/x-java");
         }
     
     else if(extension === '.html'||extension ==='.htm'){
@@ -1438,40 +1507,48 @@ var mixedMode = {
                        mode: "vbscript"}]
       };
             editor.setOption("mode", mixedMode);
+            minimap.setOption("mode", mixedMode);
             editor.setOption("autoCloseTags", true);
             getColorPick();
         }
     else if(extension === '.js' ||extension ==='.es6'||extension ==='.mjs'||extension ==='.pac'){
             mode.innerText = "JavaScript";
             editor.setOption("mode", "text/javascript");
+            minimap.setOption("mode", "text/javascript");
         }
     else if(extension === '.json'||extension ==='.bowerrc'||extension ==='.jshintrc'||extension ==='.jscrsc'){
         mode.innerText = "JSON";
         editor.setOption('mode', 'application/json');
+        minimap.setOption("mode", "application/json");
         }
     else if(extension === '.ts' || extension === '.tsx'){
         mode.innerText = "TypeScript";
         editor.setOption('mode', 'text/typescript');
+        minimap.setOption("mode", "text/typescript");
         }
 
     else if(extension === '.css'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/css");
+            minimap.setOption("mode", "text/css");
             getColorPick();
         }
     else if(extension === '.scss'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-scss");
+            minimap.setOption("mode", "text/x-scss");
             getColorPick();
         }
     else if(extension === '.sass'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-sass");
+            minimap.setOption("mode", "text/x-sass");
             getColorPick();
         }
     else if(extension === '.less'){
             mode.innerText = "CSS";
             editor.setOption("mode", "text/x-less");
+            minimap.setOption("mode", "text/x-less");
             getColorPick();
         }
     
@@ -1479,6 +1556,7 @@ var mixedMode = {
     else if(extension === '.go'){
             mode.innerText = "Go";
             editor.setOption("mode", "text/x-go");
+            minimap.setOption("mode", "text/x-go");
         }
     else if(extension === '.py'){
     dialog.showMessageBox({
@@ -1492,11 +1570,19 @@ var mixedMode = {
             {name: "python",
                version: 2,}
                );
+            minimap.setOption("mode", 
+            {name: "python",
+               version: 2,}
+               );
             mode.innerText = "Python(2)";
             }else{
                 editor.setOption("mode", 
             {name: "python",
                version: 3,}
+               );
+               minimap.setOption("mode", 
+            {name: "python",
+               version: 2,}
                );
                mode.innerText = "Python(3)";
             }
@@ -1506,16 +1592,19 @@ var mixedMode = {
     else if(extension === '.md'||extension ==='.mkd'||extension ==='.mkdwn'||extension ==='.markdown'||extension ==='.markdn'||extension ==='.mdtxt'||extension ==='.mdtext'||extension ==='.workbook'){
             mode.innerText = "MarkDown";
             editor.setOption("mode", "text/x-markdown");
+            minimap.setOption("mode", "text/x-markdown");
         }
     else if(extension === '.php'){
             mode.innerText = "PHP";
             editor.setOption("mode", "text/x-php");
+            minimap.setOption("mode", "text/x-php");
         }
     else if(extension === '.txt' || extension === '.gitignore'){
         if(extension === 'gitignore'){
             mode.innerText = "gitignore";
         }
         if(extension === 'txt'){mode.innerText = "Text";}
+            editor.setOption("mode", null);
             editor.setOption("mode", null);
     }else{
         alert('File Type Not Supported');
@@ -1568,6 +1657,23 @@ function newproject(){
     $('#Propath').modal('show');
 }
 
+function FocusMode(focus_Mode){
+    if(focus_Mode===false){
+        $('.navy-main').hide();
+        editor.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('block').setAttribute("style", "top:0");
+        document.getElementById('FileExplorer').setAttribute("style", "display:none");
+        document.getElementById('btm-info').setAttribute("style", "display:none");
+        $('.panebtn_').hide();
+    }else if(focus_Mode = true){
+        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+        $('.navy-main').show();
+        document.getElementById('block').removeAttribute("style");
+        document.getElementById('FileExplorer').removeAttribute("style");
+        document.getElementById('btm-info').removeAttribute("style");
+        $('.panebtn_').show();
+    }
+}
 
 //CHANGE LINE/COLOUMN
 var line = document.getElementById('line-no.');
@@ -1575,6 +1681,7 @@ var col  = document.getElementById('col-no.');
 function updateInfo(){
    line.innerText = editor.getCursor().line+1;
    col.innerText = editor.getCursor().ch + 1;
+   minimap.setValue(editor.getValue());
 }
 editor.on("cursorActivity", updateInfo);
 
@@ -1587,7 +1694,8 @@ Mousetrap.bind(['shift+command+f', 'shift+ctrl+f'], function(){showReplace(); re
 Mousetrap.bind(['command+f', 'ctrl+f'], function(){showFind(); return false;});
 Mousetrap.bind(['command+z', 'ctrl+z'], function(){undo(); return false;});
 Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
-
+Mousetrap.bind(['command+d', 'ctrl+d'], function(){FocusMode(false); return false;})
+Mousetrap.bind(['shift+command+d', 'shift+ctrl+d'], function(){FocusMode(true); return false;})
 
 //Working for Timer
 var minutesLabel = document.getElementById("minutes");
@@ -1626,6 +1734,9 @@ function changePos(){
     editor.setCursor(lineNoValue, colNoValue);
     editor.focus();
 };
+
+
+minimap.setOption("theme", editor.getOption("theme"));
 
 //File Explorer Part moved in renderer.js
 readDir('.');
