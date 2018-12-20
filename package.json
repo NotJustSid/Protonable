@@ -4,10 +4,7 @@
   "description": "A Minimal Text Editor Built on Electron!",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=img/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . protonable --overwrite --asar=true --platform=win32 --arch=ia32 --icon=img/icon.ico --prune=true --out=release-builds --version-string.CompanyName=Sid --version-string.FileDescription=A Minimal Text Editor Built on Electron! --version-string.ProductName=\"Protonable\"",
-    "package-linux": "electron-packager . protonable --overwrite --asar=true --platform=linux --arch=x64 --icon=img/icon.png --prune=true --out=release-builds"
+    "start": "electron ."
   },
   "author": "Siddhanth Bhowmick",
   "license": "MIT",

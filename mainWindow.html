@@ -451,9 +451,6 @@
         .panebtn_:focus{
             outline: none;
         }
-        #prodirchooseWrap{
-            background-color: white;
-        }
         #prodirchoose{
             display: none;
         }
@@ -880,7 +877,7 @@
                     <div class="form-group modal-body">
                     <label id="prodirWrap" style="text-decoration: underline; font-weight:bold;">
                         Directory: 
-                        <input class="form-control form-control-lg" type="file" id="prodirchoose" webkitdirectory>
+                        <input class="form-control form-control-lg" type="file" id="prodirchoose"  webkitdirectory>
                     </label>
                         <hr class="my-4">
                         <input class="fo̥rm-control form-control-lg" type="text" placeholder="Project Name" id="proname">
@@ -1189,9 +1186,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     },
     }
 });
-function mode(){
-    return editor.getMode();
-}
+
 var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         scrollbarStyle: 'native',
         lineWrapping: true,
@@ -1293,7 +1288,7 @@ function replace2() {
 }
 
 
-//To choose Directory for New Project
+//To create Directory for New Project
 function dirchoosed(){
     if(document.getElementById('prodirchoose').files[0] !== undefined){
 
@@ -1310,6 +1305,7 @@ function dirchoosed(){
         alert('No Root Directory Selected!');
         }
 }
+
 
 
 //To apply theme & font selected by user on loadback
@@ -1331,9 +1327,9 @@ editor.on("keypress", function (cm, event) {
 
 //Minimap Working
 
-minimap.on('scroll', function(){
-alert('Not Working');
-});
+// minimap.on('scroll', function(){
+    
+// });
 
 //To Search through the files in the File Explorer.
 function fileSearch(){
