@@ -445,6 +445,7 @@
             color: white; 
             border-radius: 5px;
         }
+        
         .panebtn_:hover{
             background-color: #444;
         }
@@ -950,10 +951,11 @@
     <textarea id="Minimap"></textarea>
     </div>
     <!--ENDS-->
-
+    <span id="pane">
     <button class="panebtn_" onmousedown="showTerminal()">
         Terminal
     </button>
+    </span>
 
     <div id="FileExplorer">
         <div class="pane-group">
@@ -1500,7 +1502,7 @@ function extensionCheck(extension){
     
     else if(extension === '.html'||extension ==='.htm'){
             mode.innerText = "HTML";
-var mixedMode = {
+        var mixedMode = {
         name: "htmlmixed",
         scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
                        mode: null},
@@ -1510,7 +1512,9 @@ var mixedMode = {
             editor.setOption("mode", mixedMode);
             minimap.setOption("mode", mixedMode);
             editor.setOption("autoCloseTags", true);
+        
             getColorPick();
+
         }
     else if(extension === '.js' ||extension ==='.es6'||extension ==='.mjs'||extension ==='.pac'){
             mode.innerText = "JavaScript";
@@ -1658,6 +1662,7 @@ function newproject(){
     $('#Propath').modal('show');
 }
 
+//Features
 function FocusMode(focus_Mode){
     if(focus_Mode===false){
         $('.navy-main').hide();
@@ -1675,6 +1680,7 @@ function FocusMode(focus_Mode){
         $('.panebtn_').show();
     }
 }
+
 
 //CHANGE LINE/COLOUMN
 var line = document.getElementById('line-no.');
