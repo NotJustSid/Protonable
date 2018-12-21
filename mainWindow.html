@@ -1079,8 +1079,8 @@ function showTerminal(){
 
 
 /////////////////////////////////////////CODEMIRROR
-var focusMode = false;
 require( 'codemirror-colorpicker' );
+
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
         lineWrapping: true,
@@ -1151,45 +1151,22 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Ctrl-[": cm => CodeMirror.commands.unfoldAll(cm),
     "Cmd-[": cm => CodeMirror.commands.foldAll(cm),
     "Ctrl-D": function(){
-        $('.navy-main').hide();
-        editor.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('block').setAttribute("style", "top:0");
-        document.getElementById('FileExplorer').setAttribute("style", "display:none");
-        document.getElementById('btm-info').setAttribute("style", "display:none");
-        $('.panebtn_').hide();
-        focusMode = true;
+        FocusMode(false);
     },
     "Cmd-D": function(){
-        $('.navy-main').hide();
-        editor.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('block').setAttribute("style", "top:0");
-        document.getElementById('FileExplorer').setAttribute("style", "display:none");
-        document.getElementById('btm-info').setAttribute("style", "display:none");
-        $('.panebtn_').hide();
-        focusMode = true;
+        FocusMode(false);
     },
     "Shift-Ctrl-D": function(){
-        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
-        $('.navy-main').show();
-        document.getElementById('block').removeAttribute("style");
-        document.getElementById('FileExplorer').removeAttribute("style");
-        document.getElementById('btm-info').removeAttribute("style");
-        $('.panebtn_').show();
-        focusMode = false;
+        FocusMode(true);
     },
     "Shift-Cmd-D": function(){
-        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
-        $('.navy-main').show();
-        document.getElementById('block').removeAttribute("style");
-        document.getElementById('FileExplorer').removeAttribute("style");
-        document.getElementById('btm-info').removeAttribute("style");
-        $('.panebtn_').show();
-        focusMode = false;
+        FocusMode(true);
     },
     }
 });
 
 var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
+        mode: null,
         scrollbarStyle: 'native',
         lineWrapping: true,
         cursorBlinkRate: -10,
@@ -1300,9 +1277,9 @@ function dirchoosed(){
         if(proname === undefined) alert('No Project Name!');
 
         fs.mkdir(dir+'//'+proname, (err) => {
-        
         if (err) alert(err);
-                                            });
+        return;
+        });
     }else{
         alert('No Root Directory Selected!');
         }
@@ -1326,12 +1303,6 @@ editor.on("keypress", function (cm, event) {
             });
         }
     });
-
-//Minimap Working
-
-// minimap.on('scroll', function(){
-    
-// });
 
 //To Search through the files in the File Explorer.
 function fileSearch(){
@@ -1610,7 +1581,7 @@ function extensionCheck(extension){
         }
         if(extension === 'txt'){mode.innerText = "Text";}
             editor.setOption("mode", null);
-            editor.setOption("mode", null);
+            minimap.setOption("mode", null);
     }else{
         alert('File Type Not Supported');
         editor.setValue('');
@@ -1666,13 +1637,15 @@ function newproject(){
 function FocusMode(focus_Mode){
     if(focus_Mode===false){
         $('.navy-main').hide();
-        editor.setSize(window.innerWidth, window.innerHeight);
+        editor.setSize(window.innerWidth - 110.2, window.innerHeight);
+        minimap.setSize(110, window.innerHeight);
         document.getElementById('block').setAttribute("style", "top:0");
         document.getElementById('FileExplorer').setAttribute("style", "display:none");
         document.getElementById('btm-info').setAttribute("style", "display:none");
         $('.panebtn_').hide();
     }else if(focus_Mode = true){
-        editor.setSize(window.innerWidth + 8, window.innerHeight - 290);
+        minimap.setSize(110, window.innerHeight-290);
+        editor.setSize(window.innerWidth - 110.2, window.innerHeight - 290);
         $('.navy-main').show();
         document.getElementById('block').removeAttribute("style");
         document.getElementById('FileExplorer').removeAttribute("style");
