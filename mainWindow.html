@@ -160,7 +160,7 @@
 
         .navy-main {
             width: 100% !important;
-            background-color:rgb(20, 108, 248) !important;
+            background-color:rgb(20, 108, 248) !important; 
             height: 50px !important;
             color: #fff !important;
             font-family: Calibri !important;
@@ -497,19 +497,17 @@
             right:10px;;
             left:auto;
             bottom:50%;
-        } 
+        }
         #Minimap::-webkit-scrollbar-track
         {
-	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	    border-radius: 4px;
-	    background-color: rgb(180, 177, 177);;
+	    background-color: transparent;
         }::-webkit-scrollbar
         {
-	    width: 6px;
-	    background-color: rgb(180, 177, 177);;
+        
+        width: 6px;;
+	    background-color: rgb(199, 199, 199);
         }::-webkit-scrollbar-thumb
         {
-	    border-radius: 8px;
 	    background-color: transparent;
         }
     </style>
@@ -1196,9 +1194,7 @@ editor.setSize(window.innerWidth - 110.2, window.innerHeight - 290);
 
 //To deal with the window being resized but the editor not being so
 window.addEventListener('resize', ()=>{
-    if(focusMode===false){
     editor.setSize(window.innerWidth-110.2, window.innerHeight - 290);
-    }
 });
 
 
@@ -1343,6 +1339,10 @@ function tupdate(){
     editor.refresh();
 }
 
+minimap.on('scroll', function(){
+var pos = minimap.getScrollInfo();
+editor.scrollTo(pos.left, pos.top);
+});
 
 //Close, Maximize and Minimize Functionality
 (function () {
