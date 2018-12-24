@@ -144,143 +144,24 @@
     <script src="textarea/addon/comment/comment.js"></script>
 
     <script src="renderer.js"></script>
-    
+
     <script src="scripts/modal_previewers.js"></script>
     <script src="scripts/terminalOpen.js"></script>
     <script src="scripts/findReplace.js"></script>
     <script src="scripts/modalFunctions.js"></script>
 
-    <!--DEFAULT HINT PROVIDERS FROM CODEMIRROR-->
-    
+    <link href="css/navBar.css" rel="stylesheet">
+    <link href="css/fileExplorer.css" rel="stylesheet">
+    <link href="css/startAnim.css" rel="stylesheet">
+    <link href="css/Minimap.css" rel="stylesheet">
+    <link href="css/BottomBar.css" rel="stylesheet">
 
     <style>
         body{
             margin: 0;
             overflow: hidden !important;
         }
-
-        .content {
-            padding: 30px;
-        }
-
-        .navy-main {
-            width: 100% !important;
-            background-color:rgb(20, 108, 248) !important; 
-            height: 50px !important;
-            color: #fff !important;
-            font-family: Calibri !important;
-            font-size: 20px !important;
-            -webkit-app-region: drag;
-        }
-
-        .navy-main .logo {
-            float: left !important;
-            height: 40px !important;
-            padding: 15px 30px !important;
-            font-size: 1.4em !important;
-            line-height: 20px !important;
-            user-select: none !important;
-        }
-
-        .navy-main>ul {
-            margin: 0 !important;
-            padding: 0 !important;
-            float: left !important;
-            list-style: none !important;
-        }
-
-        .navy-main>ul>li {
-            float: left !important;
-        }
-
-        .navy-item {
-            user-select: none;
-            -webkit-user-drag: none;
-            display: inline-block !important;
-            width: 100px !important;
-            text-align: center !important;
-            padding: 15px 20px !important;
-            height: 50px !important;
-            line-height: 20px !important;
-            vertical-align:-webkit-baseline-middle !important;
-            color: #fff !important;
-            text-decoration: none !important;
-            -webkit-app-region: no-drag;
-        }
-
-        .navy-content{
-            display: block !important;
-            width: 380px !important;
-            position: absolute !important;
-            top: 70px !important;
-            overflow: hidden !important;
-            background-color: #444 !important;
-            max-height: 0 !important;
-            -webkit-app-region: no-drag;
-        }
-
-        .navy-content a{
-            color: #fff !important;
-            text-decoration: none !important;
-        }
-
-        .navy-sub{
-            padding: 20px !important;    
-        }
-
-        .navy-sub ul{
-            padding: 0 !important;
-            margin: 0 !important;
-            list-style: none !important;
-        }
-
-        .navy-sub li a{
-            user-select: none;
-            display: inline-block !important;
-            padding: 5px 0 !important;
-        }
-
-        .navy-item:hover{
-            background-color: rgb(22, 202, 193) !important;
-        }
         
-        .navy-content a:hover{
-            z-index: 1;
-            font-weight: bold;
-        }
-
-        .navy-content a:hover ~.navy-info{
-            font-weight: bold;
-        }
-
-        .navy-item:focus ~ .navy-content{
-            z-index: 1;
-            max-height: 400px !important;
-        }
-
-        .navy-content:hover{
-            max-height: 400px !important;
-        }
-
-        .close-my{
-            display: block !important;
-            width: 30px !important;
-            text-align: center !important;
-            padding: 15px 35px !important;
-            height: 50px !important;
-            line-height: 18px !important;
-            color: #fff !important;
-            font-size: 30px !important;
-            text-decoration: none !important;
-            float: right !important;
-            text-align: right !important;
-            -webkit-app-region: no-drag;
-        }
-
-        .close-my:hover{
-            color: red !important;
-        }
-
         .CodeMirror {
             font-size: 28px;
         }
@@ -300,145 +181,7 @@
         .CodeMirror-hint-active {
             background-color: rgb(15, 135, 233);
         }
-
-        #block {
-            position: absolute;
-            top: 50px;
-        }
-
-        @keyframes fadein {
-        from { opacity: 0; }
-        to { opacity: 1; }
-        }
-        html {
-        animation: fadein 2s;
-        }
-
-        .CodeMirror {
-            opacity: 0;
-            animation: reveal 0.0001s linear forwards;
-        }
-
-        #block::after {
-            content: '';
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            position: absolute;
-            background: url(img/grad-anim.png) no-repeat;
-            background-size: cover;
-            animation: block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-
-        }
-
-        @keyframes block {
-            0% {
-                left: 0;
-                width: 0%
-            }
-
-            50% {
-                left: 0;
-                width: 100%;
-            }
-
-            100% {
-                left: 100%;
-                width: 0;
-            }
-        }
-
-        @keyframes reveal {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        #btm-info{
-            background-color: rgb(20, 108, 248);
-            width: 100%;
-            height: 38px;
-            position: absolute;
-            bottom: 0px;
-            margin: 0;
-            padding: 0;
-        }
-        .info-item{
-            list-style-type: none;
-            border: 0;
-            margin-right: 15px;
-            margin-bottom: 0;
-            padding: 5px;
-            font-size: 18px;
-            float: right;
-            font-family: Calibri;
-            text-align: center;
-            vertical-align: -webkit-baseline-middle;
-        }
-        .info-item:first-child{
-            margin-right: 0;
-            width: 80px;
-        }
-        .info-item:hover{
-            background-color: rgb(36, 36, 36);
-        }
-        #fileInfo{
-            list-style-type: none;
-            border: 0;
-            margin-right: 15px;
-            margin-bottom: 0;
-            padding: 5px;
-            font-size: 18px;
-            float: left;
-            font-family: Calibri;
-            text-align: center;
-            vertical-align: -webkit-baseline-middle;
-        }
-        #FileExplorer{
-            border: 0;
-            margin: 0;
-            font-family: Calibri;
-            position: absolute;
-            bottom: 80px;
-        }
-        #file-list::-webkit-scrollbar { 
-            width: 7px;
-            height: 7px;
-        }
-        #file-list::-webkit-scrollbar-button {
-            width: 0px;
-            height: 0px;
-        }
-        #file-list::-webkit-scrollbar-thumb {
-            background: #a3a3a3;
-            border: 3px none #ffffff;
-            border-radius: 50px;
-        }
-        #file-list::-webkit-scrollbar-thumb:hover {
-            background: #ffffff;
-        }
-        #file-list::-webkit-scrollbar-thumb:active {
-            background: #000000;
-        }
-        #file-list::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            border: 1px none #ffffff;
-            border-radius: 50px;
-        }
-        #file-list::-webkit-scrollbar-track:hover {
-            background: #666666;
-        }
-        #file-list::-webkit-scrollbar-track:active {
-            background: #333333;
-        }
-        #file-list::-webkit-scrollbar-corner {
-            background: transparent;
-        }
+        
         .panebtn_{
             background-color: rgb(36, 36, 36);
             border: 0;
@@ -460,60 +203,12 @@
         #prodirchoose{
             display: none;
         }
-        #file-list > li{
-            display: inline-block;
-            text-align: center;
-            height: 110px;
-            width: 100px;
-            margin: 10px;
-            margin-right: 80px;
-            margin-bottom: 0px;
-            user-select: none;
-            word-wrap: break-word;
-            white-space:pre-wrap;
-            padding: 2px;
-            vertical-align:-webkit-baseline-middle;
-        }
-        #file-list{
-            overflow:hidden;
-            white-space: nowrap;
-        }
-        #file-list:hover{
-            overflow: auto;
-        }
-        #file-list>li:hover{
-        border-radius: 10px 10px 10px 10px;
-        background-color: rgb(36, 36, 36);
-        }
-        #file-list>li:active{
-        border-radius: 10px 10px 10px 10px;
-        background-color: rgb(36, 36, 36);
-        }
-        .navy-info{
-            color: rgb(255,255,255, 0.2);
-            position: absolute;
-            right: 0px;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-        .modal{
+       .modal{
             position:fixed;
             top:auto;
             right:10px;;
             left:auto;
             bottom:50%;
-        }
-        #Minimap::-webkit-scrollbar-track
-        {
-	    background-color: transparent;
-        }::-webkit-scrollbar
-        {
-        
-        width: 6px;;
-	    background-color: rgb(199, 199, 199);
-        }::-webkit-scrollbar-thumb
-        {
-	    background-color: transparent;
         }
     </style>
 

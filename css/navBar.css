@@ -1,0 +1,125 @@
+.navy-main {
+    width: 100% !important;
+    background-color:rgb(20, 108, 248) !important; 
+    height: 50px !important;
+    color: #fff !important;
+    font-family: Calibri !important;
+    font-size: 20px !important;
+    -webkit-app-region: drag;
+}
+
+.navy-main .logo {
+    float: left !important;
+    height: 40px !important;
+    padding: 15px 30px !important;
+    font-size: 1.4em !important;
+    line-height: 20px !important;
+    user-select: none !important;
+}
+
+.navy-main>ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    float: left !important;
+    list-style: none !important;
+}
+
+.navy-main>ul>li {
+    float: left !important;
+}
+
+.navy-item {
+    user-select: none;
+    -webkit-user-drag: none;
+    display: inline-block !important;
+    width: 100px !important;
+    text-align: center !important;
+    padding: 15px 20px !important;
+    height: 50px !important;
+    line-height: 20px !important;
+    vertical-align:-webkit-baseline-middle !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    -webkit-app-region: no-drag;
+}
+
+.navy-content{
+    display: block !important;
+    width: 380px !important;
+    position: absolute !important;
+    top: 70px !important;
+    overflow: hidden !important;
+    background-color: #444 !important;
+    max-height: 0 !important;
+    -webkit-app-region: no-drag;
+}
+
+.navy-content a{
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.navy-sub{
+    padding: 20px !important;    
+}
+
+.navy-sub ul{
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+.navy-sub li a{
+    user-select: none;
+    display: inline-block !important;
+    padding: 5px 0 !important;
+}
+
+.navy-item:hover{
+    background-color: rgb(22, 202, 193) !important;
+}
+
+.navy-content a:hover{
+    z-index: 1;
+    font-weight: bold;
+}
+
+.navy-content a:hover ~.navy-info{
+    font-weight: bold;
+}
+
+.navy-item:focus ~ .navy-content{
+    z-index: 1;
+    max-height: 400px !important;
+}
+
+.navy-content:hover{
+    max-height: 400px !important;
+}
+
+.close-my{
+    display: block !important;
+    width: 30px !important;
+    text-align: center !important;
+    padding: 15px 35px !important;
+    height: 50px !important;
+    line-height: 18px !important;
+    color: #fff !important;
+    font-size: 30px !important;
+    text-decoration: none !important;
+    float: right !important;
+    text-align: right !important;
+    -webkit-app-region: no-drag;
+}
+
+.close-my:hover{
+    color: red !important;
+}
+
+.navy-info{
+    color: rgb(255,255,255, 0.2);
+    position: absolute;
+    right: 0px;
+    margin-right: 15px;
+    margin-top: 5px;
+}

@@ -1,0 +1,58 @@
+#block {
+    position: absolute;
+    top: 50px;
+}
+
+@keyframes fadein {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+#block::after {
+    content: '';
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    background: url(../img/grad-anim.png) no-repeat;
+    background-size: cover;
+    animation: block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+
+}
+
+@keyframes block {
+    0% {
+        left: 0;
+        width: 0%
+    }
+
+    50% {
+        left: 0;
+        width: 100%;
+    }
+
+    100% {
+        left: 100%;
+        width: 0;
+    }
+}
+
+@keyframes reveal {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+html {
+    animation: fadein 3s;
+    }
+
+.CodeMirror {
+        opacity: 0;
+        animation: reveal 0.0001s linear forwards;
+    }

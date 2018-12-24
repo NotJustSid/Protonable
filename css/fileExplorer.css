@@ -1,0 +1,81 @@
+#fileInfo{
+    list-style-type: none;
+    border: 0;
+    margin-right: 15px;
+    margin-bottom: 0;
+    padding: 5px;
+    font-size: 18px;
+    float: left;
+    font-family: Calibri;
+    text-align: center;
+    vertical-align: -webkit-baseline-middle;
+}
+#FileExplorer{
+    border: 0;
+    margin: 0;
+    font-family: Calibri;
+    position: absolute;
+    bottom: 80px;
+}
+#file-list::-webkit-scrollbar { 
+    width: 7px;
+    height: 7px;
+}
+#file-list::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+#file-list::-webkit-scrollbar-thumb {
+    background: #a3a3a3;
+    border: 3px none #ffffff;
+    border-radius: 50px;
+}
+#file-list::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+#file-list::-webkit-scrollbar-thumb:active {
+    background: #000000;
+}
+#file-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border: 1px none #ffffff;
+    border-radius: 50px;
+}
+#file-list::-webkit-scrollbar-track:hover {
+    background: #666666;
+}
+#file-list::-webkit-scrollbar-track:active {
+    background: #333333;
+}
+#file-list::-webkit-scrollbar-corner {
+    background: transparent;
+}
+#file-list > li{
+    display: inline-block;
+    text-align: center;
+    height: 110px;
+    width: 100px;
+    margin: 10px;
+    margin-right: 80px;
+    margin-bottom: 0px;
+    user-select: none;
+    word-wrap: break-word;
+    white-space:pre-wrap;
+    padding: 2px;
+    vertical-align:-webkit-baseline-middle;
+}
+#file-list{
+    overflow:hidden;
+    white-space: nowrap;
+}
+#file-list:hover{
+    overflow: auto;
+}
+#file-list>li:hover{
+border-radius: 10px 10px 10px 10px;
+background-color: rgb(36, 36, 36);
+}
+#file-list>li:active{
+border-radius: 10px 10px 10px 10px;
+background-color: rgb(36, 36, 36);
+}
