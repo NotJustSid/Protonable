@@ -145,6 +145,11 @@
 
     <script src="renderer.js"></script>
     
+    <script src="scripts/modal_previewers.js"></script>
+    <script src="scripts/terminalOpen.js"></script>
+    <script src="scripts/findReplace.js"></script>
+    <script src="scripts/modalFunctions.js"></script>
+
     <!--DEFAULT HINT PROVIDERS FROM CODEMIRROR-->
     
 
@@ -1025,54 +1030,8 @@ prevDir : Used to go back to the previous directory in the file explorer.
 --STILL EDITING--
 
 */
-
-//////////////////////////////////MODALS previewers
-function showFind(){
-    $('#Find').modal('show'); 
-    $('.modal-backdrop').removeClass("modal-backdrop"); 
-    }
-function showReplace(){
-    $('#Replace').modal('show');
-    
-$('.modal-backdrop').removeClass("modal-backdrop");  
-                    }
-function showTheme(){
-    $('#Theme').modal('show');
-    
-$('.modal-backdrop').removeClass("modal-backdrop");  
-                    }
-function showFont(){
-    $('#FontSet').modal('show');
-    
-$('.modal-backdrop').removeClass("modal-backdrop");  
-                    }
-function showMode(){
-     $('#ModeModal').modal('show');
-    
-$('.modal-backdrop').removeClass("modal-backdrop");  
-}
-function line_col(){
-    
-    $('#cursorPos').modal('show');
-    $('.modal-backdrop').removeClass("modal-backdrop");  
-}
-///////////////////////////////////////////////////
-
 //////////////////////////////////////Open TERMINAL 
-function showTerminal(){
-    var child_process = require('child_process');
-    if(localStorage.getItem('path')===null || localStorage.getItem('path')=== undefined){
-        if(localStorage.getItem('lastFile')!==undefined && localStorage.getItem('lastFile')!==null){
-        child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('lastFile')));
-        }
-        else{
-            child_process.exec("start cmd.exe");
-        }
-    }
-    else{
-    child_process.exec("start cmd.exe /K cd /D" + path.dirname(localStorage.getItem('path')));
-    }
-}
+
 ///////////////////////////////////////////////////
 
 
@@ -1214,53 +1173,6 @@ function lineFeed(){
 };
 
 //To Use Find/Replace Functionality
-var lastPos = null, lastQuery = null, marked = [];
-function unmark() {
-  for (var i = 0; i < marked.length; ++i) marked[i];
-  marked.length = 0;
-}
-function search(string) {
-  unmark();                     
-  var text = document.getElementById(string).value;
-  if (!text) return;
-  var cursor = editor.getSearchCursor(text|| editor.getCursor());
-  if (!cursor.findNext()) {
-    cursor = editor.getSearchCursor(text);
-    if (!cursor.findNext()) return;
-  }
-  editor.setSelection(cursor.from(), cursor.to());
-  editor.refresh();
-}
-function search2(string) {
-  unmark();                     
-  var text = document.getElementById(string).value;
-  if (!text) return;
-  if (lastQuery != text) lastPos = null;
-  var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
-  if (!cursor.findNext()) {
-    cursor = editor.getSearchCursor(text);
-    if (!cursor.findNext()) return;
-  }
-  editor.setSelection(cursor.from(), cursor.to());
-  lastQuery = text; lastPos = cursor.to();
-
-  editor.refresh();
-}
-function replace() {
-  unmark();
-  var text = document.getElementById("query2").value,
-      replace = document.getElementById("replace").value;
-  if (!text) return;
-  for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
-    editor.replaceRange(replace, cursor.from(), cursor.to());
-}
-function replace2() {
-  unmark();
-  var text = document.getElementById("query2").value,
-      replace = document.getElementById("replace").value;
-  if (!text) return;
-    editor.replaceSelection(replace);
-}
 
 
 //To create Directory for New Project
@@ -1320,24 +1232,6 @@ function fileSearch(){
 }
 
 //Font Updating and Theme Updating
-function fupdate() {
-        var fontSize = document.getElementById("fontval").value;
-        var fontFace = document.getElementById("fontval2").value;
-        editor.getWrapperElement().style.fontSize = fontSize + "px";
-        editor.getWrapperElement().style.fontFamily = fontFace;
-        localStorage.setItem("face", fontFace);
-        localStorage.setItem("size", fontSize);
-        editor.refresh();
-    }
-function tupdate(){
-    var theme = document.getElementById("themebtn").value;
-
-    editor.setOption("theme", theme);
-    localStorage.setItem("THEME", theme);
-    minimap.setOption("theme", editor.getOption("theme"));
-    minimap.refresh();
-    editor.refresh();
-}
 
 minimap.on('scroll', function(){
 var pos = minimap.getScrollInfo();
