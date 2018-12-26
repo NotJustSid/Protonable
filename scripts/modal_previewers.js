@@ -5,7 +5,7 @@
 //showMode - Change Mode Modal
 //line_col - Goto Modal
 //newproject - Create New Project Folder Modal
-
+//UI - UI Settings
 function showFind(){
     $('#Find').modal('show'); 
     $('.modal-backdrop').removeClass("modal-backdrop"); 
@@ -27,8 +27,6 @@ $('.modal-backdrop').removeClass("modal-backdrop");
                     }
 function showMode(){
      $('#ModeModal').modal('show');
-    
-$('.modal-backdrop').removeClass("modal-backdrop");  
 }
 function line_col(){
     
@@ -37,4 +35,8 @@ function line_col(){
 }
 function newproject(){
     $('#Propath').modal('show');
+}
+function showUI(){
+    $('#UI').modal('show');
+    $('.modal-backdrop').removeClass("modal-backdrop");
 }

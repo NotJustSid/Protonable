@@ -291,6 +291,9 @@
                             <li>
                                 <a data-toggle="modal" href="#FontSet" onmousedown="showFont()">Font Settings</a>
                             </li>
+                            <li>
+                                <a onmousedown="showUI()">UI Settings</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -631,6 +634,38 @@
                             <button type="button" class="btn btn-success" onclick="extensionCheck(document.getElementById('mode_select').value)">Change</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="UI">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">UI Settings</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group modal-body">
+                        <b>NavBar Color:&nbsp;</b>
+                        <input id="navBarColor" type="color" value="#146cf8">
+                        <br><br>
+                        <b>BottomBar Color:&nbsp;</b>
+                        <input id="btmBarColor" type="color" value="#146cf8">
+                        <br><br>
+                        <b>NavBar Hover Color:&nbsp;</b>
+                        <input id="navBarhColor" type="color" value="#16cac1">
+                        <br><br>
+                        <b>BottomBar Hover Color:&nbsp;</b>
+                        <input id="btmBarhColor" type="color" value="#242424">
+                        <br><br>
+                       </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="uiSave()">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

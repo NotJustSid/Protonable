@@ -1,6 +1,6 @@
 .navy-main {
     width: 100% !important;
-    background-color:rgb(20, 108, 248) !important; 
+    background-color:rgb(20, 108, 248); 
     height: 50px !important;
     color: #fff !important;
     font-family: Calibri !important;
@@ -76,7 +76,7 @@
 }
 
 .navy-item:hover{
-    background-color: rgb(22, 202, 193) !important;
+    background-color: rgb(22, 202, 193);
 }
 
 .navy-content a:hover{
