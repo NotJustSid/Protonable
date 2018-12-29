@@ -40,3 +40,6 @@ function showUI(){
     $('#UI').modal('show');
     $('.modal-backdrop').removeClass("modal-backdrop");
 }
+function showHelp(){
+    $('#Help').modal('show'); 
+}

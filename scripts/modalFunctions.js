@@ -35,11 +35,10 @@ function uiSave(){
     var navBar = document.getElementsByClassName('navy-main');
     var btmBar = document.getElementById('btm-info');
 
-    var css1 = `<style>.navy-item:hover{ background-color: ${nvbrhColor} }</style>`;
-    var css2 = `<style>.info-item:hover{ background-color: ${btmbrhColor} }</style>`;
-
-    $('head').append(css1);
-    $('head').append(css2);
+    let hover1 = document.getElementById('1');
+    let hover2 = document.getElementById('2');
+    hover1.innerHTML = `.navy-item:hover{ background-color: ${nvbrhColor} }`;
+    hover2.innerHTML = `.info-item:hover{ background-color: ${btmbrhColor} }`;
 
     navBar[0].style.backgroundColor = nvbrColor;
     btmBar.style.backgroundColor = btmbrColor;

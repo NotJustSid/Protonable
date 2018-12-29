@@ -211,7 +211,8 @@
             bottom:50%;
         }
     </style>
-
+    <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
+    <style id="2">.info-item:hover{ background-color: #242424 }</style>
 </head>
 
 <body>
@@ -293,6 +294,9 @@
                             </li>
                             <li>
                                 <a onmousedown="showUI()">UI Settings</a>
+                            </li>
+                            <li>
+                                <a onmousedown="showHelp()">Help</a>
                             </li>
                         </ul>
                     </div>
@@ -670,6 +674,179 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="Help" style="position:absolute;left:0;top:0; height:700px; width:100%; user-select: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Help</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group modal-body">
+                        Created with Electron and <span style="color:red">&hearts;</span> by Sid!<br><br>
+                        Here, you will be guided through the features of the app and how to use the app in
+                        a productive manner!<br><br>
+<p>
+                           <b>
+                            <u>A Note Before</u>    
+                           </b>
+                           <br><br>
+                           Well, this app has taken me great effort to make. It is really hard to go through
+                           docs on the Internet for hours. I would like to acknowledge the huge efforts of
+                           those who actually simplified my task by already writing some other huge code.
+                           <br><br>
+                           <b>Protonable</b> is hugely made possible due to <b>CodeMirror</b>'s API and editing interface.
+                           It saved me a ton of time, otherwise I would have had to write around 10-15K more lines of code.
+                           Thanks to <b>Electron</b> for their amazing API. 
+                           <br><br>
+                           The <b>Bootstrap</b> Styles also saved me from 
+                           writing additional CSS. Jquery helped me write short code. You can check the source code for Protonable
+                           on <b><a href="https://github.com/Sid200/Protonable">Github</a></b>. It is totally free to take inspiration
+                           and code new things from it. The app might get updates in the future as I uncover features of the Electron API
+                           and according to the needs of people.<br><br>
+                           This app is solely created by me. Nobody Helped Me!(That's rude, isn't it? XD)
+                           <br><br>Now Onto Your Help with the app.<br>
+</p>
+
+<p>
+    <b><u>UI Overview</u></b><br><br>
+    <img src="screenshots/UI-Overview.png" height="100%" width="100%">
+    <br><br>
+    Click on the relevant buttons with the numbers of the parts you want to know about:
+<br><br>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link show" data-toggle="tab" href="#navBarInfo">1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link show" data-toggle="tab" href="#editorInfo">2</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link show" data-toggle="tab" href="#fileExpInfo">3</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link show" data-toggle="tab" href="#btmBarInfo">4</a>
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="navBarInfo">
+      <p>
+          <br><br>
+          <b>NavBar</b>
+          <br><br>
+          The NavBar is basically the Menu-Bar(The topmost horizontal bar you see). 
+          <br><br>
+          It contains what my code calls as navy-items. The 'File', 'Settings'
+          and other stuff are navy-items. Whenever hovered upon, their background-color changes. 
+          <br><br>
+          You can change what color appears from the UI Settings in Settings > UI Settings.
+          <br><br>
+      </p>
+    </div>
+    <div class="tab-pane fade" id="editorInfo">
+      <p>
+          <br><br>
+          <b>Editor</b>
+          <br><br>
+          Just below, the NavBar, you have the editor itself where you type. 
+          <br><br>
+          The editor is even called so in my code.
+          <br><br>
+          The editor's font face/size and theme can be very easily changed from Settings > Font Settings and Settings > Theme Settings respectively.
+          <br><br>
+          Just beside the editor, if you see properly, there is a MiniMap. The Minimap is your scroll bar for the editor and shows what your code looks like 
+          from a larger perspective. More about it in Features.
+        <br><br>
+      </p>
+    </div>
+    <div class="tab-pane fade" id="fileExpInfo">
+        <p>
+            <br><br>
+            <b>File Explorer</b>
+            <br><br>
+            Just Below the 2 and above 4, you have the inbuilt File Explorer that Protonable offers you.
+            <br><br>
+            I think the name is pretty much self explanatory...
+            <br><br>
+        </p>
+    </div>
+    <div class="tab-pane fade" id="btmBarInfo">
+        <p>
+            <br><br>
+            <b>Bottom Bar</b>
+            <br><br>
+            The Bottom Bar, like the NavBar has colors(both hover and background) which can be changed from UI Settings.
+            <br><br>
+            It displays some important information that you might need to know:
+            <br><br>
+            At the left most, it shows the name of the file you are working on. If no file is being worked upon, nothing shows up there.
+            <br>
+            This might not be there in the future, as I intend to make multiple files open in the future and that is not the best place to show their names 
+            in.
+            <br><br>
+            Next, you got the Timer which basically says how long you have been working for.
+            <br><br>
+            At the right side, starting from the very beginning, we have the Mode. You can change the Mode of the editor.
+            Mode basically means what type of file (like HTML or C++) you have been working on.
+            <br><br>
+            Then we got the feature to display what line and coloumn we have been typing in. If you click on that, you will be presented with the 
+            GoTo Functionality.
+            <br><br>
+            The next button lets you change the Line Ending Type from CLRF to LF and vice versa.
+            <br><br>
+        </p>
+    </div>
+  </div>
+</p>
+
+<p>
+    <b><u>Shortcuts</u></b>
+    <br><br>Here are the current shortcuts Protonable has:
+    <br><br>
+    Here, Key refers to Ctrl/Cmd
+    <br><br>
+    <p><b><i><u>Key + S</u></i></b> : Save the File. If it doesn't exist, Protonable creates a new one.</p>
+    <p><b><i><u>Key + Shift + S</u></i></b> : Save another File with the same contents of the current file.</p>
+    <p><b><i><u>Key + N</u></i></b> : Create a New File with the current content.</p>
+    <p><b><i><u>Key + Shift + N</u></i></b> : Create a New Project Directory to Work on.</p>
+    <p><b><i><u>Key + O</u></i></b> : Open a File from the Default Explorer.</p>
+    <p><b><i><u>Key + F</u></i></b> : Open Find Box</p>
+    <p><b><i><u>Key + Shift + F</u></i></b> : Open Replace Box</p>
+    <p><b><i><u>Key + Z</u></i></b> : Undo</p>
+    <p><b><i><u>Key + Y</u></i></b> : Redo</p>
+    <p><b><i><u>Key + D</u></i></b> : Open Focus Mode(See Features for Details)</p>
+    <p><b><i><u>Key + Shift + D</u></i></b> : Close Focus Mode</p>
+    <p><b><i><u>Key + Q</u></i></b> : Code Fold the Current Line(See Features)</p>
+    <p><b><i><u>Key + ]</u></i></b> : Code Fold the Whole Document</p>
+    <p><b><i><u>Key + [</u></i></b> : Code UnFold the Whole Document</p>
+    <p><b><i><u>Key + E</u></i></b> : Show ColorPicker (Works with HTML and CSS files)</p>
+</p>
+<br><br>
+<p>
+    <b><u>Features</u></b>
+    <br><br>
+    Here are some noticable features Protonable currently has:
+    <br><br>
+    <b>1)Focus Mode</b> : Let's you focus just on your code by removing everything else than the editor.
+    To use it, you have been given shortcuts.
+    Note However, the MiniMap stays.
+    <br><br>
+    <b>2)Multiple Cursors</b> : You can type simultaneously in multiple lines by using this feature.
+    To use it, just press Ctrl/Cmd and click on the part where you want to add your cursor.
+    <br><br>
+    <b>3)MiniMap</b> : The MiniMap is still under development.
+    <br><br>
+</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <!--MODALS END-->
 
 
@@ -712,9 +889,9 @@
     <!--BOTTOM TAB-->
     <div id="btm-info">
 
-        <li class="info-item">
+        <li class="info-item" onmousedown="lineFeed()">
             
-            <button id="lineFeed" style="all:unset" onmousedown="lineFeed()">CLRF</button>
+            <button id="lineFeed" style="all:unset">CLRF</button>
 
         </li>
         
@@ -767,6 +944,7 @@ prevDir : Used to go back to the previous directory in the file explorer.
 
 /////////////////////////////////////////CODEMIRROR
 require( 'codemirror-colorpicker' );
+var shell = require('electron').shell;
 
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
@@ -860,6 +1038,10 @@ var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         readOnly: true,
 });
 
+    $(document).on('click', 'a[href^="http"]', function(event) {
+        event.preventDefault();
+        shell.openExternal(this.href);
+    });
 
 minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
