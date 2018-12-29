@@ -16,10 +16,6 @@ minimap.setOption("theme", editor.getOption("theme"));
 minimap.refresh();
 editor.refresh();
 }
-var navDefColor = '#146cf8';
-var btmDefColor = navDefColor;
-var fontDef = 'Consolas';
-var fontSDef = '22px';
 
 function uiSave(){
     var nvbrColor = document.getElementById('navBarColor').value;
@@ -35,8 +31,8 @@ function uiSave(){
     var navBar = document.getElementsByClassName('navy-main');
     var btmBar = document.getElementById('btm-info');
 
-    let hover1 = document.getElementById('1');
-    let hover2 = document.getElementById('2');
+    var hover1 = document.getElementById('1');
+    var hover2 = document.getElementById('2');
     hover1.innerHTML = `.navy-item:hover{ background-color: ${nvbrhColor} }`;
     hover2.innerHTML = `.info-item:hover{ background-color: ${btmbrhColor} }`;
 
@@ -45,5 +41,4 @@ function uiSave(){
 }
 
 function reset(){
-
 }

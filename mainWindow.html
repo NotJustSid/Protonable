@@ -918,31 +918,6 @@
 
 <script>
 
-/*
-
-INSTRUCTIONS TO CODE:
-1)I AM SORRY THAT I INCLUDED ALL OF THE JS IN THE SAME FILE. IT MIGHT BE CHANGED.
-2)THE CODEMIRROR INSTANCE USED IS KNOWN AS editor. It is an object.
-3)I HAVE PUT UP A TRACK OF VARIABLES (BOTTOM) SO THAT IT IS EASY TO GO THROUGH.
-4)
-
-VARIABLES TO KEEP TRACK OF:
-pathtofile : This var is saved in localstorage as path and is actually used to open Terminal in the Current DIR.
-theme : The Theme of the editor. In localstorage as THEME.
-size : Font Size - in LocalStorage as size.
-face: Font Face - in localstorage as face.
-lastFile : So that the editor opens the last working file - ONLY in localstorage as lastFile
-prevDir : Used to go back to the previous directory in the file explorer.
-
---STILL EDITING--
-
-*/
-//////////////////////////////////////Open TERMINAL 
-
-///////////////////////////////////////////////////
-
-
-/////////////////////////////////////////CODEMIRROR
 require( 'codemirror-colorpicker' );
 var shell = require('electron').shell;
 
@@ -1038,7 +1013,7 @@ var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         readOnly: true,
 });
 
-    $(document).on('click', 'a[href^="http"]', function(event) {
+$(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
         shell.openExternal(this.href);
     });
@@ -1108,12 +1083,30 @@ function dirchoosed(){
 
 
 //To apply theme & font selected by user on loadback
-var size = localStorage.getItem("size");
-var face = localStorage.getItem("face");
-var theme = localStorage.getItem("THEME");
+var size    = localStorage.getItem("size");
+var face    = localStorage.getItem("face");
+var theme   = localStorage.getItem("THEME");
+var NavHC   = localStorage.getItem("NavHC");
+var BtmHC   = localStorage.getItem("BtmHC");
+var NavC    = localStorage.getItem("NavC");
+var BtmC    = localStorage.getItem("BtmC");
+var hover1  = document.getElementById('1');
+var hover2  = document.getElementById('2');
+if(size)
     editor.getWrapperElement().style.fontSize = size + "px";
+if(face)
     editor.getWrapperElement().style.fontFamily = face;
+if(theme)
     editor.setOption("theme", theme);
+if(NavHC)
+    hover1.innerHTML = `.navy-item:hover{ background-color: ${NavHC} }`;
+if(NavC)
+    document.getElementsByClassName('navy-main')[0].style.backgroundColor = NavC;
+if(BtmHC)
+    hover2.innerHTML = `.info-item:hover{ background-color: ${BtmHC} }`;
+if(BtmC)
+    document.getElementById('btm-info').style.backgroundColor = BtmC;
+    
 
 //AutoComplete--Still In Work
 editor.on("keypress", function (cm, event) {
