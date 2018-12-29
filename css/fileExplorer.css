@@ -64,6 +64,9 @@
     padding: 2px;
     vertical-align:-webkit-baseline-middle;
 }
+#file-list > li > img{
+    -webkit-user-drag: none;
+}
 #file-list{
     overflow:hidden;
     white-space: nowrap;
