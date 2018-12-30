@@ -1139,8 +1139,6 @@ function fileSearch(){
   }
 }
 
-//Font Updating and Theme Updating
-
 minimap.on('scroll', function(){
 var pos = minimap.getScrollInfo();
 editor.scrollTo(pos.left, pos.top);
@@ -1412,9 +1410,11 @@ function newfile(){
     pathtofile = filename;
     localStorage.setItem('lastFile', pathtofile);
         document.getElementById('fileInfo').innerText = path.basename(pathtofile);
-        readDir(path.dirname(pathtofile));
         extension = path.extname(pathtofile);
         extensionCheck(extension);
+        editor.setValue('');
+        savefile();
+        readDir(path.dirname(pathtofile));
 });
 }
 function savefile(){
@@ -1443,7 +1443,7 @@ function FocusMode(focus_Mode){
         minimap.setSize(110, window.innerHeight);
         document.getElementById('block').setAttribute("style", "top:0");
         document.getElementById('FileExplorer').setAttribute("style", "display:none");
-        document.getElementById('btm-info').setAttribute("style", "display:none");
+        document.getElementById('btm-info').style.display = "none";
         $('.panebtn_').hide();
     }else if(focus_Mode = true){
         minimap.setSize(110, window.innerHeight-290);
@@ -1451,7 +1451,7 @@ function FocusMode(focus_Mode){
         $('.navy-main').show();
         document.getElementById('block').removeAttribute("style");
         document.getElementById('FileExplorer').removeAttribute("style");
-        document.getElementById('btm-info').removeAttribute("style");
+        document.getElementById('btm-info').style.removeProperty('display')
         $('.panebtn_').show();
     }
 }
