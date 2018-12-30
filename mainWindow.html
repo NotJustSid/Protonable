@@ -149,6 +149,7 @@
     <script src="scripts/terminalOpen.js"></script>
     <script src="scripts/findReplace.js"></script>
     <script src="scripts/modalFunctions.js"></script>
+    <script src="scripts/bookmarks.js"></script>
 
     <link href="css/navBar.css" rel="stylesheet">
     <link href="css/fileExplorer.css" rel="stylesheet">
@@ -181,15 +182,19 @@
         .CodeMirror-hint-active {
             background-color: rgb(15, 135, 233);
         }
-        
+        #pane{
+            position: absolute;
+            bottom: 112px;
+            right: 5px;
+        }
         .panebtn_{
             background-color: rgb(36, 36, 36);
             border: 0;
             margin: 0;
-            position: absolute;
             height: 30px;
-            bottom: 192px;
-            right: 12px;
+            margin-right: 20px;
+            font-size: 18px;
+            float: right;
             color: white; 
             border-radius: 5px;
         }
@@ -852,6 +857,10 @@
     </div>
     <!--MODALS END-->
 
+    <div id="BookCover" style="position: absolute; z-index: 10;">
+            <div id="Book" class="list-group">
+            </div>
+    </div>
 
     <!--EDITOR-->
     <div id="block">
@@ -864,13 +873,17 @@
     <textarea id="Minimap"></textarea>
     </div>
     <!--ENDS-->
-    <span id="pane">
-    <button class="panebtn_" onmousedown="showTerminal()">
-        Terminal
-    </button>
-    </span>
 
     <div id="FileExplorer">
+            <span id="pane">
+                    <button class="panebtn_" onmousedown="showTerminal()">
+                        Terminal
+                    </button>
+                    <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir(path.dirname(localStorage.getItem('lastFile')))">&#x21BA;</button>
+                    <button class="panebtn_">
+                        Bookmarks
+                    </button>
+                    </span>
         <div class="pane-group">
             <div class="pane-sm sidebar">
                 <button class="btn btn-large btn-outline-info center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">&lt;</button>
@@ -923,6 +936,13 @@
 
 require( 'codemirror-colorpicker' );
 var shell = require('electron').shell;
+
+var linesBooked = [];
+
+function removeDuplicates(arr){
+    let unique_array = Array.from(new Set(arr))
+    return unique_array
+}
 
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
@@ -993,6 +1013,16 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     "Cmd-]": cm => CodeMirror.commands.foldAll(cm),
     "Ctrl-[": cm => CodeMirror.commands.unfoldAll(cm),
     "Cmd-[": cm => CodeMirror.commands.foldAll(cm),
+    "Ctrl-B": function(){
+        linesBooked.push(editor.getCursor().line+1);
+        linesBooked = removeDuplicates(linesBooked);
+        readBook();
+    },
+    "Shift-Ctrl-B": function(){
+        var index = linesBooked.indexOf(editor.getCursor().line+1);
+        if (index !== -1) linesBooked.splice(index, 1);
+        readBook();
+    },
     "Ctrl-D": function(){
         FocusMode(false);
     },
