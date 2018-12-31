@@ -43,3 +43,7 @@ function showUI(){
 function showHelp(){
     $('#Help').modal('show'); 
 }
+function showBook(){
+    $('#BookModal').modal('show');
+    $('.modal-backdrop').removeClass("modal-backdrop");
+}
