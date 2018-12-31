@@ -9,6 +9,9 @@
 function showFind(){
     $('#Find').modal('show'); 
     $('.modal-backdrop').removeClass("modal-backdrop"); 
+    $("#Find").draggable({
+        handle: ".modal-header"
+    });
     }
 function showReplace(){
     $('#Replace').modal('show');
