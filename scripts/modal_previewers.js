@@ -6,16 +6,20 @@
 //line_col - Goto Modal
 //newproject - Create New Project Folder Modal
 //UI - UI Settings
+
 function showFind(){
+   var WidthDrag  = window.innerWidth;
+   var HeightDrag = window.innerHeight - 360;
     $('#Find').modal('show'); 
     $('.modal-backdrop').removeClass("modal-backdrop"); 
     $('#Find').draggable({
         handle: ".modal-header",
+        containment: [0,0,WidthDrag,HeightDrag],
         start: function(event, ui){
            $(ui.helper).css('width', `${ $(event.target).width() }px`);
         }
      });
-
+     
     }
 function showReplace(){
     $('#Replace').modal('show');
