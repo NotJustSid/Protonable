@@ -150,6 +150,7 @@
     <script src="scripts/findReplace.js"></script>
     <script src="scripts/modalFunctions.js"></script>
     <script src="scripts/bookmarks.js"></script>
+    <script src="scripts/timer.js"></script>
 
     <link href="css/navBar.css" rel="stylesheet">
     <link href="css/fileExplorer.css" rel="stylesheet">
@@ -1155,7 +1156,8 @@ if(BtmHC)
     hover2.innerHTML = `.info-item:hover{ background-color: ${BtmHC} }`;
 if(BtmC)
     document.getElementById('btm-info').style.backgroundColor = BtmC;
-    
+
+setInterval(setTime, 1000);
 
 //AutoComplete--Still In Work
 editor.on("keypress", function (cm, event) {
@@ -1526,26 +1528,6 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function(){FocusMode(false); return fals
 Mousetrap.bind(['shift+command+d', 'shift+ctrl+d'], function(){FocusMode(true); return false;})
 
 //Working for Timer
-var minutesLabel = document.getElementById("minutes");
-var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
-setInterval(setTime, 1000);
-function setTime() {
-  ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-  if(totalSeconds===86400){
-      totalSeconds = 0;
-  }
-}
-function pad(val) {
-  var valString = val + "";
-  if (valString.length < 2) {
-    return "0" + valString;
-  } else {
-    return valString;
-  }
-}
 
 //Go To Functionability
 function changePos(){
