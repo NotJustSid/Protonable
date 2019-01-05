@@ -1236,6 +1236,60 @@ function redo(){
     editor.redo();
 }
 
+function saveJSON(){
+//Default DATA if not Defined.
+var data = {
+Fsize: '28',
+Fface: 'Consolas',
+Theme: 'material',
+NavHC: '#16cac1',
+NavC: '#146cf8',
+BtmHC: '#242424',
+BtmC: '#146cf8'
+};
+
+    if(localStorage.getItem('size')!==undefined){
+        data.Fsize = localStorage.getItem('size');
+    }
+    if(localStorage.getItem('lastFile')!==undefined){
+       data.LastFile = localStorage.getItem('lastFile'); 
+    }
+    if(localStorage.getItem('face')!==undefined){
+        data.Fface = localStorage.getItem('face');
+    }
+    if(localStorage.getItem('THEME')!==undefined){
+        data.Theme = localStorage.getItem('Theme');
+    }
+    if(localStorage.getItem('NavHC')!==undefined){
+        data.NavHC = localStorage.getItem('NavHC');
+    }
+    if(localStorage.getItem('NavC')!==undefined){
+        data.NavC = localStorage.getItem('NavC');
+    }
+    if(localStorage.getItem('BtmHC')!==undefined){
+        data.BtmHC = localStorage.getItem('BtmHC');
+    }
+    if(localStorage.getItem('BtmC')!==undefined){
+        data.BtmC = localStorage.getItem('BtmC');
+    }
+
+    if (!fs.existsSync(localStorage.getItem('prevDir')+ '/' + '.protonable/')){
+        fs.mkdirSync(localStorage.getItem('prevDir')+ '/' + '.protonable/');
+    }
+
+    // localStorage.clear();
+
+    var jsonDat = JSON.stringify(data);
+    fs.writeFile('.protonable/data.json', jsonDat, function (err) {
+    if (err) throw err;
+});
+
+}
+
+function loadFromJSON(){
+
+}
+
 var Mousetrap = require('mousetrap');   //For shortcuts
 var app = require('electron').remote;   //For App methods.
 var dialog = app.dialog;                //For Save/Open Dialog Boxes
