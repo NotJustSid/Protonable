@@ -9,9 +9,9 @@ ___
 ___
 ## Built With the Help of:
 * CodeMirror
-* Xterm - Not Implemented
 * Electron
 * Node
+* Bootstrap
 ___
 ## Platform
 * Currently Aimed at Windows.
@@ -38,4 +38,5 @@ ___
 * CSS
 * HTML
 * Python
+* Markdown
 * More to come in future!
