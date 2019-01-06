@@ -215,6 +215,9 @@
             right:10px;
             left:auto;
         }
+        .current-line{
+            background-color: rgb(221, 59, 59);
+        }
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
     <style id="2">.info-item:hover{ background-color: #242424 }</style>
@@ -968,6 +971,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         autoCloseBrackets: true,
         electricChars: true,
         matchBrackets: true,
+        styleActiveLine: true,
         autofocus: true,
         scrollbarStyle: 'null',
         foldGutter: true,
@@ -1045,6 +1049,9 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     },
     "Cmd-D": function(){
         FocusMode(false);
+    },
+    "Alt-B": function(){
+        showBook();
     },
     "Shift-Ctrl-D": function(){
         FocusMode(true);
@@ -1533,11 +1540,13 @@ function newproject(){
     $('#Propath').modal('show');
 }
 
+function colorLine(lineNumber){
+    minimap.addLineClass(lineNumber, 'wrap', 'current-line')
+}
 
 function MiniMap(){
     editor.setCursor(minimap.getCursor().line, 0);
-    editor.focus();
-    console.log('Hello');    
+    editor.focus(); 
 }
 
 //CHANGE LINE/COLOUMN
@@ -1547,6 +1556,8 @@ function updateInfo(){
    line.innerText = editor.getCursor().line+1;
    col.innerText = editor.getCursor().ch + 1;
    minimap.setValue(editor.getValue());
+   colorLine(editor.getCursor().line);
+
 }
 editor.on("cursorActivity", updateInfo);
 
@@ -1561,6 +1572,8 @@ Mousetrap.bind(['command+z', 'ctrl+z'], function(){undo(); return false;});
 Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
 Mousetrap.bind(['command+d', 'ctrl+d'], function(){FocusMode(false); return false;})
 Mousetrap.bind(['shift+command+d', 'shift+ctrl+d'], function(){FocusMode(true); return false;})
+Mousetrap.bind(['alt+b', 'alt+b'], function(){showBook(); return false;})
+
 
 //Working for Timer
 
