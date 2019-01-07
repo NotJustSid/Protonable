@@ -6,6 +6,7 @@
 //line_col - Goto Modal
 //newproject - Create New Project Folder Modal
 //UI - UI Settings
+//showTerminalChanger - Terminal Location Saver Modal
 
 function showFind(){
    var WidthDrag  = window.innerWidth;
@@ -108,3 +109,17 @@ function showBook(){
         }
      });
 }
+function showTerminalChanger(){
+   var WidthDrag  = window.innerWidth;
+   var HeightDrag = window.innerHeight-360;
+    $('#TerminalLoc').modal('show'); 
+    $('.modal-backdrop').removeClass("modal-backdrop"); 
+    $('#TerminalLoc').draggable({
+        handle: ".modal-header",
+        containment: [0,0,WidthDrag,HeightDrag],
+        start: function(event, ui){
+           $(ui.helper).css('width', `${ $(event.target).width() }px`);
+        }
+     });
+     
+    }

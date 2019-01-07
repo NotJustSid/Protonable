@@ -306,6 +306,10 @@
                                 <a onmousedown="showUI()">UI Settings</a>
                             </li>
                             <li>
+                                <a onmousedown="showTerminalChanger()">Change Terminal Location</a>
+                            </li>
+                            <hr style="width: 98%; text-align:center; height:0.32px; background-color: white;">
+                            <li>
                                 <a onmousedown="showHelp()">Help</a>
                             </li>
                         </ul>
@@ -494,6 +498,39 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" onmousedown="search2('query')">Find Next</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="TerminalLoc">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Change Terminal Location
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group modal-body">
+                        <input class="form-control form-control-lg" type="text" placeholder="Terminal App Location" id="termloc" autofocus>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onmousedown="localStorage.setItem('term', document.getElementById('termloc').value)">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -907,6 +944,9 @@
                     <button class="panebtn_" onmousedown="showBook()">
                         Bookmarks
                     </button>
+                    <button class="panebtn_" onmousedown="copyDirtoClip()" title="Copy Current Directory Location to Clipboard">
+                        &#128203;
+                    </button>
                     </span>
         <div class="pane-group">
             <div class="pane-sm sidebar">
@@ -1299,7 +1339,7 @@ function loadFromJSON(pathtoJSONdir){
     }
     var jsonObj = JSON.parse(data);
 
-    
+
 
 });
 }
@@ -1308,6 +1348,11 @@ var Mousetrap = require('mousetrap');   //For shortcuts
 var app = require('electron').remote;   //For App methods.
 var dialog = app.dialog;                //For Save/Open Dialog Boxes
 var fs = require('fs');                 //For File Explorer
+const{clipboard} = require('electron');    //For Current Dir Copy to Clipboard.
+
+function copyDirtoClip(){
+    clipboard.writeText(localStorage.getItem('currentDir'));
+}
 
 //To check the last worked file.
 if(localStorage.getItem('lastFile')){
