@@ -1,0 +1,62 @@
+.cm-s-flat-mat {
+	font-size: 1em;
+	line-height: 1.5em;
+	font-family: inconsolata, monospace;
+	letter-spacing: 0.3px;
+	word-spacing: 1px;
+	background: #2B2E36;
+	color: #F1F1F1;
+}
+.cm-s-flat-mat .CodeMirror-lines {
+	padding: 8px 0;
+}
+.cm-s-flat-mat .CodeMirror-gutters {
+	background-color: #2B2E36;
+	padding-right: 4px;
+	z-index: 3;
+	border: none;
+}
+.cm-s-flat-mat div.CodeMirror-cursor {
+	border-left: 3px solid #F1F1F1;
+}
+.cm-s-flat-mat .CodeMirror-activeline-background {
+	background: #5b62626e;
+}
+.cm-s-flat-mat .CodeMirror-selected {
+	background: #43474F;
+}
+.cm-s-flat-mat .cm-comment {
+	color: #485C6B;
+}
+.cm-s-flat-mat .cm-keyword {
+	color: #D0443F;
+}
+.cm-s-flat-mat .cm-variable {
+	color: rgb(117, 223, 200);
+}
+.cm-s-flat-mat .cm-def {
+	font-style: italic;
+}
+.cm-s-flat-mat .cm-string {
+	color: rgb(134, 223, 134);
+}
+.cm-s-flat-mat .cm-variable-2 {
+    color: rgb(8, 126, 194);
+    font-style: italic;
+    font-weight: bolder;
+}
+.cm-s-flat-mat .cm-property {
+	color: #FF6666;
+}
+.cm-s-flat-mat .cm-atom {
+	color: #FF6666;
+}
+.cm-s-flat-mat .cm-number {
+	color: rgb(179, 206, 224);
+}
+.cm-s-flat-mat .cm-operator {
+	color: rgb(255, 255, 255);
+}
+.cm-s-flat-mat .CodeMirror-linenumber {
+	color: rgb(149, 160, 168);
+}
