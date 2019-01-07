@@ -1242,7 +1242,7 @@ function redo(){
     editor.redo();
 }
 
-function saveJSON(){
+function saveJSON(pathtoJSONdir){
 //Default DATA if not Defined.
 var data = {
 Fsize: '28',
@@ -1264,7 +1264,7 @@ BtmC: '#146cf8'
         data.Fface = localStorage.getItem('face');
     }
     if(localStorage.getItem('THEME')!==undefined){
-        data.Theme = localStorage.getItem('Theme');
+        data.Theme = localStorage.getItem('THEME');
     }
     if(localStorage.getItem('NavHC')!==undefined){
         data.NavHC = localStorage.getItem('NavHC');
@@ -1279,21 +1279,29 @@ BtmC: '#146cf8'
         data.BtmC = localStorage.getItem('BtmC');
     }
 
-    if (!fs.existsSync(localStorage.getItem('prevDir')+ '/' + '.protonable/')){
-        fs.mkdirSync(localStorage.getItem('prevDir')+ '/' + '.protonable/');
+    if (!fs.existsSync(localStorage.getItem('currentDir')+ '/' + '.protonable/')){
+        fs.mkdirSync(localStorage.getItem('currentDir')+ '/' + '.protonable/');
     }
 
     // localStorage.clear();
 
     var jsonDat = JSON.stringify(data);
-    fs.writeFile('.protonable/data.json', jsonDat, function (err) {
+    fs.writeFile(pathtoJSONdir+'.protonable/data.json', jsonDat, {flag: 'w'}, function (err) {
     if (err) throw err;
 });
 
 }
 
-function loadFromJSON(){
+function loadFromJSON(pathtoJSONdir){
+    fs.readFile('.protonable/data.json', function read(err, data) {
+    if (err) {
+        throw err;
+    }
+    var jsonObj = JSON.parse(data);
 
+    
+
+});
 }
 
 var Mousetrap = require('mousetrap');   //For shortcuts
@@ -1548,6 +1556,10 @@ function MiniMap(){
     editor.focus(); 
 }
 
+// function MinimapView(){
+//     minimap.scrollIntoView(editor.getCursor().line+2,0);
+// }
+
 //CHANGE LINE/COLOUMN
 var line = document.getElementById('line-no.');
 var col  = document.getElementById('col-no.');
@@ -1559,6 +1571,7 @@ function updateInfo(){
 }
 editor.on("cursorActivity", updateInfo);
 
+// minimap.on('change', MinimapView);
 Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); return false;});
 Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); return false;});
 Mousetrap.bind(['shift+command+n', 'shift+ctrl+n'], function(){newproject(); return false;});
