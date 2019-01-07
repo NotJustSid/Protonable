@@ -47,11 +47,12 @@
     display: block !important;
     width: 380px !important;
     position: absolute !important;
-    top: 70px !important;
+    top: 52px !important;
     overflow: hidden !important;
     background-color: #444 !important;
     max-height: 0 !important;
     -webkit-app-region: no-drag;
+    box-shadow: 2px 3.5px 12px #000 !important;
 }
 
 .navy-content a{
@@ -60,7 +61,7 @@
 }
 
 .navy-sub{
-    padding: 20px !important;    
+    padding: 20px !important;
 }
 
 .navy-sub ul{
