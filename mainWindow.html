@@ -218,7 +218,7 @@
             left:auto;
         }
         .current-line{
-            background-color: rgb(221, 59, 59);
+            background-color: rgba(112, 108, 108, 0.692);
         }
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
@@ -963,11 +963,6 @@ var shell = require('electron').shell;
 
 var linesBooked = [];
 
-function removeDuplicates(arr){
-    let unique_array = Array.from(new Set(arr))
-    return unique_array
-}
-
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
         lineWrapping: true,
@@ -1561,7 +1556,6 @@ function updateInfo(){
    col.innerText = editor.getCursor().ch + 1;
    minimap.setValue(editor.getValue());
    colorLine(editor.getCursor().line);
-
 }
 editor.on("cursorActivity", updateInfo);
 

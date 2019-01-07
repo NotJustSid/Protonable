@@ -16,3 +16,8 @@ function deleteBookMark(line){
     if (index !== -1) linesBooked.splice(index, 1);
     readBook();
 }
+
+function removeDuplicates(arr){
+    let unique_array = Array.from(new Set(arr))
+    return unique_array
+}
