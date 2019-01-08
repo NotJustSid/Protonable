@@ -40,6 +40,7 @@
     "@fortawesome/fontawesome-free": "^5.5.0",
     "codemirror-colorpicker": "^1.9.48",
     "electron-packager": "^13.0.1",
+    "font-list": "^1.1.0",
     "mousetrap": "^1.6.2",
     "os": "^0.1.1",
     "path": "^0.12.7"
@@ -49,4 +50,3 @@
     "electron": "^3.0.7"
   }
 }
-

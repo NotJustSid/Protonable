@@ -452,13 +452,13 @@
                         <p class="lead" id="intext2">
                             Change Font Face:
                             <select class="form-control" id="fontval2">
-                                <option value="Arial">Arial</option>
+                                <!-- <option value="Arial">Arial</option>
                                 <option value="Calibri">Calibri</option>
                                 <option value="Consolas" selected>Consolas</option>
                                 <option value="Courier">Courier</option>
                                 <option value="Lucida Console">Lucida Console</option>
                                 <option value="Segoe UI">Segoe UI</option>
-                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Times New Roman">Times New Roman</option> -->
                             </select>
                         </p>
                     </div>
@@ -991,7 +991,7 @@
             Working For: &nbsp;
                 <label id="minutes">00</label>:<label id="seconds">00</label>
         </li>
-        
+
     </div>
 
 </body>
@@ -1117,6 +1117,7 @@ $(document).on('click', 'a[href^="http"]', function(event) {
 minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
+
 
 
 //COLOR PICKER
@@ -1368,6 +1369,16 @@ var app = require('electron').remote;   //For App methods.
 var dialog = app.dialog;                //For Save/Open Dialog Boxes
 var fs = require('fs');                 //For File Explorer
 const{clipboard} = require('electron');    //For Current Dir Copy to Clipboard.
+const fontList = require('font-list');
+
+fontList.getFonts().then(fonts => {
+    for(font in fonts){
+        $(new Option(`${fonts[font].replace(/['"]+/g, '')}`, `${fonts[font].replace(/['"]+/g, '')}`)).appendTo('#fontval2');
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  });
 
 function copyDirtoClip(){
     clipboard.writeText(localStorage.getItem('currentDir'));
@@ -1667,7 +1678,6 @@ function changePos(){
     editor.setCursor(lineNoValue, colNoValue);
     editor.focus();
 };
-
 
 minimap.setOption("theme", editor.getOption("theme"));
 
