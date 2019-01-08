@@ -937,11 +937,11 @@
 
     <div id="FileExplorer">
             <span id="pane">
-                    <button class="panebtn_" onmousedown="showTerminal()">
+                    <button class="panebtn_" onmousedown="showTerminal()" title="Open The Terminal Right in the Directory the Explorer is in!">
                         Terminal
                     </button>
                     <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir(path.dirname(localStorage.getItem('lastFile')))">&#x21BB;</button>
-                    <button class="panebtn_" onmousedown="showBook()">
+                    <button class="panebtn_" onmousedown="showBook()" title="BookMark Your Lines To Come To Them Later!">
                         Bookmarks
                     </button>
                     <button class="panebtn_" onmousedown="copyDirtoClip()" title="Copy Current Directory Location to Clipboard">
@@ -950,7 +950,7 @@
                     </span>
         <div class="pane-group">
             <div class="pane-sm sidebar">
-                <button class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()">&lt;</button>
+                <button class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()" title="Go Back By One Directory">&lt;</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 40vw;">
                         <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
@@ -971,27 +971,27 @@
 
         <li class="info-item" onmousedown="lineFeed()">
             
-            <button id="lineFeed" style="all:unset">CLRF</button>
+            <button id="lineFeed" style="all:unset" title="Change EOF(End Of Line) Format">CLRF</button>
 
         </li>
         
         <li class="info-item">
             
-            <button style="all:unset" id="line-ch" onmousedown="line_col()">Line: <span id="line-no.">1</span>,&nbsp; Col: <span id="col-no.">1</span></button>
+            <button style="all:unset" id="line-ch" onmousedown="line_col()" title="Click Here to Quickly Go To A Line">Line: <span id="line-no.">1</span>,&nbsp; Col: <span id="col-no.">1</span></button>
 
         </li>
         
         <li class="info-item">
-            <button style="all:unset" id="editor-mode" onmousedown="showMode()">Text</button>
+            <button style="all:unset" id="editor-mode" onmousedown="showMode()" title="Change the Editor Mode from Here">Text</button>
         </li>
 
-
-
         <li id="fileInfo"></li>
+
         <li class="info-item" style="float: left;">
             Working For: &nbsp;
                 <label id="minutes">00</label>:<label id="seconds">00</label>
         </li>
+        
     </div>
 
 </body>
