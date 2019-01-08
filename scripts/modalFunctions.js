@@ -42,3 +42,7 @@ function uiSave(){
 
 function reset(){
 }
+
+function termSave(){
+    localStorage.setItem('term', document.getElementById('termloc').value)
+}

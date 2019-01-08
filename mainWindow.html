@@ -530,7 +530,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onmousedown="localStorage.setItem('term', document.getElementById('termloc').value)">Save</button>
+                    <button type="button" class="btn btn-success" onmousedown="termSave()">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -1177,7 +1177,26 @@ function dirchoosed(){
         }
 }
 
+function inputEnterCheck(id, func){
+    id.addEventListener("keyup", function(event) {
+  
+  event.preventDefault();
+  
+  if (event.keyCode === 13) {
+    if (func && (typeof func == "function")) {
+      func();   
+   }
+  }
+});
+}
 
+inputEnterCheck(document.getElementById('termloc'), termSave);
+inputEnterCheck(document.getElementById('lineNoValue'), changePos);
+inputEnterCheck(document.getElementById('colNoValue'), changePos);
+inputEnterCheck(document.getElementById('query'), function(){
+    search2('query');
+});
+inputEnterCheck(document.getElementById('proname'), dirchoosed);
 
 //To apply theme & font selected by user on loadback
 var size    = localStorage.getItem("size");
