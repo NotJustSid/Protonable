@@ -3,9 +3,11 @@
   "productName": "Protonable",
   "version": "1.0.0",
   "description": "A Minimal Text Editor Built on Electron!",
+  "repository": "https://github.com/Sid200/Protonable",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "packWin": "electron-packager . --icon=img/icon.ico --out=release"
   },
   "author": "Siddhanth Bhowmick",
   "license": "MIT",

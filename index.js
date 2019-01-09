@@ -1,7 +1,7 @@
 //Modules
 
 const {app, BrowserWindow, globalShortcut} = require('electron')
-
+require('update-electron-app')()
 const url = require('url');
 const path = require('path');
 
@@ -29,7 +29,7 @@ function createWindow() {
    mainWindow.once('ready-to-show', ()=>{
     mainWindow.show();
    });
-
+   
    globalShortcut.register('CommandOrControl+R', function() {
 		mainWindow.reload()
 	});
