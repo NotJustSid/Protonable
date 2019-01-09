@@ -30,21 +30,21 @@ function createWindow() {
     mainWindow.show();
    });
 
-   //DEVEOPER BASED
-
    globalShortcut.register('CommandOrControl+R', function() {
 		mainWindow.reload()
 	});
+  
   mainWindow.maximize();
+  
   mainWindow.setMinimumSize(720, 540);
+  
   mainWindow.on('closed', function () {
     app.quit();
   });
 
   mainWindow.on('closed', function () {
-
     mainWindow = null;
-  })
+  });
 }
 
 
