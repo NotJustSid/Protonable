@@ -1,38 +1,11 @@
 {
   "name": "protonable",
+  "productName": "Protonable",
   "version": "1.0.0",
   "description": "A Minimal Text Editor Built on Electron!",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
-    "dist": "build"
-  },
-  "build": {
-    "appId": "com.techisunique.protonable",
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
-    "win": {
-      "target": "NSIS",
-      "icon": "img/icon.ico"
-    }
+    "start": "electron ."
   },
   "author": "Siddhanth Bhowmick",
   "license": "MIT",
@@ -46,7 +19,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "electron-builder": "^20.36.2",
-    "electron": "^3.0.7"
+    "electron": "^3.0.7",
+    "electron-packager": "^13.0.1",
   }
 }
