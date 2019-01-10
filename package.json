@@ -7,7 +7,16 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "packWin": "electron-packager . --icon=img/icon.ico --out=release"
+    "packWin": "electron-packager . --icon=img/icon.ico --out=release",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.techisunique.protonable",
+    "win": {
+      "target": "nsis",
+      "icon": "img/icon.ico"
+    }
   },
   "author": "Siddhanth Bhowmick",
   "license": "MIT",
@@ -23,6 +32,8 @@
   },
   "devDependencies": {
     "electron": "^3.0.7",
-    "electron-packager": "^13.0.1"
+    "electron-builder": "^20.38.4",
+    "electron-packager": "^13.0.1",
+    "electron-updater": "^4.0.6"
   }
 }
