@@ -1,8 +1,8 @@
-version: 2.0.0
+version: 0.0.1
 files:
-  - url: protonable-setup-2.0.0.exe
-    sha512: UGUyCY0FoyoOEspQtZK4GHE8F0RMiQPhWyYYnBKYZZxIDn33Wyrn+Vk3KJMLtrEo4H9gVvExIUkMPI62SNWZ7A==
-    size: 47225458
-path: protonable-setup-2.0.0.exe
-sha512: UGUyCY0FoyoOEspQtZK4GHE8F0RMiQPhWyYYnBKYZZxIDn33Wyrn+Vk3KJMLtrEo4H9gVvExIUkMPI62SNWZ7A==
-releaseDate: '2019-01-10T20:24:29.779Z'
+  - url: protonable-setup-0.0.1.exe
+    sha512: DPFu6ZNr2q7tAmtmEtiNbPHToaHj1HtmF03i6ZRwHz3ci3RsiA0hHrjthkf2IVik+cRYTGmpiNCpTKoDCcfnSg==
+    size: 45766417
+path: protonable-setup-0.0.1.exe
+sha512: DPFu6ZNr2q7tAmtmEtiNbPHToaHj1HtmF03i6ZRwHz3ci3RsiA0hHrjthkf2IVik+cRYTGmpiNCpTKoDCcfnSg==
+releaseDate: '2019-01-10T20:38:00.399Z'
