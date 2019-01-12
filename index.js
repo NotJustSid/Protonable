@@ -13,13 +13,9 @@ log.info('App starting...');
 
 let mainWindow;
 
-function sendStatusToWindow(text, cond=0) {
-  if(cond!==0){
-  log.info(text);
-  }else{
+function sendStatusToWindow(text, ) {
   log.info(text);
   mainWindow.webContents.send('message', text);
-  }
 }
 
 function createWindow() {
@@ -76,8 +72,7 @@ autoUpdater.on('download-progress', (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message, 1);
-  sendStatusToWindow(progressObj.percent + '%');
+  sendStatusToWindow(log_message);
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
