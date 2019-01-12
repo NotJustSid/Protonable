@@ -998,9 +998,9 @@
 
     </div>
 
-    <div class="alert alert-dismissible alert-success" id="updateChecker" style="display: none">
+    <div class="alert alert-dismissible alert-success" id="updateChecker">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        
+        No Updates Currently.
     </div>
 
 </body>
@@ -1390,8 +1390,7 @@ fontList.getFonts().then(fonts => {
   });
 
 ipcRenderer.on('message', function(event, text) {
-document.getElementById('updateChecker').removeAttribute = "style";
-document.getElementById('updateChecker').innerText = text;
+document.getElementById('updateChecker').innerText = text.trim();
 });
 
 function copyDirtoClip(){
