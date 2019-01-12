@@ -87,3 +87,8 @@ app.setAppUserModelId("com.techisunique.protonable");
 app.on('ready', function()  {
   autoUpdater.checkForUpdatesAndNotify();
 });
+
+//Check for Updates everytime after 5mins -- Interval might be changed.
+setInterval(function(){
+ autoUpdater.checkForUpdatesAndNotify(); 
+}, 300000);
