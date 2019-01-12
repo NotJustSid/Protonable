@@ -998,9 +998,9 @@
 
     </div>
 
-    <div class="alert alert-dismissible alert-success" id="updateChecker">
+    <div class="alert alert-dismissible alert-success" id="updateChecker" style="display: none">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Hello There!</strong>There is an Update Available!
+        
     </div>
 
 </body>
@@ -1127,7 +1127,6 @@ $(document).on('click', 'a[href^="http"]', function(event) {
 minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
-
 
 
 //COLOR PICKER
@@ -1391,7 +1390,8 @@ fontList.getFonts().then(fonts => {
   });
 
 ipcRenderer.on('message', function(event, text) {
-document.getElementById('updateChecker').innerHTML = `${text}<br><br>Protonable:<br>${app.getVersion()}`
+document.getElementById('updateChecker').removeAttribute = "style";
+document.getElementById('updateChecker').innerText = text;
 });
 
 function copyDirtoClip(){
