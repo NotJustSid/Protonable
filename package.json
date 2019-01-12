@@ -18,7 +18,7 @@
     "nsis": {
       "oneClick": false,
       "perMachine": false,
-      "allowToChangeInstallDirectory": true,
+      "allowToChangeInstallationDirectory": true,
       "license": "LICENSE",
       "createDesktopShortcut": false
     }
