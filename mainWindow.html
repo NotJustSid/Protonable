@@ -218,7 +218,7 @@
             right:10px;
             left:auto;
         }
-        .current-line{
+       .current-line{
             background-color: rgba(112, 108, 108, 0.692);
         }
     </style>
@@ -892,7 +892,7 @@
     <br><br>
     <b>3)MiniMap</b> : The MiniMap is still under development.
     <br><br>
-</p>
+</p><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -995,12 +995,22 @@
 
     </div>
 
+    <div class="alert alert-dismissible alert-success" id="updateChecker">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Hello There!</strong>There is an Update Available!
+    </div>
+
 </body>
 
 <script>
 
 require( 'codemirror-colorpicker' );
 var shell = require('electron').shell;
+const { ipcRenderer } = require('electron');
+
+ipcRenderer.on('message', function(event, text) {
+
+});
 
 var linesBooked = [];
 
@@ -1631,10 +1641,6 @@ function MiniMap(){
     editor.setCursor(minimap.getCursor().line, 0);
     editor.focus(); 
 }
-
-// function MinimapView(){
-//     minimap.scrollIntoView(editor.getCursor().line+2,0);
-// }
 
 //CHANGE LINE/COLOUMN
 var line = document.getElementById('line-no.');
