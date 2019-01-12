@@ -1,5 +1,5 @@
 //Modules
-const {app, BrowserWindow, globalShortcut} = require('electron')
+const {app, BrowserWindow, globalShortcut, Notification} = require('electron')
 const url = require('url');
 const path = require('path');
 const log = require('electron-log');
@@ -82,7 +82,7 @@ autoUpdater.on('update-downloaded', (info) => {
 
 //Preview mainWindow when app has loaded.
 app.on('ready', createWindow);
-
+app.setAppUserModelId("com.techisunique.protonable");
 //Check for Updates and notify as well when app has loaded.
 app.on('ready', function()  {
   autoUpdater.checkForUpdatesAndNotify();
