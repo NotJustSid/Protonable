@@ -22,7 +22,8 @@
       "license": "LICENSE",
       "createDesktopShortcut": false,
       "installerSidebar": "img/sidebar_setup.bmp",
-      "uninstallerSidebar": "img/sidebar_setup_u.bmp"
+      "uninstallerSidebar": "img/sidebar_setup_u.bmp",
+      "deleteAppDataOnUninstall": true
     }
   },
   "author": "Siddhanth Bhowmick",
