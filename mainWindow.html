@@ -231,7 +231,7 @@
 
 <body>
 
-    <!--Nav Menu-->
+    <!--NavBar/Menu Bar-->
     <nav class="navy-main">
 
         <div class="logo">Protonable</div>
@@ -924,7 +924,7 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
     <!--MODALS END-->
 
     <!--EDITOR-->
@@ -933,12 +933,13 @@
     </div>
     <!--EDITOR END-->
 
-    <!--Maybe Minimap -->
+    <!--Minimap -->
     <div style="position:absolute; right:0px;" onclick="MiniMap()">
     <textarea id="Minimap"></textarea>
     </div>
-    <!--ENDS-->
+    <!--MINIMAP END-->
 
+    <!--FILE EXPLORER WITH PANE AS WELL-->
     <div id="FileExplorer">
             <span id="pane">
                     <button class="panebtn_" onmousedown="showTerminal()" title="Open The Terminal Right in the Directory the Explorer is in!">
@@ -969,6 +970,7 @@
                  </div>
          </div>
     </div>
+    <!--FILE EXPLORER END-->
 
     <!--BOTTOM TAB-->
     <div id="btm-info">
@@ -997,22 +999,33 @@
         </li>
 
     </div>
+    <!--BOTTOM END-->
 
+    <!--UPDATES NOTIFIER-->
     <div class="alert alert-dismissible alert-success" id="updateChecker">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         No Updates Currently.
     </div>
+    <!--UPDATES END-->
 
 </body>
 
 <script>
 
-require( 'codemirror-colorpicker' );
-var shell = require('electron').shell;
-const { ipcRenderer } = require('electron');
+require( 'codemirror-colorpicker' );        //For Color Picker in Code Mirror
+var shell = require('electron').shell;      //To Open Things With Other Apps (which are default)
+const { ipcRenderer } = require('electron');//Communication Between Main Process and Renderer Process
+var Mousetrap = require('mousetrap');       //For shortcuts
+var app = require('electron').remote;       //For App methods.
+var dialog = app.dialog;                    //For Save/Open Dialog Boxes
+var fs = require('fs');                     //For File Explorer
+const{clipboard} = require('electron');     //For Current Dir Copy to Clipboard.
+const fontList = require('font-list');      //To Get A list of what Fonts the User is using. 
 
+//Bookmarks Array
 var linesBooked = [];
 
+//Editor Instance
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: null,  //default for text
         lineWrapping: true,
@@ -1111,6 +1124,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     }
 });
 
+//Minimap Instance
 var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         mode: null,
         scrollbarStyle: 'native',
@@ -1119,17 +1133,19 @@ var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         readOnly: true,
 });
 
+//Open all Links from default app
 $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
         shell.openExternal(this.href);
     });
 
+//Set Size and Font Stuff for Minimap.
 minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
 
 
-//COLOR PICKER
+//Function to get the Color Picker as an extraKey to the CodeMirror Instance(Editor)
 function getColorPick(){
     var map = 
     {
@@ -1142,9 +1158,10 @@ function getColorPick(){
 
 }
 
+//Set Editor Size on LoadUp
 editor.setSize(window.innerWidth - 110.8, window.innerHeight - 290);
 
-//To deal with the window being resized but the editor not being so
+//If the Window is resized, then resize the editor and minimap instances as well.
 window.addEventListener('resize', ()=>{
     editor.setSize(window.innerWidth-110.8, window.innerHeight - 290);
     document.getElementById('pane').style.right = window.innerWidth-20;
@@ -1166,9 +1183,6 @@ function lineFeed(){
 }
 };
 
-//To Use Find/Replace Functionality
-
-
 //To create Directory for New Project
 function dirchoosed(){
     if(document.getElementById('prodirchoose').files[0] !== undefined){
@@ -1187,6 +1201,7 @@ function dirchoosed(){
         }
 }
 
+//Add an event listener to an element for ENTER(13) and call a function when fired.
 function inputEnterCheck(id, func){
     id.addEventListener("keyup", function(event) {
   
@@ -1199,7 +1214,6 @@ function inputEnterCheck(id, func){
   }
 });
 }
-
 inputEnterCheck(document.getElementById('termloc'), termSave);
 inputEnterCheck(document.getElementById('lineNoValue'), changePos);
 inputEnterCheck(document.getElementById('colNoValue'), changePos);
@@ -1311,6 +1325,7 @@ function redo(){
     editor.redo();
 }
 
+//Save localStorage data to a json file(data.json) inside .protonable(directory) --IN WORK
 function saveJSON(pathtoJSONdir){
 //Default DATA if not Defined.
 var data = {
@@ -1361,6 +1376,7 @@ BtmC: '#146cf8'
 
 }
 
+//load data from data.json --IN WORK
 function loadFromJSON(pathtoJSONdir){
     fs.readFile('.protonable/data.json', function read(err, data) {
     if (err) {
@@ -1373,13 +1389,7 @@ function loadFromJSON(pathtoJSONdir){
 });
 }
 
-var Mousetrap = require('mousetrap');   //For shortcuts
-var app = require('electron').remote;   //For App methods.
-var dialog = app.dialog;                //For Save/Open Dialog Boxes
-var fs = require('fs');                 //For File Explorer
-const{clipboard} = require('electron');    //For Current Dir Copy to Clipboard.
-const fontList = require('font-list');
-
+//Get the list of fonts
 fontList.getFonts().then(fonts => {
     for(font in fonts){
         $(new Option(`${fonts[font].replace(/['"]+/g, '')}`, `${fonts[font].replace(/['"]+/g, '')}`)).appendTo('#fontval2');
@@ -1389,6 +1399,7 @@ fontList.getFonts().then(fonts => {
     console.log(err)
   });
 
+//Stay on the message channel and listen for messages from main process for autoUpdate.
 ipcRenderer.on('message', function(event, text) {
 document.getElementById('updateChecker').innerHTML= 
 `<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1396,6 +1407,7 @@ ${text}
 `;
 });
 
+//Copy Current Directory Location in File Explorer to the Clipboard
 function copyDirtoClip(){
     clipboard.writeText(localStorage.getItem('currentDir'));
 }
@@ -1638,10 +1650,12 @@ function newproject(){
     $('#Propath').modal('show');
 }
 
+//Color(in minimap) the current line(in editor).
 function colorLine(lineNumber){
     minimap.addLineClass(lineNumber, 'wrap', 'current-line')
 }
 
+//Scroll to the line clicked on minimap.
 function MiniMap(){
     editor.setCursor(minimap.getCursor().line, 0);
     editor.focus(); 
@@ -1658,7 +1672,7 @@ function updateInfo(){
 }
 editor.on("cursorActivity", updateInfo);
 
-// minimap.on('change', MinimapView);
+//Add Shortcuts outside the editor instance as well.
 Mousetrap.bind(['command+s','ctrl+s'], function() { savefile(); return false;});
 Mousetrap.bind(['command+n', 'ctrl+n'], function(){ newfile(); return false;});
 Mousetrap.bind(['shift+command+n', 'shift+ctrl+n'], function(){newproject(); return false;});
@@ -1671,9 +1685,6 @@ Mousetrap.bind(['command+y', 'ctrl+y'], function(){redo(); return false;});
 Mousetrap.bind(['command+d', 'ctrl+d'], function(){FocusMode(false); return false;})
 Mousetrap.bind(['shift+command+d', 'shift+ctrl+d'], function(){FocusMode(true); return false;})
 Mousetrap.bind(['alt+b', 'alt+b'], function(){showBook(); return false;})
-
-
-//Working for Timer
 
 //Go To Functionability
 function changePos(){

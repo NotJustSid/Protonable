@@ -1,5 +1,4 @@
 //Modules
-
 const {app, BrowserWindow, globalShortcut} = require('electron')
 const url = require('url');
 const path = require('path');
@@ -10,14 +9,16 @@ autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
-
+//Browser Window -- MAIN
 let mainWindow;
 
+//Function for logging updater status
 function sendStatusToWindow(text, ) {
   log.info(text);
   mainWindow.webContents.send('message', text);
 }
 
+//Window Creator
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1080,
@@ -56,6 +57,7 @@ function createWindow() {
   });
 }
 
+//autoUpdater's What To Log and When To Log.
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
@@ -78,9 +80,10 @@ autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
 });
 
-
+//Preview mainWindow when app has loaded.
 app.on('ready', createWindow);
 
+//Check for Updates and notify as well when app has loaded.
 app.on('ready', function()  {
   autoUpdater.checkForUpdatesAndNotify();
 });
