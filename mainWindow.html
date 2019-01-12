@@ -221,6 +221,9 @@
        .current-line{
             background-color: rgba(112, 108, 108, 0.692);
         }
+        #updateChecker{
+            user-select: none;
+        }
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
     <style id="2">.info-item:hover{ background-color: #242424 }</style>
@@ -1008,10 +1011,6 @@ require( 'codemirror-colorpicker' );
 var shell = require('electron').shell;
 const { ipcRenderer } = require('electron');
 
-ipcRenderer.on('message', function(event, text) {
-
-});
-
 var linesBooked = [];
 
 var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -1390,6 +1389,10 @@ fontList.getFonts().then(fonts => {
   .catch(err => {
     console.log(err)
   });
+
+ipcRenderer.on('message', function(event, text) {
+document.getElementById('updateChecker').innerHTML = `${text}<br><br>Protonable:<br>${app.getVersion()}`
+});
 
 function copyDirtoClip(){
     clipboard.writeText(localStorage.getItem('currentDir'));
