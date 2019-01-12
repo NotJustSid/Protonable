@@ -1390,7 +1390,10 @@ fontList.getFonts().then(fonts => {
   });
 
 ipcRenderer.on('message', function(event, text) {
-document.getElementById('updateChecker').innerText = text.trim();
+document.getElementById('updateChecker').innerHTML= 
+`<button type="button" class="close" data-dismiss="alert">&times;</button>
+${text}
+`;
 });
 
 function copyDirtoClip(){

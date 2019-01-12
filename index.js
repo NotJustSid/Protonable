@@ -13,9 +13,13 @@ log.info('App starting...');
 
 let mainWindow;
 
-function sendStatusToWindow(text) {
+function sendStatusToWindow(text, cond=0) {
+  if(cond!==0){
+  log.info(text);
+  }else{
   log.info(text);
   mainWindow.webContents.send('message', text);
+  }
 }
 
 function createWindow() {
@@ -60,7 +64,7 @@ autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
+  sendStatusToWindow('Good News! Update is Available. Preparing to Download...');
 })
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('No Updates Currently.');
@@ -72,10 +76,11 @@ autoUpdater.on('download-progress', (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
+  sendStatusToWindow(log_message, 1);
+  sendStatusToWindow(progressObj.percent + '%');
 })
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
+  sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
 });
 
 
