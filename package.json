@@ -16,6 +16,9 @@
     "win": {
       "target": "nsis",
       "icon": "img/icon.ico"
+    },
+    "nsis": {
+      
     }
   },
   "author": "Siddhanth Bhowmick",

@@ -1,8 +1,0 @@
-directories:
-  output: dist
-  buildResources: build
-appId: com.techisunique.protonable
-win:
-  target: nsis
-  icon: img/icon.ico
-electronVersion: 3.0.7
