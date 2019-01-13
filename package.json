@@ -1,7 +1,7 @@
 {
   "name": "protonable",
   "productName": "Protonable",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "description": "A Minimal Text Editor Built on Electron!",
   "repository": "https://github.com/Sid200/Protonable",
   "main": "index.js",
