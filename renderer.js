@@ -12,10 +12,13 @@ function readDir(path2) {
         'use strict';
         document.getElementById('file-list').innerHTML = "";
         if (err) throw  err;
+        if(!files.length){
+            document.getElementById('file-list').innerHTML = '<div id="EmptyDir">Directory Empty</div>'
+        }else{
         for (let file of files) {
            fs.stat(resolve(path2)+'/'+file,(err,stats)=>{
                if(err) throw err;
-               
+            
                if(stats.isDirectory()){
                
            document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px"><br><span>${file}</span></li>`;
@@ -26,6 +29,7 @@ function readDir(path2) {
                       }
            });
         }
+    }
     });
 }
 
