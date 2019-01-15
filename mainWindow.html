@@ -222,7 +222,20 @@
             background-color: rgba(112, 108, 108, 0.692);
         }
         #updateChecker{
+            position: absolute;
             user-select: none;
+            animation-name: slide;
+            animation-duration: 0.5s;
+            animation-delay: 3s;
+            animation-timing-function:ease-in-out;
+            animation-fill-mode: both;
+            bottom: 240px;
+            right:0px;
+        }
+        @keyframes slide{
+            0%{opacity: 0;width: 0px;}
+            25%{opacity: 0;}
+            100%{width: 450px;}
         }
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
@@ -945,7 +958,7 @@
     <!--EDITOR END-->
 
     <!--Minimap -->
-    <div style="position:absolute; right:0px;" onclick="MiniMap()">
+    <div id="Mini" style="position:absolute; right:0px;" onclick="MiniMap()">
     <textarea id="Minimap"></textarea>
     </div>
     <!--MINIMAP END-->
