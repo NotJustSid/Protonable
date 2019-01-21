@@ -1,6 +1,8 @@
 # Protonable
 A Modern Text Editor Built On Electron To Provide Immersive Coding Experience!
-
+___
+Note: The code is totally based on Vanilla JavaScript. No libraries except JQuery are currently used.
+___
 ![Img1](https://github.com/Sid200/Protonable/blob/master/screenshots/1.PNG "Alpha Preview")
 
 ___

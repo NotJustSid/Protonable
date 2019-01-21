@@ -237,6 +237,20 @@
             25%{opacity: 0;}
             100%{width: 450px;}
         }
+        #Mini .codeline{
+            transition: transform .2s;
+        }
+        
+        #Mini:hover .codeline{
+            background-color: #242424;
+            position: fixed !important;
+            display: inline-block !important;
+            transform: scale(4) translate(-24.6em, 0.7em);
+            padding: 2px 2px 2px 2px;
+            margin: 2px;
+            letter-spacing: 0.1em;
+        }
+
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
     <style id="2">.info-item:hover{ background-color: #242424 }</style>
@@ -1168,6 +1182,12 @@ minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
 
+$("#Mini").mouseover(function(){
+    var x = event.clientX, y = event.clientY,
+    elementMouseIsOver = document.elementFromPoint(x, y);
+    $(elementMouseIsOver).closest('.CodeMirror-line').addClass('codeline');
+},
+);
 
 //Function to get the Color Picker as an extraKey to the CodeMirror Instance(Editor)
 function getColorPick(){
@@ -1676,7 +1696,7 @@ function newproject(){
 
 //Color(in minimap) the current line(in editor).
 function colorLine(lineNumber){
-    minimap.addLineClass(lineNumber, 'wrap', 'current-line')
+    minimap.addLineClass(lineNumber, 'wrap', 'current-line CodeMirror-line')
 }
 
 //Scroll to the line clicked on minimap.
