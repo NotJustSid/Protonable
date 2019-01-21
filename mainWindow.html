@@ -244,8 +244,9 @@
         #Mini:hover .codeline{
             background-color: #242424;
             position: fixed !important;
+            top: 90px;
             display: inline-block !important;
-            transform: scale(4) translate(-24.6em, 0.7em);
+            transform: scale(4) translate(-24.6em);
             padding: 2px 2px 2px 2px;
             margin: 2px;
             letter-spacing: 0.1em;
@@ -1182,11 +1183,15 @@ minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
 
-$("#Mini").mouseover(function(){
+$("#Mini").hover(function(){
     var x = event.clientX, y = event.clientY,
     elementMouseIsOver = document.elementFromPoint(x, y);
+    elementMouseIsOver;
     $(elementMouseIsOver).closest('.CodeMirror-line').addClass('codeline');
 },
+function(){
+   $('.codeline').removeClass('codeline');
+}
 );
 
 //Function to get the Color Picker as an extraKey to the CodeMirror Instance(Editor)
