@@ -32,6 +32,7 @@
     "@fortawesome/fontawesome-free": "^5.5.0",
     "codemirror-colorpicker": "^1.9.48",
     "electron-log": "^2.2.17",
+    "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
     "font-list": "^1.1.0",
     "mousetrap": "^1.6.2",
@@ -39,7 +40,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "electron": "^3.0.7",
+    "electron": "^4.0.1",
     "electron-builder": "^20.38.4"
   }
 }
