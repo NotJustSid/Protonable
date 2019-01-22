@@ -39,7 +39,9 @@ function createWindow() {
    mainWindow.once('ready-to-show', ()=>{
     mainWindow.show();
    });
-   
+   globalShortcut.register('CommandOrControl+Shift+I', function(){
+    mainWindow.webContents.toggleDevTools();
+   });
    globalShortcut.register('CommandOrControl+R', function() {
 		mainWindow.reload()
 	});

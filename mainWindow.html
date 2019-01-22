@@ -1061,6 +1061,7 @@ var dialog = app.dialog;                    //For Save/Open Dialog Boxes
 var fs = require('fs');                     //For File Explorer
 const{clipboard} = require('electron');     //For Current Dir Copy to Clipboard.
 const fontList = require('font-list');      //To Get A list of what Fonts the User is using. 
+const Store = require('electron-store');    //Store User Data
 
 //Bookmarks Array
 var linesBooked = [];
@@ -1205,6 +1206,8 @@ function getColorPick(){
     editor.addKeyMap(map);
 
 }
+
+const store = new Store();
 
 //Set Editor Size on LoadUp
 editor.setSize(window.innerWidth - 110.8, window.innerHeight - 290);
@@ -1374,10 +1377,11 @@ function redo(){
     editor.redo();
 }
 
-//Save localStorage data to a json file(data.json) inside .protonable(directory) --IN WORK
-function saveJSON(pathtoJSONdir){
+//Save localStorage data to a json file --IN WORK
+
+function saveJSON(){
 //Default DATA if not Defined.
-var data = {
+data = {
 Fsize: '28',
 Fface: 'Consolas',
 Theme: 'material',
@@ -1412,30 +1416,12 @@ BtmC: '#146cf8'
         data.BtmC = localStorage.getItem('BtmC');
     }
 
-    if (!fs.existsSync(localStorage.getItem('currentDir')+ '/' + '.protonable/')){
-        fs.mkdirSync(localStorage.getItem('currentDir')+ '/' + '.protonable/');
-    }
-
-    // localStorage.clear();
-
-    var jsonDat = JSON.stringify(data);
-    fs.writeFile(pathtoJSONdir+'.protonable/data.json', jsonDat, {flag: 'w'}, function (err) {
-    if (err) throw err;
-});
+  store.set(data);
 
 }
 
 //load data from data.json --IN WORK
-function loadFromJSON(pathtoJSONdir){
-    fs.readFile('.protonable/data.json', function read(err, data) {
-    if (err) {
-        throw err;
-    }
-    var jsonObj = JSON.parse(data);
-
-
-
-});
+function loadFromJSON(){
 }
 
 //Get the list of fonts
