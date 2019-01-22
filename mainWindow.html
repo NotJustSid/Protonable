@@ -1183,14 +1183,12 @@ minimap.setSize(110, window.innerHeight-290);
 minimap.getWrapperElement().style.fontSize = "4px";
 minimap.getWrapperElement().style.letterSpacing = "-1px";
 
-$("#Mini").hover(function(){
+$("#Mini").mouseover(function(){
+    $('.codeline').removeClass('codeline');
     var x = event.clientX, y = event.clientY,
     elementMouseIsOver = document.elementFromPoint(x, y);
     elementMouseIsOver;
     $(elementMouseIsOver).closest('.CodeMirror-line').addClass('codeline');
-},
-function(){
-   $('.codeline').removeClass('codeline');
 }
 );
 
@@ -1716,8 +1714,10 @@ var col  = document.getElementById('col-no.');
 function updateInfo(){
    line.innerText = editor.getCursor().line+1;
    col.innerText = editor.getCursor().ch + 1;
+   Tline = minimap.getCursor().line;
    minimap.setValue(editor.getValue());
    colorLine(editor.getCursor().line);
+   minimap.setCursor(Tline, 0);
 }
 editor.on("cursorActivity", updateInfo);
 
