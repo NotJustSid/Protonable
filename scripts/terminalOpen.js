@@ -1,6 +1,8 @@
 function showTerminal(){
     var child_process = require('child_process');
 
+    loadFromJSON();
+
 if(!fs.existsSync(localStorage.getItem('term'))){
 
     if(localStorage.getItem('currentDir')===null || localStorage.getItem('currentDir')=== undefined){

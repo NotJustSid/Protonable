@@ -5,6 +5,7 @@ function fupdate() {
     editor.getWrapperElement().style.fontFamily = fontFace;
     localStorage.setItem("face", fontFace);
     localStorage.setItem("size", fontSize);
+    saveJSON();
     editor.refresh();
 }
 function tupdate(){
@@ -12,6 +13,7 @@ var theme = document.getElementById("themebtn").value;
 
 editor.setOption("theme", theme);
 localStorage.setItem("THEME", theme);
+saveJSON();
 minimap.setOption("theme", editor.getOption("theme"));
 minimap.refresh();
 editor.refresh();
@@ -27,6 +29,7 @@ function uiSave(){
     localStorage.setItem('BtmHC', btmbrhColor);
     localStorage.setItem('NavC', nvbrColor);
     localStorage.setItem('BtmC', btmbrColor);
+    saveJSON();
 
     var navBar = document.getElementsByClassName('navy-main');
     var btmBar = document.getElementById('btm-info');
@@ -44,5 +47,6 @@ function reset(){
 }
 
 function termSave(){
-    localStorage.setItem('term', document.getElementById('termloc').value)
+    localStorage.setItem('term', document.getElementById('termloc').value);
+    saveJSON();
 }

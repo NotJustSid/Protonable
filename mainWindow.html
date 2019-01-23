@@ -157,6 +157,7 @@
     <script src="scripts/bookmarks.js"></script>
     <script src="scripts/timer.js"></script>
     <script src="scripts/focusMode.js"></script>
+    <script src="scripts/Storage.js"></script>
 
     <link href="css/navBar.css" rel="stylesheet">
     <link href="css/fileExplorer.css" rel="stylesheet">
@@ -1062,6 +1063,7 @@ var fs = require('fs');                     //For File Explorer
 const{clipboard} = require('electron');     //For Current Dir Copy to Clipboard.
 const fontList = require('font-list');      //To Get A list of what Fonts the User is using. 
 const Store = require('electron-store');    //Store User Data
+const store = new Store();
 
 //Bookmarks Array
 var linesBooked = [];
@@ -1207,8 +1209,6 @@ function getColorPick(){
 
 }
 
-const store = new Store();
-
 //Set Editor Size on LoadUp
 editor.setSize(window.innerWidth - 110.8, window.innerHeight - 290);
 
@@ -1274,29 +1274,7 @@ inputEnterCheck(document.getElementById('query'), function(){
 inputEnterCheck(document.getElementById('proname'), dirchoosed);
 
 //To apply theme & font selected by user on loadback
-var size    = localStorage.getItem("size");
-var face    = localStorage.getItem("face");
-var theme   = localStorage.getItem("THEME");
-var NavHC   = localStorage.getItem("NavHC");
-var BtmHC   = localStorage.getItem("BtmHC");
-var NavC    = localStorage.getItem("NavC");
-var BtmC    = localStorage.getItem("BtmC");
-var hover1  = document.getElementById('1');
-var hover2  = document.getElementById('2');
-if(size)
-    editor.getWrapperElement().style.fontSize = size + "px";
-if(face)
-    editor.getWrapperElement().style.fontFamily = face;
-if(theme)
-    editor.setOption("theme", theme);
-if(NavHC)
-    hover1.innerHTML = `.navy-item:hover{ background-color: ${NavHC} }`;
-if(NavC)
-    document.getElementsByClassName('navy-main')[0].style.backgroundColor = NavC;
-if(BtmHC)
-    hover2.innerHTML = `.info-item:hover{ background-color: ${BtmHC} }`;
-if(BtmC)
-    document.getElementById('btm-info').style.backgroundColor = BtmC;
+loadFromJSON();
 
 setInterval(setTime, 1000);
 
@@ -1377,53 +1355,6 @@ function redo(){
     editor.redo();
 }
 
-//Save localStorage data to a json file --IN WORK
-
-function saveJSON(){
-//Default DATA if not Defined.
-data = {
-Fsize: '28',
-Fface: 'Consolas',
-Theme: 'material',
-NavHC: '#16cac1',
-NavC: '#146cf8',
-BtmHC: '#242424',
-BtmC: '#146cf8'
-};
-
-    if(localStorage.getItem('size')!==undefined){
-        data.Fsize = localStorage.getItem('size');
-    }
-    if(localStorage.getItem('lastFile')!==undefined){
-       data.LastFile = localStorage.getItem('lastFile'); 
-    }
-    if(localStorage.getItem('face')!==undefined){
-        data.Fface = localStorage.getItem('face');
-    }
-    if(localStorage.getItem('THEME')!==undefined){
-        data.Theme = localStorage.getItem('THEME');
-    }
-    if(localStorage.getItem('NavHC')!==undefined){
-        data.NavHC = localStorage.getItem('NavHC');
-    }
-    if(localStorage.getItem('NavC')!==undefined){
-        data.NavC = localStorage.getItem('NavC');
-    }
-    if(localStorage.getItem('BtmHC')!==undefined){
-        data.BtmHC = localStorage.getItem('BtmHC');
-    }
-    if(localStorage.getItem('BtmC')!==undefined){
-        data.BtmC = localStorage.getItem('BtmC');
-    }
-
-  store.set(data);
-
-}
-
-//load data from data.json --IN WORK
-function loadFromJSON(){
-}
-
 //Get the list of fonts
 fontList.getFonts().then(fonts => {
     for(font in fonts){
@@ -1461,6 +1392,7 @@ document.getElementById('fileInfo').innerText = localStorage.getItem('lastFile')
 var extension = path.extname(localStorage.getItem('lastFile'));
 extensionCheck(extension);
 readDir(path.dirname(localStorage.getItem('lastFile')));
+saveJSON();
 })
 };
 
@@ -1491,6 +1423,7 @@ dialog.showOpenDialog(
         pathtofile = filenames[0];
         
         localStorage.setItem('lastFile', pathtofile);
+        saveJSON();
         document.getElementById('fileInfo').innerText = path.basename(pathtofile);
         readDir(path.dirname(pathtofile));
         extension = path.extname(pathtofile);
@@ -1659,6 +1592,7 @@ function newfile(){
     
     pathtofile = filename;
     localStorage.setItem('lastFile', pathtofile);
+    saveJSON();
         document.getElementById('fileInfo').innerText = path.basename(pathtofile);
         extension = path.extname(pathtofile);
         extensionCheck(extension);
@@ -1680,6 +1614,7 @@ function savefile(){
         if(err) alert(err);
     });
     localStorage.setItem('path', pathtofile);
+    saveJSON();
 }
 function newproject(){
     $('#Propath').modal('show');
