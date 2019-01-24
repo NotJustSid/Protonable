@@ -986,7 +986,7 @@
                     <button class="panebtn_" onmousedown="showTerminal()" title="Open The Terminal Right in the Directory the Explorer is in!">
                         Terminal
                     </button>
-                    <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir(path.dirname(localStorage.getItem('lastFile')))">&#x21BB;</button>
+                    <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir((localStorage.getItem('prevDir')))">&#x21BB;</button>
                     <button class="panebtn_" onmousedown="showBook()" title="BookMark Your Lines To Come To Them Later!">
                         Bookmarks
                     </button>
@@ -1218,7 +1218,6 @@ window.addEventListener('resize', ()=>{
     document.getElementById('pane').style.right = window.innerWidth-20;
 });
 
-
 //To change the Line Ending Format
 function lineFeed(){
         var encoding = document.getElementById('lineFeed');
@@ -1333,7 +1332,7 @@ function fileSearch(){
                 document.getElementById("close-btn").addEventListener("click", (e) => {
 
                         localStorage.removeItem('path');
-
+                        saveJSON();
                         var window = BrowserWindow.getFocusedWindow();
                         window.close();  
                     

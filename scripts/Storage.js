@@ -13,33 +13,34 @@ function saveJSON(){
     if(!store.has('data')){
         store.set('data', data);
     }
-        if(localStorage.getItem('size')!==undefined){
+        if(localStorage.getItem('size')){
             store.set('data.Fsize', localStorage.getItem('size'));
         }
-        if(localStorage.getItem('lastFile')!==undefined){
+        if(localStorage.getItem('lastFile')){
            store.set('data.LastFile', localStorage.getItem('lastFile')); 
         }
-        if(localStorage.getItem('face')!==undefined){
+        if(localStorage.getItem('face')){
             store.set('data.Fface', localStorage.getItem('face'));
         }
-        if(localStorage.getItem('THEME')!==undefined){
+        if(localStorage.getItem('THEME')){
             store.set('data.Theme', localStorage.getItem('THEME'));
         }
-        if(localStorage.getItem('NavHC')!==undefined){
+        if(localStorage.getItem('NavHC')){
             store.set('data.NavHC',localStorage.getItem('NavHC'));
         }
-        if(localStorage.getItem('NavC')!==undefined){
+        if(localStorage.getItem('NavC')){
             store.set('data.NavC', localStorage.getItem('NavC'));
         }
-        if(localStorage.getItem('BtmHC')!==undefined){
+        if(localStorage.getItem('BtmHC')){
             store.set('data.BtmHC',localStorage.getItem('BtmHC'));
         }
-        if(localStorage.getItem('BtmC')!==undefined){
+        if(localStorage.getItem('BtmC')){
             store.set('data.BtmC', localStorage.getItem('BtmC'));
         }
-        if(localStorage.getItem('term')!==undefined){
+        if(localStorage.getItem('term')){
             store.set('data.Term', localStorage.getItem('term'));
         }
+    localStoreClear(['size', 'face', 'THEME', 'term', 'BtmC', 'BtmHC', 'NavC', 'NavHC', 'lastFile']);
     }
     
 //load data from config.json
@@ -120,3 +121,10 @@ function loadFromJSON(){
     }
     }
     
+function localStoreClear(arr){
+arr.forEach(function(elem){
+if(localStorage.getItem(elem)){
+localStorage.removeItem(elem);
+                    }
+                });
+}
