@@ -148,6 +148,9 @@
     <script src="textarea/addon/edit/closetag.js"></script>
     <script src="textarea/addon/comment/comment.js"></script>
 
+    <script src="contextMenu/jQuery-contextMenu-master/dist/jquery.contextMenu.min.js"></script>
+    <link rel="stylesheet" href="contextMenu/jQuery-contextMenu-master/dist/jquery.contextMenu.min.css">
+
     <script src="renderer.js"></script>
 
     <script src="scripts/modal_previewers.js"></script>
@@ -986,7 +989,7 @@
                     <button class="panebtn_" onmousedown="showTerminal()" title="Open The Terminal Right in the Directory the Explorer is in!">
                         Terminal
                     </button>
-                    <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir((localStorage.getItem('prevDir')))">&#x21BB;</button>
+                    <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir((localStorage.getItem('currentDir')))">&#x21BB;</button>
                     <button class="panebtn_" onmousedown="showBook()" title="BookMark Your Lines To Come To Them Later!">
                         Bookmarks
                     </button>
@@ -1395,6 +1398,15 @@ saveJSON();
 })
 };
 
+$.contextMenu(
+{
+    selector: ".explorerFile",
+    items: {
+        first: {name: "Open File", callback: function(key, opt){ openthefile(opt.$trigger[0].parentElement.id) }},
+        second: {name: "Delete File", callback: function(key, opt){ deletethefile(opt.$trigger[0].parentElement.id) }}
+    }
+});
+
 //NEW,SAVE,OPEN ETC
 var mode = document.getElementById('editor-mode');
 var pathtofile;
@@ -1519,6 +1531,7 @@ function extensionCheck(extension){
     else if(extension === '.py'){
     dialog.showMessageBox({
             type: 'info',
+            icon: 'img/question-info.png',
             buttons: ['Py-2', 'Py-3'],
             message: 'Choose Python Version: ',
         }, resp => {

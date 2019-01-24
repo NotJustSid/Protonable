@@ -1,5 +1,6 @@
 resolve = require('path').resolve;
 var path = require('path');
+const trash = require('trash');
 
 // var firstRun = true;
 
@@ -21,11 +22,11 @@ function readDir(path2) {
             
                if(stats.isDirectory()){
                
-           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px"><br><span>${file}</span></li>`;
+           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px" class="explorerFolder"><br><span>${file}</span></li>`;
                }
              
                 else {
-                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px"><br><span>${file}<span></li>`;
+                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px" class="explorerFile"><br><span>${file}<span></li>`;
                       }
            });
         }
@@ -43,6 +44,7 @@ function openthefile(PathToTheFile){
 
         editor.setValue(data);
         localStorage.setItem('lastFile', PathToTheFile);
+        saveJSON();
         document.getElementById('fileInfo').innerText = path.basename(PathToTheFile);
         readDir(path.dirname(PathToTheFile));
         var extension = path.extname(PathToTheFile);
@@ -53,6 +55,24 @@ function openthefile(PathToTheFile){
 
 function goback(){
     readDir(localStorage.getItem('prevDir'));
+}
+
+function deletethefile(PathToTheFile){
+    dialog.showMessageBox({
+        type: 'none',
+        icon: 'img/question-info.png',
+        buttons: ['Yes', 'No'],
+        message: 'Are you sure you want to delete the file?',
+    }, resp => {
+        if (resp === 0) {
+            (async () => {
+                await trash(PathToTheFile);
+                readDir(localStorage.getItem('currentDir'));
+            })();
+        }else{
+            
+        }
+    });
 }
 
 // function whatimg(filename){

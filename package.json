@@ -37,7 +37,8 @@
     "font-list": "^1.1.0",
     "mousetrap": "^1.6.2",
     "os": "^0.1.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "trash": "^4.3.0"
   },
   "devDependencies": {
     "electron": "^4.0.1",
