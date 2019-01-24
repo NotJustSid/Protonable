@@ -22,11 +22,11 @@ function readDir(path2) {
             
                if(stats.isDirectory()){
                
-           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))"><img src="img/folder.png" height="60px" class="explorerFolder"><br><span>${file}</span></li>`;
+           document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file + '//'}" ondblclick="readDir($(this).attr('id'))" class="explorerFolder"><img src="img/folder.png" height="60px"><br><span>${file}</span></li>`;
                }
              
                 else {
-                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))"><img src="img/file.png" height="60px" class="explorerFile"><br><span>${file}<span></li>`;
+                  document.getElementById('file-list').innerHTML += `<li id="${resolve(path2) + '/' + file }" ondblclick="openthefile($(this).attr('id'))" class="explorerFile"><img src="img/file.png" height="60px"><br><span>${file}<span></li>`;
                       }
            });
         }
@@ -57,12 +57,12 @@ function goback(){
     readDir(localStorage.getItem('prevDir'));
 }
 
-function deletethefile(PathToTheFile){
+function deleteFileOrFolder(PathToTheFile){
     dialog.showMessageBox({
         type: 'none',
         icon: 'img/question-info.png',
         buttons: ['Yes', 'No'],
-        message: 'Are you sure you want to delete the file?',
+        message: 'Are you sure you want to delete the file/folder?',
     }, resp => {
         if (resp === 0) {
             (async () => {
@@ -75,6 +75,14 @@ function deletethefile(PathToTheFile){
     });
 }
 
+function newFileExplorer(){
+
+}
+
+function newFolderExplorer(){
+
+
+}
 // function whatimg(filename){
 //     extension = filename.split('.').pop();
 //     if(extension === 'html' || extension === 'htm'){
