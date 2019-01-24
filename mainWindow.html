@@ -1291,8 +1291,7 @@ editor.on("keypress", function (cm, event) {
 
 //To Search through the files in the File Explorer.
 function fileSearch(){
-    var searchFile = document.getElementById('fileSearcher').value;
-
+  var searchFile = document.getElementById('fileSearcher').value.toLowerCase();
   var ul, li, a, i, txtValue;
   ul = document.getElementById("file-list");
   li = ul.getElementsByTagName('li');
@@ -1300,8 +1299,8 @@ function fileSearch(){
   for (i = 0; i < li.length; i++) {
     span = li[i].getElementsByTagName("span")[0];
     txtValue = span.textContent || span.innerText;
-    txtValue.toLowerCase();
-    if (txtValue.indexOf((searchFile).toLowerCase()) > -1) {
+    txtValue = txtValue.toLowerCase();
+    if (txtValue.indexOf((searchFile)) > -1) {
       li[i].style.display = "";
     } else {
       li[i].style.display = "none";
