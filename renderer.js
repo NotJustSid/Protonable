@@ -88,7 +88,7 @@ function explorerNewFile(PathtoCreateIn){
     document.getElementById('file-list').innerHTML+=`<li id="temp" class="explorerFile"><img src="img/file.png" height="60px"><br><span><input id="fileinput" onBlur="document.getElementById('temp').remove()" type="text"></span></li>`;
     document.getElementById('fileinput').focus();
     document.getElementById("fileinput").addEventListener("keydown", function(e) {
-        if (e.keyCode == 13) { 
+        if (e.keyCode == 13 && document.getElementById('fileinput').value.trim() !== '') { 
             fs.appendFile(localStorage.getItem('currentDir')+document.getElementById('fileinput').value, '', (err)=>{
                 if(err)
                 console.log(err);
@@ -105,7 +105,7 @@ function explorerNewFolder(){
     document.getElementById('file-list').innerHTML+=`<li id="temp" class="explorerFolder"><img src="img/folder.png" height="60px"><br><span><input id="fileinput" onBlur="document.getElementById('temp').remove()" type="text"></span></li>`;
     document.getElementById('fileinput').focus();
     document.getElementById("fileinput").addEventListener("keydown", function(e) {
-        if (e.keyCode == 13) { 
+        if (e.keyCode == 13 && document.getElementById('fileinput').value.trim() !== '') { 
             fs.mkdir(localStorage.getItem('currentDir')+document.getElementById('fileinput').value, (err)=>{
                 if(err)
                 console.log(err);
