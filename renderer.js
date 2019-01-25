@@ -32,6 +32,15 @@ function readDir(path2) {
         }
     }
     });
+    
+    //Sort Entities not lexicographically though.
+    list = document.getElementById('file-list');
+    entity = list.getElementsByTagName('SPAN');
+    vals = [];
+    for(var i=0;i<entity.length;i++){
+        vals.push(entity[i]);
+    }
+    vals.sort();
 }
 
 function openthefile(PathToTheFile){
@@ -75,13 +84,37 @@ function deleteFileOrFolder(PathToTheFile){
     });
 }
 
-function newFileExplorer(){
-
+function explorerNewFile(PathtoCreateIn){
+    document.getElementById('file-list').innerHTML+=`<li class="explorerFile"><img src="img/file.png" height="60px"><br><span><input id="fileinput" onBlur="document.getElementById('temp').remove()" type="text"></span></li>`;
+    document.getElementById('fileinput').focus();
+    document.getElementById("fileinput").addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) { 
+            fs.appendFile(localStorage.getItem('currentDir')+document.getElementById('fileinput').value, '', (err)=>{
+                if(err)
+                console.log(err);
+                else{
+                    openthefile(localStorage.getItem('currentDir')+document.getElementById('fileinput').value);
+                    readDir(localStorage.getItem('currentDir'));
+                }
+            });
+        }
+    }, false);
 }
 
-function newFolderExplorer(){
-
-
+function explorerNewFolder(){
+    document.getElementById('file-list').innerHTML+=`<li class="explorerFolder"><img src="img/folder.png" height="60px"><br><span><input id="fileinput" onBlur="document.getElementById('temp').remove()" type="text"></span></li>`;
+    document.getElementById('fileinput').focus();
+    document.getElementById("fileinput").addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) { 
+            fs.mkdir(localStorage.getItem('currentDir')+document.getElementById('fileinput').value, (err)=>{
+                if(err)
+                console.log(err);
+                else{
+                    readDir(localStorage.getItem('currentDir')+document.getElementById('fileinput').value);
+                }
+            });
+        }
+    }, false);
 }
 // function whatimg(filename){
 //     extension = filename.split('.').pop();

@@ -257,6 +257,13 @@
             letter-spacing: 0.1em;
         }
 
+        #fileinput{
+        height: 1em;
+        width: 100px;
+        background-color:#444;
+        border: 0;
+        color: white;
+        }
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
     <style id="2">.info-item:hover{ background-color: #242424 }</style>
@@ -997,14 +1004,14 @@
                         &#128203;
                     </button>
                     </span>
-        <div class="pane-group" id="fileViewer">
+        <div class="pane-group">
             <div class="pane-sm sidebar">
                 <button class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()" title="Go Back By One Directory">&lt;</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 40vw;">
                         <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
                     </li>
-                    <li class="list-group-item" style="margin:0;padding:0;height:125px;width:98.6vw;left:10px;bottom:-30px;">
+                    <li id="fileViewer" class="list-group-item" style="margin:0;padding:0;height:125px;width:98.6vw;left:10px;bottom:-30px;">
                         
                             <ul id="file-list" style="list-style:none; padding: 0">
                                 
@@ -1400,8 +1407,8 @@ saveJSON();
 $.contextMenu({
     selector: "#fileViewer",
     items: {
-        first: {name: "New File",icon:"fas fa-file-medical", callback: function(key, opt){ console.log('new') }},
-        second: {name: "New Folder",icon:"fas fa-folder-plus", callback: function(key, opt){ console.log('folder') }},
+        first: {name: "New File",icon:"fas fa-file-medical", callback: function(key, opt){ explorerNewFile() }},
+        second: {name: "New Folder",icon:"fas fa-folder-plus", callback: function(key, opt){ explorerNewFolder(); }},
         third: {name: "Open in File Explorer",icon:"fas fa-search", callback: function(key, opt){ shell.openItem(localStorage.getItem('currentDir')) }   }
     }
 });
