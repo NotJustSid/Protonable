@@ -1,7 +1,7 @@
 {
   "name": "protonable",
   "productName": "Protonable",
-  "version": "0.0.1-alpha",
+  "version": "0.0.4-alpha",
   "description": "A Minimal Text Editor Built on Electron!",
   "repository": "https://github.com/Sid200/Protonable",
   "main": "index.js",
@@ -17,7 +17,7 @@
     },
     "nsis": {
       "oneClick": false,
-      "perMachine": false,
+      "perMachine": true,
       "allowToChangeInstallationDirectory": true,
       "license": "LICENSE",
       "createDesktopShortcut": false,

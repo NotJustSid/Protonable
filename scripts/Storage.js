@@ -45,6 +45,9 @@ function saveJSON(){
     
 //load data from config.json
 function loadFromJSON(){
+    if(!store.get('data')){
+        saveJSON();
+    }
     size    = store.get('data').Fsize;
     face    = store.get('data').Fface;
     theme   = store.get('data').Theme;
