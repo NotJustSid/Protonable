@@ -1186,6 +1186,9 @@ var minimap = CodeMirror.fromTextArea(document.getElementById('Minimap'), {
         readOnly: true,
 });
 
+//To apply theme & font selected by user on loadback
+loadFromJSON();
+
 //Open all Links from default app
 $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
@@ -1281,9 +1284,6 @@ inputEnterCheck(document.getElementById('query'), function(){
     search2('query');
 });
 inputEnterCheck(document.getElementById('proname'), dirchoosed);
-
-//To apply theme & font selected by user on loadback
-loadFromJSON();
 
 setInterval(setTime, 1000);
 

@@ -25,6 +25,8 @@ function createWindow() {
     height: 1920,
     icon: __dirname + '/img/icon.png',
     frame: false,
+    show: false,
+    backgroundColor: '#1a1a1a'
   })
 
   mainWindow.loadURL(url.format({
