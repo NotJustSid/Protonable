@@ -9,56 +9,54 @@ autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
-//Browser Window -- MAIN
-let mainWindow;
+let mainWindow, splashScreen;
 
-//Function for logging updater status
-function sendStatusToWindow(text, ) {
-  log.info(text);
-  mainWindow.webContents.send('message', text);
+const gotTheLock = app.requestSingleInstanceLock()
+
+function sendStatusToWindow(text) {
+log.info(text);
+mainWindow.webContents.send('message', text);
 }
 
-//Window Creator
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1080,
-    height: 1920,
-    icon: __dirname + '/img/icon.png',
-    frame: false,
-    show: false,
-    backgroundColor: '#1a1a1a'
-  })
+mainWindow = new BrowserWindow({
+  width: 1080,
+  height: 1920,
+  icon: __dirname + '/img/icon.png',
+  frame: false,
+  show: false,
+  backgroundColor: '#1a1a1a'
+})
 
-  mainWindow.loadURL(url.format({
+mainWindow.loadURL(url.format({
 
-    pathname: path.join(__dirname, 'mainWindow.html'),
-    protocol: 'file',
-    slashes: true,
-    modal: true,
-    show: false,
-   }));
-   
-   mainWindow.once('ready-to-show', ()=>{
-    mainWindow.show();
-   });
-   globalShortcut.register('CommandOrControl+Shift+I', function(){
-    mainWindow.webContents.toggleDevTools();
-   });
-   globalShortcut.register('CommandOrControl+R', function() {
-		mainWindow.reload()
-	});
-  
-  mainWindow.maximize();
-  
-  mainWindow.setMinimumSize(720, 540);
-  
-  mainWindow.on('closed', function () {
-    app.quit();
+  pathname: path.join(__dirname, 'mainWindow.html'),
+  protocol: 'file',
+  slashes: true,
+  modal: true,
+  show: false,
+  }));
+
+  mainWindow.webContents.on('did-finish-load', ()=>{
+  if (splashScreen) {
+    splashScreen.destroy();
+  }
   });
-
-  mainWindow.on('closed', function () {
-    mainWindow = null;
+  globalShortcut.register('CommandOrControl+Shift+I', function(){
+  mainWindow.webContents.toggleDevTools();
   });
+  globalShortcut.register('CommandOrControl+R', function() {
+  mainWindow.reload()
+});
+
+mainWindow.maximize();
+
+mainWindow.setMinimumSize(720, 540);
+
+mainWindow.on('closed', function () {
+  mainWindow = null;
+  app.quit();
+});
 }
 
 //autoUpdater's What To Log and When To Log.
@@ -84,15 +82,55 @@ autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
 });
 
-//Preview mainWindow when app has loaded.
-app.on('ready', createWindow);
-app.setAppUserModelId("com.techisunique.protonable");
-//Check for Updates and notify as well when app has loaded.
-app.on('ready', function()  {
+function showSplash(){
+splashScreen = new BrowserWindow(Object.assign({
+  width: 400,
+  height: 500,
+  icon: __dirname + '/img/icon.png',
+  frame: false,
+  show: false,
+  backgroundColor: '#1a1a1a'
+}, {parent: mainWindow}));
+
+    splashScreen.loadURL(url.format({
+      pathname: path.join(__dirname, '/splashScreen/splash.html'),
+      protocol: 'file',
+      slashes: true,
+      modal: true,
+      show: false,
+    }));
+
+  splashScreen.setMinimumSize(400, 500)
+
+  splashScreen.webContents.on('did-finish-load', ()=>{
+        splashScreen.show();
+    });
+
+  splashScreen.on('closed', function () {
+        splashScreen = null;
+    });
+
+}
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+
+app.on('ready', ()=>{
+  showSplash();
+  createWindow();
   autoUpdater.checkForUpdatesAndNotify();
 });
+}
 
-//Check for Updates everytime after 5mins -- Interval might be changed.
+app.setAppUserModelId("com.techisunique.protonable");
+
 setInterval(function(){
  autoUpdater.checkForUpdatesAndNotify(); 
 }, 300000);
