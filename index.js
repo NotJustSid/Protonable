@@ -104,6 +104,11 @@ splashScreen = new BrowserWindow(Object.assign({
 
   splashScreen.webContents.on('did-finish-load', ()=>{
         splashScreen.show();
+        splashScreen.webContents.send('updater', 'Checking for Updates<span class="anim">...</span>')
+        autoUpdater.on('update-available', (info) => {
+          // autoUpdater.quitAndInstall()
+        })
+        setTimeout(createWindow, 5000);
     });
 
   splashScreen.on('closed', function () {
@@ -124,8 +129,6 @@ if (!gotTheLock) {
 
 app.on('ready', ()=>{
   showSplash();
-  createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
 });
 }
 
