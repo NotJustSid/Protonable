@@ -60,27 +60,27 @@ mainWindow.on('closed', function () {
 }
 
 //autoUpdater's What To Log and When To Log.
-autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
-})
-autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Good News! Update is Available. Preparing to Download...');
-})
-autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('No Updates Currently.');
-})
-autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
-})
-autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
-})
-autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
-});
+// autoUpdater.on('checking-for-update', () => {
+//   sendStatusToWindow('Checking for update...');
+// })
+// autoUpdater.on('update-available', (info) => {
+//   sendStatusToWindow('Good News! Update is Available. Preparing to Download...');
+// })
+// autoUpdater.on('update-not-available', (info) => {
+//   sendStatusToWindow('No Updates Currently.');
+// })
+// autoUpdater.on('error', (err) => {
+//   sendStatusToWindow('Error in auto-updater. ' + err);
+// })
+// autoUpdater.on('download-progress', (progressObj) => {
+//   let log_message = "Download speed: " + progressObj.bytesPerSecond;
+//   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+//   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+//   sendStatusToWindow(log_message);
+// })
+// autoUpdater.on('update-downloaded', (info) => {
+//   sendStatusToWindow('Update has finished downloading! Restart to AutoInstall.');
+// });
 
 function showSplash(){
 splashScreen = new BrowserWindow(Object.assign({
@@ -103,18 +103,47 @@ splashScreen = new BrowserWindow(Object.assign({
   splashScreen.setMinimumSize(400, 500)
 
   splashScreen.webContents.on('did-finish-load', ()=>{
+
         splashScreen.show();
         splashScreen.webContents.send('updater', 'Checking for Updates<span class="anim">...</span>')
-        autoUpdater.on('update-available', (info) => {
-          // autoUpdater.quitAndInstall()
-        })
+        
+        autoUpdater.checkForUpdates();
+
+      autoUpdater.on('update-available', (info) => {
+        autoUpdater.downloadUpdate();
+        splashScreen.webContents.send('updater', 'An Update is available.<br>Preparing to Download<span class="anim">...</span>')
+
+        autoUpdater.on('download-progress', (progressObj) => {
+          let log_message = 'Downloaded ' + progressObj.percent + '%';
+          splashScreen.webContents.send('updater', `Downloading Update.<br>${log_message}<span class="anim">...</span>`)
+        });
+  
+        autoUpdater.on('update-downloaded', ()=>{
+          splashScreen.webContents.send('updater', 'Restarting<span class="anim">...</span>')
+          setTimeout(()=>{
+            autoUpdater.quitAndInstall();
+          }, 5000);
+        });
+  
+      });
+
+      autoUpdater.on('update-not-available', ()=>{
+        setTimeout(()=>{
+        splashScreen.webContents.send('updater', 'Starting App<span class="anim">...</span>')}, 2000);
         setTimeout(createWindow, 5000);
-    });
+      });
+
+      autoUpdater.on('error', ()=>{
+        setTimeout(()=>{
+        splashScreen.webContents.send('updater', 'Error Checking Updates.<br>Starting App<span class="anim">...</span>')}, 2000);
+        setTimeout(createWindow, 5000);
+      });
+
+});
 
   splashScreen.on('closed', function () {
         splashScreen = null;
     });
-
 }
 
 if (!gotTheLock) {
