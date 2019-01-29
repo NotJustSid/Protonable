@@ -267,6 +267,7 @@
     </style>
     <style id="1">.navy-item:hover{ background-color: #16cac1  }</style>
     <style id="2">.info-item:hover{ background-color: #242424 }</style>
+    <style id="3">#file-list>li{margin-right: 80px}</style>
 </head>
 
 <body>
@@ -1002,6 +1003,9 @@
                     </button>
                     <button class="panebtn_" onmousedown="copyDirtoClip()" title="Copy Current Directory Location to Clipboard">
                         &#128203;
+                    </button>
+                    <button class="panebtn_" id="maxFileView" title="Click to enlarge the File Explorer" onclick="maxFileView()">
+                        <i class="fa fa-window-maximize"></i>
                     </button>
                     </span>
         <div class="pane-group">
