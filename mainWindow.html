@@ -235,6 +235,7 @@
             animation-fill-mode: both;
             bottom: 240px;
             right:0px;
+            z-index: 1;
         }
         @keyframes slide{
             0%{opacity: 0;width: 0px;}
@@ -1010,10 +1011,11 @@
                     </span>
         <div class="pane-group">
             <div class="pane-sm sidebar">
-                <button class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()" title="Go Back By One Directory">&lt;</button>
+                <button id="goback" class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()" title="Go Back By One Directory">&lt;</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 40vw;">
-                        <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
+                        <input id="dirSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;width: 8vw;float: right;" type="text" placeholder="Go To Directory" readonly="readonly" onclick="chooseDir()">
+                        <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;width: 32vw;float: right;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
                     </li>
                     <li id="fileViewer" class="list-group-item" style="margin:0;padding:0;height:125px;width:98.6vw;left:10px;bottom:-30px;">
                         

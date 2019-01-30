@@ -118,46 +118,43 @@ function explorerNewFolder(){
 }
 
 var full = false;
-
 function maxFileView(){
     
     if(full === false){
-    
-    x = document.getElementsByClassName('panebtn_');
-
-    for(var m=0;m<x.length;m++){
-        if(x[m].id !== 'maxFileView'){
-            x[m].style.display = "none";
-        }
-    }
-
-    document.getElementById('fileViewer').style.height = "83.2vh";
-    document.getElementById('file-list').style.height = "83.2vh";
+    document.getElementById('goback').style.bottom = "46em";
+    document.getElementById('fileSearcher').parentElement.style.bottom = "46em";
+    document.getElementById('block').style.display = "none";
+    document.getElementById('Mini').style.display = "none";
+    document.getElementById('fileViewer').style.height = "82.2vh";
+    document.getElementById('file-list').style.height = "82.2vh";
     document.getElementById('file-list').style.whiteSpace = "unset";
     document.getElementById('3').innerHTML = "#file-list>li{margin-right: 40px}"
-    document.getElementById('maxFileView').style.height = "2.5em";
-    document.getElementById('maxFileView').style.width = "5em";
     full = true;
     }
     else{
-
-    x = document.getElementsByClassName('panebtn_');
-
-    for(var m=0;m<x.length;m++){
-        if(x[m].id !== 'maxFileView'){
-            x[m].style.display = null;
-        }
-    }
-
+    document.getElementById('goback').style.bottom = "110px";
+    document.getElementById('fileSearcher').parentElement.style.bottom = "110px";
+    document.getElementById('block').style.display = null;
+    document.getElementById('Mini').style.display = null;
     document.getElementById('fileViewer').style.height = "125px";
     document.getElementById('file-list').style.height = null;
     document.getElementById('file-list').style.whiteSpace = "nowrap";
     document.getElementById('3').innerHTML = "#file-list>li{margin-right: 80px}";
     document.getElementById('maxFileView').style.height = null;
     document.getElementById('maxFileView').style.width = null;
-
     full = false;
     }
+}
+
+function chooseDir(){
+    dialog.showOpenDialog({ properties: ['openDirectory'] }, (path)=>{
+        fs.exists(path[0], (exists)=>{
+            if(exists){
+                document.getElementById('dirSearcher').innerText = path[0];
+                readDir(path[0]);
+            }
+        });
+    });
 }
 // function whatimg(filename){
 //     extension = filename.split('.').pop();
