@@ -1,0 +1,65 @@
+.dragg{
+    -webkit-app-region:drag;
+}
+
+ul.horizontal {
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background-color: #333;
+}
+
+ul.horizontal li {
+float: left;
+}
+
+ul.horizontal li a:focus{
+outline: none;
+}
+
+ul.horizontal li a {
+display: inline-block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+-webkit-app-region:no-drag;
+-webkit-user-drag: none;
+user-select: none;
+}
+
+ul.gray {
+background-color: #242222;
+}
+
+ul.gray li a {
+display: block;
+color: #666;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+ul.gray li a:hover {
+background-color: #444;
+}
+
+#close-btn:hover{
+    background-color: rgb(247, 66, 66);
+    color:white;
+}
+
+.rightli{
+float:right;
+}
+
+.logo{
+user-select: none;
+font-weight: bold;
+display: inline-block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}

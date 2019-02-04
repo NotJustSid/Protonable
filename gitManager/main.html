@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>GitManager</title>
+    <script src="../UI/jquery-3.3.1.slim.min.js"></script>
+    <link rel="stylesheet" href="../UI/Darkly/bootstrap.min.css">
+    <script src="../UI/jquery.min.js"></script>
+    <script src="../UI/bootstrap.min.js"></script>
+    <script src="../UI/popper.min.js"></script>
+    <script src="../UI/bootstrap.min.js"></script>
+    <script src="../UI/jquery-ui.js"></script>
+    <script src="../scripts/gitManager.js"></script>
+
+    <link href="../UI/jquery-ui.css" rel="stylesheet">
+    <link href="../UI/jquery-ui.structure.css" rel="stylesheet">
+    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="nav.css" rel="stylesheet">
+    <link href="sideBar.css" rel="stylesheet">
+
+<style>
+#noRepo{
+    position: absolute;
+    top: 50%;
+    user-select: none;
+    font-family: Calibri;
+    font-size: 24px;
+    text-align: center;
+    width: 100%;
+}
+</style>
+
+</head>
+
+<body>
+    
+    <div class="dragg">
+        <ul class="horizontal gray">
+            <li class="logo">GitManager</li>
+                <li><a href="javascript:void(0)">Currently In: <span id="repoBranch"></span></a></li>
+                <li><a href="javascript:void(0)">Overview</a></li>
+                <li><a  href="javascript:void(0)" onclick="refresh(localStorage.getItem('gitDir'))">Refresh</a></li>
+                <li class="rightli" style="float:right"><a href="javascript:void(0)" style="font-size:18px" id="close-btn">&times;</a></li>
+                <li class="rightli" style="float:right"><a href="javascript:void(0)" style="font-size:18px" id="min-btn">&minus;</a></li>
+        </ul>
+    </div>
+
+    <div id="noRepo" style="display:none">
+        Not a Repository.
+        <button type="button" class="btn btn-outline-info" style="position:relative;margin-bottom:4px">Create One?</button>
+    </div>
+
+    <div id="sideBar">
+        <div id="notStaged">
+        <span style="color: rgb(102, 158, 214);border-radius: 5px;position: relative;left: 2.6em;font-family: Calibri;font-size: 17px;text-align: center;">
+            Unstaged Files
+        </span>
+            <ul class="list-group" id="notStagedList">
+                
+            </ul>
+        </div>
+    <div id="commitArea">
+        <input type="text" class="form-control" placeholder="Commit Title" id="commitTitle" onkeyup="checkTitle()">
+        <textarea class="form-control" id="commitMessage" rows="4" cols="5" placeholder="Commit Message"></textarea>
+        <button id="commitBtn" type="button" class="btn btn-info" style="width: 100%; margin-top: 2px;" disabled="disabled">Commit</button>
+    </div>
+    </div>
+
+</body>
+
+<script>
+
+  const remote = require('electron').remote;
+  const {ipcRenderer} = require('electron');
+  const ifvisible = require('ifvisible.js');
+
+
+    ipcRenderer.on('asynchronous-message', (event, arg) => {
+        localStorage.setItem('gitDir', arg);
+        refresh(arg);
+    });
+
+    ifvisible.on("focus", function(){
+        refresh(localStorage.getItem('gitDir'));
+    });
+
+    ifvisible.on("wakeup", function(){
+        refresh(localStorage.getItem('gitDir'));
+    });
+
+  function refresh(arg){
+        const Git = require('simple-git')(arg);
+        
+        Git.checkIsRepo((err, yes)=>{
+            if(yes){
+            
+                listFilesNotStaged(Git);
+
+                changeBranchName(Git);
+
+                document.getElementById('commitBtn').addEventListener('click', ()=>{
+                    commit(Git);
+                });
+
+            }else{
+                document.getElementById('repoName').innerText = "ERR";
+                document.getElementById('noRepo').removeAttribute('style');
+                $('#commitBtn').attr('disabled', 'disabled');
+                $('#commitTitle').attr('disabled', 'disabled');
+                $('#commitMessage').attr('disabled', 'disabled');
+            }
+        });
+    }
+
+  document.getElementById("close-btn").addEventListener("click", function (e) {
+       var window = remote.getCurrentWindow();
+       window.close();
+  }); 
+
+  document.getElementById("min-btn").addEventListener("click", function (e) {
+       var window = remote.getCurrentWindow();
+       window.minimize();
+  }); 
+
+</script>
+
+</html>

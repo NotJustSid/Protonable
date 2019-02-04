@@ -35,9 +35,11 @@
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
     "font-list": "^1.1.0",
+    "ifvisible.js": "^1.0.6",
     "mousetrap": "^1.6.2",
     "os": "^0.1.1",
     "path": "^0.12.7",
+    "simple-git": "^1.107.0",
     "trash": "^4.3.0"
   },
   "devDependencies": {

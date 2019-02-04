@@ -4,12 +4,15 @@ const url = require('url');
 const path = require('path');
 const log = require('electron-log');
 const {autoUpdater} = require("electron-updater");
+const { ipcMain } = require('electron');
+
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
-let mainWindow, splashScreen;
+let mainWindow, splashScreen, gitManager;
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -25,7 +28,10 @@ mainWindow = new BrowserWindow({
   icon: __dirname + '/img/icon.png',
   frame: false,
   show: false,
-  backgroundColor: '#1a1a1a'
+  backgroundColor: '#1a1a1a', 
+  webPreferences: {
+    nodeIntegration: true
+  }
 })
 
 mainWindow.loadURL(url.format({
@@ -146,6 +152,39 @@ splashScreen = new BrowserWindow(Object.assign({
     });
 }
 
+function showGit(location, callback){
+  gitManager = new BrowserWindow(Object.assign({
+    width: 900,
+    height: 700,
+    minWidth: 900, 
+    minHeight: 700,
+    icon: __dirname + '/img/icon.png',
+    frame: false,
+    show: false,
+    backgroundColor: '#172828'
+  }));
+  
+  gitManager.loadURL(url.format({
+        pathname: path.join(__dirname, '/gitManager/main.html'),
+        protocol: 'file',
+        slashes: true,
+        modal: true,
+        show: false,
+    }));
+
+  
+
+  gitManager.webContents.on('did-finish-load', ()=>{
+    gitManager.show();
+    callback();
+    gitManager.webContents.openDevTools();
+  });
+
+  gitManager.on('closed', function(){
+    gitManager = null;
+  });
+}
+
 if (!gotTheLock) {
   app.quit()
 } else {
@@ -158,6 +197,17 @@ if (!gotTheLock) {
 
 app.on('ready', ()=>{
   showSplash();
+
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    if(gitManager){
+      gitManager.destroy();
+    }
+    showGit(arg, ()=>{
+      gitManager.webContents.send('asynchronous-message', arg[1])
+    });
+    // setTimeout(, 5000);
+  })
+
 });
 }
 

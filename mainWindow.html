@@ -161,6 +161,7 @@
     <script src="scripts/timer.js"></script>
     <script src="scripts/focusMode.js"></script>
     <script src="scripts/Storage.js"></script>
+    <script src="scripts/gitManager.js"></script>
 
     <link href="css/navBar.css" rel="stylesheet">
     <link href="css/fileExplorer.css" rel="stylesheet">
@@ -996,11 +997,11 @@
     <div id="FileExplorer">
             <span id="pane">
                     <button class="panebtn_" onmousedown="showTerminal()" title="Open The Terminal Right in the Directory the Explorer is in!">
-                        Terminal
+                        <i class="fas fa-terminal"></i>
                     </button>
                     <button class="panebtn_" style="font-size:x-large;line-height: 1px;" onclick="readDir((localStorage.getItem('currentDir')))">&#x21BB;</button>
                     <button class="panebtn_" onmousedown="showBook()" title="BookMark Your Lines To Come To Them Later!">
-                        Bookmarks
+                        &#128278;
                     </button>
                     <button class="panebtn_" onmousedown="copyDirtoClip()" title="Copy Current Directory Location to Clipboard">
                         &#128203;
@@ -1008,13 +1009,16 @@
                     <button class="panebtn_" id="maxFileView" title="Click to enlarge the File Explorer" onclick="maxFileView()">
                         <i class="fa fa-window-maximize"></i>
                     </button>
+                    <button class="panebtn_" onclick="startGit(localStorage.getItem('currentDir'))" title="Open GitManager in Current Directory">
+                        <i class="fas fa-code-branch"></i>
+                    </button>
                     </span>
         <div class="pane-group">
             <div class="pane-sm sidebar">
                 <button id="goback" class="btn btn-large btn-outline-secondary center" style="position:absolute;bottom: 110px; left: 8px; width:38px;" onmousedown="goback()" title="Go Back By One Directory">&lt;</button>
                 <ul class="list-group">
                     <li class="list-group-header" style="list-style:none;position:absolute; bottom: 110px; left:50px; width: 40vw;">
-                        <input id="dirSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;width: 8vw;float: right;" type="text" placeholder="Go To Directory" readonly="readonly" onclick="chooseDir()">
+                        <input id="dirSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;width: 8vw;float: right;" type="text" title="Current Directory Location. Click to change. Right Click to copy." readonly="readonly" onclick="chooseDir()">
                         <input id="fileSearcher" class="form-control" style="background-color: #444; color: white;user-select: none;width: 32vw;float: right;" type="text" placeholder="Search In Current Directory" onkeyup="fileSearch()">
                     </li>
                     <li id="fileViewer" class="list-group-item" style="margin:0;padding:0;height:125px;width:98.6vw;left:10px;bottom:-30px;">
@@ -1080,7 +1084,6 @@ const{clipboard} = require('electron');     //For Current Dir Copy to Clipboard.
 const fontList = require('font-list');      //To Get A list of what Fonts the User is using. 
 const Store = require('electron-store');    //Store User Data
 const store = new Store();
-
 //Bookmarks Array
 var linesBooked = [];
 
@@ -1410,7 +1413,8 @@ saveJSON();
 })
 };
 
-$.contextMenu({
+$.contextMenu(
+{
     selector: "#fileViewer",
     items: {
         first: {name: "New File",icon:"fas fa-file-medical", callback: function(key, opt){ explorerNewFile() }},
@@ -1435,7 +1439,13 @@ $.contextMenu(
         second: {name: "Delete Folder", icon:"fas fa-trash",  callback: function(key, opt){ deleteFileOrFolder(opt.$trigger[0].id) }}
     }
 });
-
+$.contextMenu(
+{
+    selector: "#dirSearcher",
+    items: {
+        first: {name:"Copy Location", icon:"far fa-copy", callback: function(key, opt){clipboard.writeText(document.getElementById('dirSearcher').getAttribute('placeholder'))}}
+    }
+});
 //NEW,SAVE,OPEN ETC
 var mode = document.getElementById('editor-mode');
 var pathtofile;
@@ -1643,6 +1653,7 @@ function newfile(){
 });
 }
 function savefile(){
+    loadFromJSON()
     var content = editor.getValue();
     if(pathtofile === undefined && localStorage.getItem('lastFile') === undefined ){
         newfile();

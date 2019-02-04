@@ -1,0 +1,91 @@
+#sideBar{
+    position: absolute;
+    width: 13.5em;
+    top: 50px;
+    bottom: 0;
+    background-color: rgba(68, 68, 68, 0.562);
+}
+
+#commitArea{
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    padding: 4px;
+    border: 0.5px solid rgb(131, 131, 131);
+    border-radius: 8px;
+}
+
+#commitTitle{
+    user-select: none;
+    color: white;
+    background-color: #444;
+}
+
+#commitMessage{
+    user-select: none;
+    color:white;
+    background-color: #444;
+    resize: none;
+}
+
+#commitMessage::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.badge{
+  float: right;
+  position: relative;
+  top:0.2em;
+  border: 0;
+}
+
+.list-group-item-action{
+  height: 4.4em;
+  width: 13.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#notStagedList{
+    height: 58vh;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    user-select: none;
+    display: -webkit-box
+}
+
+#notStagedList::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+#notStagedList::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+#notStagedList::-webkit-scrollbar-thumb {
+  background: #797979;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+#notStagedList::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+#notStagedList::-webkit-scrollbar-thumb:active {
+  background: #ffffff;
+}
+#notStagedList::-webkit-scrollbar-track {
+  background: #555555;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+#notStagedList::-webkit-scrollbar-track:hover {
+  background: #444444;
+}
+#notStagedList::-webkit-scrollbar-track:active {
+  background: #444444;
+}
+#notStagedList::-webkit-scrollbar-corner {
+  background: transparent;
+}

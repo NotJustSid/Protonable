@@ -9,6 +9,8 @@ function readDir(path2) {
     localStorage.setItem('prevDir', resolve(path.dirname(path2)) + '//');
     localStorage.setItem('currentDir', path2 + '//');
 
+    $('#dirSearcher').attr('placeholder', path2);
+
     fs.readdir(path2, (err, files) => {
         'use strict';
         document.getElementById('file-list').innerHTML = "";
@@ -148,12 +150,10 @@ function maxFileView(){
 
 function chooseDir(){
     dialog.showOpenDialog({ properties: ['openDirectory'] }, (path)=>{
-        fs.exists(path[0], (exists)=>{
-            if(exists){
-                document.getElementById('dirSearcher').innerText = path[0];
+        if(path){
+                $('#dirSearcher').attr('placeholder', path[0]);
                 readDir(path[0]);
-            }
-        });
+        }
     });
 }
 // function whatimg(filename){
