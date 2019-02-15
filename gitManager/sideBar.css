@@ -40,7 +40,7 @@
   border: 0;
 }
 
-.list-group-item-action{
+#sideBar.list-group-item-action{
   height: 4.4em;
   width: 13.04em;
   white-space: nowrap;
@@ -50,7 +50,7 @@
 
 #notStagedList{
     height: 58vh;
-    overflow-y: scroll;
+    overflow-y: overlay;
     word-wrap: break-word;
     user-select: none;
     display: -webkit-box

@@ -1,0 +1,55 @@
+#Overview-Commit{
+  position: absolute;
+  left: 13.6em;
+  top: 3.3em;
+  height: 65vh;
+  right: 0;
+  overflow-y: overlay;
+}
+
+#Overview-Commit::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+#Overview-Commit::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+#Overview-Commit::-webkit-scrollbar-thumb {
+    background: #797979;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+#Overview-Commit::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+  }
+#Overview-Commit::-webkit-scrollbar-thumb:active {
+    background: #ffffff;
+  }
+#Overview-Commit::-webkit-scrollbar-track {
+    background: #555555;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+#Overview-Commit::-webkit-scrollbar-track:hover {
+    background: #444444;
+  }
+#Overview-Commit::-webkit-scrollbar-track:active {
+    background: #444444;
+  }
+#Overview-Commit::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+.commitsList{
+    width: 100%;
+    height: 6.5em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.innerMessage{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

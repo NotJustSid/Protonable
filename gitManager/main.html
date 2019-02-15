@@ -12,12 +12,14 @@
     <script src="../UI/bootstrap.min.js"></script>
     <script src="../UI/jquery-ui.js"></script>
     <script src="../scripts/gitManager.js"></script>
+    <script src="overView.js"></script>
 
     <link href="../UI/jquery-ui.css" rel="stylesheet">
     <link href="../UI/jquery-ui.structure.css" rel="stylesheet">
     <link href="../fontawesome/css/all.min.css" rel="stylesheet">
     <link href="nav.css" rel="stylesheet">
     <link href="sideBar.css" rel="stylesheet">
+    <link href="overView.css" rel="stylesheet">
 
 <style>
 #noRepo{
@@ -53,7 +55,7 @@
 
     <div id="sideBar">
         <div id="notStaged">
-        <span style="color: rgb(102, 158, 214);border-radius: 5px;position: relative;left: 2.6em;font-family: Calibri;font-size: 17px;text-align: center;">
+        <span style="color: rgb(102, 158, 214);border-radius: 5px;position: relative;left: 2.6em;font-family: Calibri;font-size: 17px;text-align: center;user-select: none;font-weight: lighter;">
             Unstaged Files
         </span>
             <ul class="list-group" id="notStagedList">
@@ -65,6 +67,12 @@
         <textarea class="form-control" id="commitMessage" rows="4" cols="5" placeholder="Commit Message"></textarea>
         <button id="commitBtn" type="button" class="btn btn-info" style="width: 100%; margin-top: 2px;" disabled="disabled">Commit</button>
     </div>
+    </div>
+
+    <div id="content-overview">
+        <div id="Overview-Commit">
+                
+        </div>
     </div>
 
 </body>
@@ -99,13 +107,16 @@
 
                 changeBranchName(Git);
 
+                plotCommitOverview(Git);
+
                 document.getElementById('commitBtn').addEventListener('click', ()=>{
                     commit(Git);
                 });
 
             }else{
-                document.getElementById('repoName').innerText = "ERR";
+                document.getElementById('repoBranch').innerText = "ERR";
                 document.getElementById('noRepo').removeAttribute('style');
+                document.getElementById('content-overview').style.display = "none";
                 $('#commitBtn').attr('disabled', 'disabled');
                 $('#commitTitle').attr('disabled', 'disabled');
                 $('#commitMessage').attr('disabled', 'disabled');

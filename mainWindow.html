@@ -1009,7 +1009,7 @@
                     <button class="panebtn_" id="maxFileView" title="Click to enlarge the File Explorer" onclick="maxFileView()">
                         <i class="fa fa-window-maximize"></i>
                     </button>
-                    <button class="panebtn_" onclick="startGit(localStorage.getItem('currentDir'))" title="Open GitManager in Current Directory">
+                    <button class="panebtn_" onclick="startGit(localStorage.getItem('currentDir'))" title="Open GitManager in Current(Main) Directory">
                         <i class="fas fa-code-branch"></i>
                     </button>
                     </span>
@@ -1297,7 +1297,7 @@ inputEnterCheck(document.getElementById('proname'), dirchoosed);
 setInterval(setTime, 1000);
 
 //AutoComplete--Still In Work
-editor.on("keypress", function (cm, event) {
+editor.on("keyup", function (cm, event) {
         if (!cm.state.completionActive && !(event.keyCode>=8 && event.keyCode<=47)) { 
             CodeMirror.commands.autocomplete(cm, null, {
                 completeSingle: false
