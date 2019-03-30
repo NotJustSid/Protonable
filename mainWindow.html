@@ -1213,10 +1213,19 @@ $("#Mini").mouseover(function(){
     $('.codeline').removeClass('codeline');
     var x = event.clientX, y = event.clientY,
     elementMouseIsOver = document.elementFromPoint(x, y);
-    elementMouseIsOver;
+
+    if($(elementMouseIsOver).closest('.CodeMirror-line')[0]!==undefined && $(elementMouseIsOver).closest('.CodeMirror-line')[0].textContent.length!==1 && $(elementMouseIsOver).closest('.CodeMirror-line')[0].textContent!=='')
     $(elementMouseIsOver).closest('.CodeMirror-line').addClass('codeline');
+
+});
+
+function closeUpdateChecker(){
+    if(document.getElementById('updateChecker').innerText.trim() === "× No Updates Currently."){
+        $('#updateChecker').fadeOut(300);
+    }
 }
-);
+
+setTimeout(closeUpdateChecker, 10000);
 
 //Function to get the Color Picker as an extraKey to the CodeMirror Instance(Editor)
 function getColorPick(){
@@ -1297,7 +1306,7 @@ inputEnterCheck(document.getElementById('proname'), dirchoosed);
 setInterval(setTime, 1000);
 
 //AutoComplete--Still In Work
-editor.on("keyup", function (cm, event) {
+editor.on("keypress", function (cm, event) {
         if (!cm.state.completionActive && !(event.keyCode>=8 && event.keyCode<=47)) { 
             CodeMirror.commands.autocomplete(cm, null, {
                 completeSingle: false
@@ -1730,10 +1739,6 @@ minimap.setOption("theme", editor.getOption("theme"));
 
 //File Explorer Part moved in renderer.js
 readDir('.');
-</script>
-
-<script>
-    require('./renderer.js')
 </script>
 
 </html>
