@@ -20,11 +20,13 @@ ___
 * MacOS and Linux support _might_ come in the future.
 ___
 ## Usage
-* The start script is already written in `package.json`. You can use either 
+* First,  run:
 ```
-electron .
+npm install
 ```
-or 
+to install the required node modules locally and then move on to running the ``start`` script.
+
+* The start script is already written in `package.json`. You can use 
 ```
 npm start
 ```
